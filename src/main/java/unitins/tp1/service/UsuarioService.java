@@ -8,7 +8,7 @@ import jakarta.validation.Valid;
 
 public interface UsuarioService {
 
-    public UsuarioResponseDTO insert(@Valid UsuarioDTO dto);
+    public UsuarioResponseDTO insert(UsuarioDTO dto);
 
     public UsuarioResponseDTO update(UsuarioDTO dto, Long id);
 
@@ -22,6 +22,8 @@ public interface UsuarioService {
 
     public UsuarioResponseDTO findByLogin(String login);
 
-    public List<UsuarioResponseDTO> findByAll(); 
+    public List<UsuarioResponseDTO> findByAll();
     
+    public UsuarioResponseDTO findMyUser();
+
 }

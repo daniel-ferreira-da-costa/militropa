@@ -3,7 +3,7 @@ package unitins.tp1.resource;
 import unitins.tp1.dto.UsuarioDTO;
 import unitins.tp1.service.UsuarioService;
 import org.eclipse.microprofile.jwt.JsonWebToken;
-
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.Consumes;
@@ -18,6 +18,7 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.Response.Status;
 
+
 @Path("/usuarios")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
@@ -29,50 +30,53 @@ public class UsuarioResource {
     @Inject
     JsonWebToken jwt;
 
-    @POST
-    public Response insert(UsuarioDTO dto) {
-        return Response.status(Status.CREATED).entity(service.insert(dto)).build();
+    @POST//INSERIR USUARIO
+    public Response insert(UsuarioDTO dto){
+         return Response.status(Status.CREATED).entity(service.insert(dto)).build();
     }
 
-    @PUT
+    @PUT//AUTUALIZAR USUARIO
     @Transactional
+    @RolesAllowed({"User","Admin"})
     @Path("/{id}")
     public Response update(UsuarioDTO dto, @PathParam("id") Long id) {
         service.update(dto, id);
-
         return Response.noContent().build();
     }
 
-    @DELETE
+    @DELETE//DELETAR USUARIO
     @Transactional
+    @RolesAllowed({"Admin"})
     @Path("/{id}")
     public Response delete(@PathParam("id") Long id) {
         service.delete(id);
         return Response.status(Status.NO_CONTENT).build();
     }
-
-    @GET
-    @Path("/{id}")
-    public Response findById(@PathParam("id") Long id) {
-        return Response.ok(service.findById(id)).build();
-    }
-
-    @GET
-    @Path("/search/nome/{nome}")
-    public Response findByNome(@PathParam("nome") String nome) {
-        return Response.ok(service.findByNome(nome)).build();
-    }
-
-    @GET
-    @Path("/search/nome/{login}")
-    public Response findByLogin(@PathParam("login") String login) {
-        return Response.ok(service.findByLogin(login)).build();
-    }
-
-    @GET
-    @Path("/search/ListAll")
-    public Response findByAll(){
+ 
+    @GET//LISTAR TODOS
+    @RolesAllowed({"Admin"})
+    public Response findAll() {
         return Response.ok(service.findByAll()).build();
     }
 
+    @GET//LISTAR POR ID
+    @RolesAllowed({"Admin"})
+    @Path("/{id}")
+    public Response findById(@PathParam("id") Long id) {
+       return Response.ok(service.findById(id)).build();
+    }
+    
+    @GET//LISTAR POR NOME
+    @RolesAllowed({"Admin"})
+    @Path("/search/login/{login}")
+    public Response findByNome(@PathParam("login") String login) {
+        return Response.ok(service.findByNome(login)).build();
+    }
+
+    @GET//LISTAR MEU USUÁRIO
+    @RolesAllowed({"User","Admin"})
+    @Path("/my-user")
+    public Response findMyUser() {
+       return Response.ok(service.findMyUser()).build();
+    }
 }

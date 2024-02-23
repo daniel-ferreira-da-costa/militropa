@@ -1,0 +1,79 @@
+@startuml Tabacaria
+'========Produto========='
+class Produto {
+    - id: Long
+    - nome: String
+    - descricao: String
+    - preco: Double
+    - valor: Double
+    - qtdNoEstoque: Integer
+}
+
+'========Usuario========='
+class Usuario{
+    - id: Long
+    - login: String
+    - senha: String
+}
+
+enum Perfil{
+    USER, ADMIN;
+
+    - id: Long
+    - label: String
+}
+
+class Pessoa{
+    - id: Long
+    - senha: String
+    - nome: String
+    - email: String
+    - cpf: String
+}
+'========Venda========='
+class Pedido {
+    - id: Long
+    - data: Date
+    - totalCompra: Double
+}
+
+class ItemPedido {
+    - id: Long
+    - quantidade: Integer
+    - preco: Double
+}
+
+enum StatusPedido{
+    PROCESSANDO, ACEITA, RECUSADA;
+
+    - id: Long
+    - label: String
+}
+
+'========Endereço========='
+class Endereco {
+    - id: Long
+    - principal: Boolean
+    - logradouro: String
+    - bairro: String
+    - numero: String
+    - complemento: String
+    - cep: String
+    - cidade: String
+    - estado: String
+}
+
+'========Relacionamentos========='
+Pedido "1" *--> "*" ItemPedido
+Pedido "1" *--> "1" StatusPedido
+Pedido "*" --> "1" Pessoa
+Pedido "*" --> "1" Endereco
+
+ItemPedido "*" --> "1" Produto
+
+Usuario "1" --> "1" Perfil
+Usuario "1" --> "1" Pessoa
+Pessoa "1" *--> "1" Endereco
+
+
+@enduml

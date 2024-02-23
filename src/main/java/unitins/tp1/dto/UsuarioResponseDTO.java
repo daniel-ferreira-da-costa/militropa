@@ -4,20 +4,26 @@ import unitins.tp1.model.Perfil;
 import unitins.tp1.model.Usuario;
 
 public record UsuarioResponseDTO(
-    Long id,
-    String nome,
-    String login,
-    Perfil perfil,
-    String telefone
-) { 
-    public static UsuarioResponseDTO valueOf(Usuario usuario){
-
+        Long id,
+        String login,
+        String senha,
+        Perfil perfil) {
+            
+    public static UsuarioResponseDTO valueOf(Usuario usuario) {
         return new UsuarioResponseDTO(
-            usuario.getId(), 
-            usuario.getNome(),
-            usuario.getLogin(),
-            usuario.getPerfil(),
-            usuario.getTelefone()
-        );
+                usuario.getId(),
+                usuario.getLogin(),
+                usuario.getSenha(),
+                usuario.getPerfil());
     }
+
+    public Perfil getPerfil() {
+        return perfil;
+    }
+
+    public Long getId() {
+        return id;
+    }
+    
+
 }
