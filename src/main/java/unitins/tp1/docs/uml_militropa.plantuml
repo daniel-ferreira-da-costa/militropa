@@ -49,8 +49,34 @@ enum StatusPedido{
     - id: Long
     - label: String
 }
+'========Pagamento========='
+class Pagamento{
+}
 
-'========Endereço========='
+enum StatusPagamento{
+    APROVADO, NEAGDO, EM PROCESSAMENTO;
+
+    - id: Long
+    - label: String
+}
+
+class Cartao{
+    - id: Long
+    - numero: String
+    - mesVencimento: int
+    - anoVencimento: int
+    - codVerificacao: int
+    - nomeTitular: String
+}
+
+enum TipoCartao{
+    CREDITO, DEBITO, CREDITO E DEBITO;
+
+    - id: Long
+    - label: String 
+}
+
+'========Endereco========='
 class Endereco {
     - id: Long
     - principal: Boolean
@@ -64,10 +90,17 @@ class Endereco {
 }
 
 '========Relacionamentos========='
+
+Pedido "1" *--> "1" Pagamento
 Pedido "1" *--> "*" ItemPedido
 Pedido "1" *--> "1" StatusPedido
 Pedido "*" --> "1" Pessoa
 Pedido "*" --> "1" Endereco
+
+Pagamento "1" *--> "1" StatusPagamento
+Pagamento "1" *--> "1" TipoCartao
+Pagamento "1" *--> "1" Cartao
+
 
 ItemPedido "*" --> "1" Produto
 
