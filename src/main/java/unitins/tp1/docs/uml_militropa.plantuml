@@ -63,8 +63,7 @@ enum StatusPagamento{
 class Cartao{
     - id: Long
     - numero: String
-    - mesVencimento: int
-    - anoVencimento: int
+    - dataVencimento: Date
     - codVerificacao: int
     - nomeTitular: String
 }
