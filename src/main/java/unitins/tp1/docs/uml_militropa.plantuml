@@ -1,12 +1,15 @@
 @startuml Tabacaria
 '========Produto========='
-class Produto {
+class Arma{
     - id: Long
     - nome: String
     - descricao: String
     - preco: Double
     - valor: Double
     - qtdNoEstoque: Integer
+    - tipo: String
+    - tipoMunicao: String
+    - peso: Double
 }
 
 '========Usuario========='
@@ -17,7 +20,10 @@ class Usuario{
 }
 
 enum Perfil{
-    USER, ADMIN;
+    CLIENTE PORTE DE ARMA, 
+    CLIENTE POSSE DE ARMA, 
+    FUNCIONARIO, 
+    ADMIN;
 
     - id: Long
     - label: String
@@ -25,10 +31,19 @@ enum Perfil{
 
 class Pessoa{
     - id: Long
-    - senha: String
     - nome: String
     - email: String
+    - telefone: String
+}
+
+'Registro Nacional de Armas (RNA)'
+class PessoaFisica{
     - cpf: String
+    - RegistroMilitar: String 
+}
+
+class PessoaJuridica{
+    - cnpj: String
 }
 '========Venda========='
 class Pedido {
@@ -44,17 +59,22 @@ class ItemPedido {
 }
 
 enum StatusPedido{
-    PROCESSANDO, ACEITA, RECUSADA;
+    PROCESSANDO, 
+    ACEITA,
+    RECUSADA;
 
     - id: Long
     - label: String
 }
 '========Pagamento========='
 class Pagamento{
+    - id: Long
 }
 
 enum StatusPagamento{
-    APROVADO, NEAGDO, EM PROCESSAMENTO;
+    APROVADO, 
+    NEAGDO, 
+    EM PROCESSAMENTO;
 
     - id: Long
     - label: String
@@ -69,12 +89,30 @@ class Cartao{
 }
 
 enum TipoCartao{
-    CREDITO, DEBITO, CREDITO E DEBITO;
+    CREDITO, 
+    DEBITO, 
+    CREDITO E DEBITO;
 
     - id: Long
     - label: String 
 }
 
+enum TipoPagamento {
+    CREDITO, 
+    DEBITO;
+
+    - id: Long
+    - label: String 
+}
+
+enum BandeiraCartao {
+    VISA,
+    ELO,
+    MASTERCARD;
+
+    - id: Long
+    - label: String 
+}
 '========Endereco========='
 class Endereco {
     - id: Long
@@ -96,16 +134,21 @@ Pedido "1" *--> "1" StatusPedido
 Pedido "*" --> "1" Pessoa
 Pedido "*" --> "1" Endereco
 
-Pagamento "1" *--> "1" StatusPagamento
-Pagamento "1" *--> "1" TipoCartao
+Pagamento "1" --> "1" StatusPagamento
 Pagamento "1" *--> "1" Cartao
+Pagamento "1" *--> "1" TipoPagamento
 
+Cartao "1" *--> "1" TipoCartao
+Cartao "1" *--> "1" BandeiraCartao
 
-ItemPedido "*" --> "1" Produto
+ItemPedido "*" --> "1" Arma
 
 Usuario "1" --> "1" Perfil
 Usuario "1" --> "1" Pessoa
 Pessoa "1" *--> "1" Endereco
+Pessoa "1" --> "*" Cartao
 
+PessoaFisica --|> Pessoa
+PessoaJuridica --|> Pessoa
 
 @enduml
