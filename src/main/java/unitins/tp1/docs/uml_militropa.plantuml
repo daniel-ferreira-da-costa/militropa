@@ -1,15 +1,29 @@
 @startuml Tabacaria
 '========Produto========='
-class Arma{
+class Produto{
     - id: Long
     - nome: String
     - descricao: String
     - preco: Double
     - valor: Double
     - qtdNoEstoque: Integer
-    - tipo: String
+}
+
+class Arma{
     - tipoMunicao: String
     - peso: Double
+}
+
+enum TipoArma{
+    REVOLVER,
+    PISTOLA,
+    ESPINGARDA,
+    RIFLE,
+    CARABINA,
+    METRALHADORA;
+
+    - id: Long
+    - label: String
 }
 
 '========Usuario========='
@@ -20,8 +34,7 @@ class Usuario{
 }
 
 enum Perfil{
-    CLIENTE PORTE DE ARMA, 
-    CLIENTE POSSE DE ARMA, 
+    CLIENTE,
     FUNCIONARIO, 
     ADMIN;
 
@@ -58,10 +71,12 @@ class ItemPedido {
     - preco: Double
 }
 
-enum StatusPedido{
+enum Status{
     PROCESSANDO, 
     ACEITA,
-    RECUSADA;
+    RECUSADA,
+    EM TRASNSITO,
+    ENTREGUE;
 
     - id: Long
     - label: String
@@ -69,15 +84,6 @@ enum StatusPedido{
 '========Pagamento========='
 class Pagamento{
     - id: Long
-}
-
-enum StatusPagamento{
-    APROVADO, 
-    NEAGDO, 
-    EM PROCESSAMENTO;
-
-    - id: Long
-    - label: String
 }
 
 class Cartao{
@@ -130,25 +136,27 @@ class Endereco {
 
 Pedido "1" *--> "1" Pagamento
 Pedido "1" *--> "*" ItemPedido
-Pedido "1" *--> "1" StatusPedido
-Pedido "*" --> "1" Pessoa
+Pedido "1" *--> "1" Status
+Pedido "*" --> "1" Usuario
 Pedido "*" --> "1" Endereco
 
-Pagamento "1" --> "1" StatusPagamento
-Pagamento "1" *--> "1" Cartao
-Pagamento "1" *--> "1" TipoPagamento
+Pagamento "1" --> "1" Status
+Pagamento "1" --> "1" Cartao
+Pagamento "1" --> "1" TipoPagamento
 
-Cartao "1" *--> "1" TipoCartao
-Cartao "1" *--> "1" BandeiraCartao
+Cartao "1" --> "1" TipoCartao
+Cartao "1" --> "1" BandeiraCartao
 
-ItemPedido "*" --> "1" Arma
+ItemPedido "*" --> "1" Produto
 
 Usuario "1" --> "1" Perfil
-Usuario "1" --> "1" Pessoa
+Usuario "1" --> "1" Pessoa : "Dados Pessoais"
 Pessoa "1" *--> "1" Endereco
 Pessoa "1" --> "*" Cartao
 
 PessoaFisica --|> Pessoa
 PessoaJuridica --|> Pessoa
 
+Arma --|> Produto
+Arma "1" --> "1" TipoArma
 @enduml
