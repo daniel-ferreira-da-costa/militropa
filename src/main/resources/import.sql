@@ -5,38 +5,32 @@
 -- insert into myentity (id, field) values(3, 'field-3');
 -- alter sequence myentity_seq restart with 4;
 
--- Inserindo 5 endereços no Tocantins
-INSERT INTO endereco(numero, cep, cidade, estado, logradouro, nome, bairro, complemento)
-VALUES
-(1, '77000-000', 'Palmas', 'TO', 'Rua das Flores', 'Residência Tocantins 1', 'Centro', 'Casa 1'),
-(2, '77001-000', 'Palmas', 'TO', 'Avenida Central', 'Residência Tocantins 2', 'Plano Diretor Sul', 'Apartamento 101'),
-(3, '77002-000', 'Porto Nacional', 'TO', 'Rua dos Ipês', 'Residência Tocantins 3', 'Setor Jardim Bela Vista', ''),
-(4, '77003-000', 'Gurupi', 'TO', 'Avenida Central', 'Residência Tocantins 4', 'Setor Central', 'Casa 2'),
-(5, '77004-000', 'Araguaína', 'TO', 'Rua das Palmeiras', 'Residência Tocantins 5', 'Setor Oeste', 'Bloco A');
-
--- Inserindo 5 pessoas
-INSERT INTO pessoa(data_nascimento, id_endereco, id_usuario, cpf, telefone, nome)
-VALUES
-('1985-03-12', 1, 1, '111.111.111-11', '(63) 9999-1111', 'Isabela Andrade'),
-('1990-07-25', 2, 2, '222.222.222-22', '(63) 9999-2222', 'Daniel Jacare'),
-('1978-12-03', 3, 3, '333.333.333-33', '(63) 9999-3333', 'Suzana Teles'),
-('1989-04-18', 4, 4, '444.444.444-44', '(63) 9999-4444', 'Andre Higo'),
-('1995-09-30', 5, 5, '555.555.555-55', '(63) 9999-5555', 'Luana Regia');
-
--- Inserindo 5 usuários
 INSERT INTO usuario(perfil, login, senha)
-VALUES
-('admin', 'isabela.andrade', 'senha1'),
-('admin', 'daniel.jacare', 'senha2'),
-('usuario', 'suzana.teles', 'senha3'),
-('admin', 'andre.higo', 'senha4'),
-('usuario', 'luana.regia', 'senha5');
+VALUES 
+    (2, 'daniel90', 'mvJiSec3uZLUqe825+2/3gsotQ5Ar+XalO7KWvyv/3KJaUVQQ3o7aiPHavKLuSxUitM/BVb3c4SQ00XCH61DcQ=='),
+    (1, 'heitor85', 'rR4uLvAZvTMqPrYpYDkdcpYFVCjK/jA9R5dFA680S5/NonVk++TiBP6E/DUXgFyWkzMqpsqC+mszw1fycViklg=='),
+    (1, 'henrique95', 'm8qzYJ9CPzALDOeZhoXfvjvotP5Mgio+Pwp3gULAKYE1IkQ8Yv6pKGKwDcbXFo87Kjyb+OUkdPXSI3MXMVGe8A==');
 
--- Inserindo 5 equipamentos militares
-INSERT INTO produto(preco, qtdnoestoque, valor, nome, descricao)
-VALUES
-(500.00, 10, 'Equipamento 1', 'Coletes à prova de balas', 'Colete balístico nível IIIA para proteção contra armas de fogo.'),
-(200.00, 20, 'Equipamento 2', 'Capacete tático', 'Capacete de proteção balística para uso militar.'),
-(150.00, 15, 'Equipamento 3', 'Mochila tática', 'Mochila resistente e tática para transporte de equipamentos.'),
-(1000.00, 5, 'Equipamento 4', 'Visão Noturna', 'Dispositivo de visão noturna para operações em baixa luminosidade.'),
-(300.00, 8, 'Equipamento 5', 'Rádio de Comunicação', 'Rádio de comunicação tático com alcance de longa distância e criptografia segura.');
+INSERT INTO endereco(numero, cep, cidade, estado, logradouro, nome, bairro, complemento)
+VALUES 
+    (123, '77000-000', 'Palmas', 'TO', 'Rua das Flores', 'Casa Azul', 'Centro', 'kitnet 4'),
+    (456, '77001-001', 'Gurupi', 'TO', 'Avenida dos Bandeirantes', 'Casa Verde', 'Jardim Bela Vista', 'Esquina com a Rua Principal'),
+    (789, '77002-002', 'Araguaína', 'TO', 'Travessa das Oliveiras', 'Casa Amarela', 'Setor Norte', 'Ao lado da praça');
+
+INSERT INTO pessoa (data_nascimento, cpf, telefone, nome)
+VALUES 
+    ('1990-05-15', '123.456.789-10', '(11) 98765-4321', 'Daniel'),
+    ('1985-10-20', '987.654.321-10', '(11) 98765-4322', 'Heitor'),
+    ('1995-03-25', '456.789.123-10', '(11) 98765-4323', 'Henrique');
+
+INSERT INTO usuario_pessoa(id_pessoa, id_usuario)
+VALUES 
+	(1, 1),
+    (2, 2),
+    (3, 3);
+
+INSERT INTO pessoa_endereco(id_endereco, id_pessoa)
+VALUES 
+    (1, 1),
+    (2, 2),
+    (3, 3);

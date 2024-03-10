@@ -13,7 +13,6 @@ import unitins.tp1.validation.ValidationException;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
-import jakarta.validation.Valid;
 import io.quarkus.security.ForbiddenException;
 import jakarta.ws.rs.NotFoundException;
 
@@ -41,6 +40,7 @@ public class UsuarioServiceImpl implements UsuarioService {
         novoUsuario.setLogin(dto.login());
         novoUsuario.setSenha(hashService.getHashSenha(dto.senha()));
         novoUsuario.setPerfil(Perfil.valueOf(dto.idPerfil()));
+        novoUsuario.setDadosPessoais(dto.dadosPessoais());
 
             repository.persist(novoUsuario);
 
@@ -63,6 +63,7 @@ public class UsuarioServiceImpl implements UsuarioService {
         usuario.setLogin(dto.login());
         String hashSenha = hashService.getHashSenha(dto.senha());
         usuario.setSenha(hashSenha);
+        usuario.setDadosPessoais(dto.dadosPessoais());
 
         return UsuarioResponseDTO.valueOf(usuario);
     }

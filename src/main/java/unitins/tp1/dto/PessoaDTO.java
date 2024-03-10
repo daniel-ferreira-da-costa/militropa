@@ -11,6 +11,5 @@ public record PessoaDTO(
         @Pattern(regexp = "\\d{3}\\.\\d{3}\\.\\d{3}\\-\\d{2}$", message = "O campo CPF deve estar formulado: 000.000.000-00") String cpf,
         LocalDate dataNascimento,
         Long idEndereco,
-        String listaTelefone,
-        Long idUsuario) {
+        String listaTelefone) {
 }

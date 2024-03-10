@@ -9,15 +9,13 @@ public record PessoaResponseDTO(
                 String cpf,
                 LocalDate dataNascimento,
                 String listaTelefone,
-                EnderecoResponseDTO endereco,
-                UsuarioResponseDTO usuario) {
+                EnderecoResponseDTO endereco) {
         public static PessoaResponseDTO valueOf(Pessoa pessoa) {
                 return new PessoaResponseDTO(
                                 pessoa.getNome(),
                                 pessoa.getCpf(),
                                 pessoa.getDataNascimento(),
                                 pessoa.getTelefone(),
-                                EnderecoResponseDTO.valueOf(pessoa.getEndereco()),
-                                UsuarioResponseDTO.valueOf(pessoa.getUsuario()));
+                                EnderecoResponseDTO.valueOf(pessoa.getEndereco()));
         }
 }

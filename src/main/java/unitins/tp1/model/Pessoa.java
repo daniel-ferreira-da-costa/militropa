@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
 import jakarta.persistence.OneToOne;
 
 @Entity
@@ -23,12 +24,8 @@ public class Pessoa extends DefaultEntity {
     private LocalDate dataNascimento;
 
     @OneToOne
-    @JoinColumn(name = "id_endereco")
+    @JoinTable(name = "pessoa_endereco", joinColumns = @JoinColumn(name = "id_pessoa"), inverseJoinColumns = @JoinColumn(name = "id_endereco"))
     private Endereco endereco;
-
-    @OneToOne
-    @JoinColumn(name = "id_usuario")
-    private Usuario usuario;
 
     //gets e sets
     public String getNome() {
@@ -70,14 +67,5 @@ public class Pessoa extends DefaultEntity {
     public void setEndereco(Endereco endereco) {
         this.endereco = endereco;
     }
-
-    public Usuario getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
-    }
-
 
 }
