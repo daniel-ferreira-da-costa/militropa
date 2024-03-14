@@ -1,15 +1,21 @@
 package unitins.tp1.dto;
 
-
-import java.time.LocalDate;
+import java.util.List;
 
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Pattern;
+import unitins.tp1.model.TipoPessoa;
 
 public record PessoaDTO(
-        @NotBlank(message = "O campo nome não pode ser nulo") String nome,
-        @Pattern(regexp = "\\d{3}\\.\\d{3}\\.\\d{3}\\-\\d{2}$", message = "O campo CPF deve estar formulado: 000.000.000-00") String cpf,
-        LocalDate dataNascimento,
-        Long idEndereco,
-        String listaTelefone) {
+        @NotBlank(message = "O campo nome_fantasia não pode ser nulo") 
+        String nome_fantasia,
+        @NotBlank(message = "O campo CPF/CNPJ não pode ficar em branco")
+        String cpf_cnpj,
+        @NotBlank(message = "O campo email não pode ser nulo")
+        String email,
+        @NotBlank(message = "O campo tipoPessoa não pode ser nulo")
+        TipoPessoa tipoPessoa,
+        @NotBlank(message = "O campo telefone não pode ser nulo")
+        String telefone,
+        @NotBlank(message = "O campo enderecos não pode ser nulo")
+        List<EnderecoDTO> enderecos) {
 }

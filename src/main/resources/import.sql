@@ -7,9 +7,13 @@
 
 INSERT INTO usuario(perfil, login, senha)
 VALUES 
-    (2, 'daniel90', 'mvJiSec3uZLUqe825+2/3gsotQ5Ar+XalO7KWvyv/3KJaUVQQ3o7aiPHavKLuSxUitM/BVb3c4SQ00XCH61DcQ=='),
-    (1, 'heitor85', 'rR4uLvAZvTMqPrYpYDkdcpYFVCjK/jA9R5dFA680S5/NonVk++TiBP6E/DUXgFyWkzMqpsqC+mszw1fycViklg=='),
-    (1, 'henrique95', 'm8qzYJ9CPzALDOeZhoXfvjvotP5Mgio+Pwp3gULAKYE1IkQ8Yv6pKGKwDcbXFo87Kjyb+OUkdPXSI3MXMVGe8A==');
+    (2, 'daniel', 'mvJiSec3uZLUqe825+2/3gsotQ5Ar+XalO7KWvyv/3KJaUVQQ3o7aiPHavKLuSxUitM/BVb3c4SQ00XCH61DcQ=='),
+    (1, 'henrique', 'rR4uLvAZvTMqPrYpYDkdcpYFVCjK/jA9R5dFA680S5/NonVk++TiBP6E/DUXgFyWkzMqpsqC+mszw1fycViklg=='),
+    (1, 'heitor', 'm8qzYJ9CPzALDOeZhoXfvjvotP5Mgio+Pwp3gULAKYE1IkQ8Yv6pKGKwDcbXFo87Kjyb+OUkdPXSI3MXMVGe8A=='),
+    (1, 'empresa_a', 'm8qzYJ9CPzALDOeZhoXfvjvotP5Mgio+Pwp3gULAKYE1IkQ8Yv6pKGKwDcbXFo87Kjyb+OUkdPXSI3MXMVGe8A=='),
+    (1, 'empresa_b', 'm8qzYJ9CPzALDOeZhoXfvjvotP5Mgio+Pwp3gULAKYE1IkQ8Yv6pKGKwDcbXFo87Kjyb+OUkdPXSI3MXMVGe8A=='),
+    (1, 'empresa_c', 'm8qzYJ9CPzALDOeZhoXfvjvotP5Mgio+Pwp3gULAKYE1IkQ8Yv6pKGKwDcbXFo87Kjyb+OUkdPXSI3MXMVGe8A==');
+
 
 INSERT INTO endereco(numero, cep, cidade, estado, logradouro, nome, bairro, complemento)
 VALUES 
@@ -17,23 +21,29 @@ VALUES
     (456, '77001-001', 'Gurupi', 'TO', 'Avenida dos Bandeirantes', 'Casa Verde', 'Jardim Bela Vista', 'Esquina com a Rua Principal'),
     (789, '77002-002', 'Araguaína', 'TO', 'Travessa das Oliveiras', 'Casa Amarela', 'Setor Norte', 'Ao lado da praça');
 
-INSERT INTO pessoa (data_nascimento, cpf, telefone, nome)
+INSERT INTO pessoa(tipo_pessoa, cpf_cnpj, telefone, nome_fantasia, email)
 VALUES 
-    ('1990-05-15', '123.456.789-10', '(11) 98765-4321', 'Daniel'),
-    ('1985-10-20', '987.654.321-10', '(11) 98765-4322', 'Heitor'),
-    ('1995-03-25', '456.789.123-10', '(11) 98765-4323', 'Henrique');
-
-INSERT INTO usuario_pessoa(id_pessoa, id_usuario)
-VALUES 
-	(1, 1),
-    (2, 2),
-    (3, 3);
+    (0, '123.456.789-10', '(11) 98765-4321', 'Daniel', 'daniel@example.com'),
+    (0, '987.654.321-98', '(11) 12345-6789', 'Henrique', 'henrique@example.com'),
+    (0, '111.222.333-44', '(11) 55555-5555', 'Heitor', 'heitor@example.com'),
+    (1, '12.345.678/0001-01', '(11) 33333-3333', 'Empresa A', 'empresa_a@example.com'),
+    (1, '98.765.432/0001-02', '(11) 44444-4444', 'Empresa B', 'empresa_b@example.com'),
+    (1, '11.222.333/0001-03', '(11) 66666-6666', 'Empresa C', 'empresa_c@example.com');
 
 INSERT INTO pessoa_endereco(id_endereco, id_pessoa)
 VALUES 
-    (1, 1),
-    (2, 2),
-    (3, 3);
+        (1, 1),
+        (2, 2),
+        (3, 3);
+
+INSERT INTO usuario_pessoa(	id_pessoa, id_usuario)
+VALUES 
+        (1, 1),
+        (2, 2),
+        (3, 3),
+        (4, 4),
+        (5, 5),
+        (6, 6);
 
 INSERT INTO produto (peso, preco, qtdnoestoque, tipo_arma, valor, dtype, nome, tipomunicao, descricao)
 VALUES 

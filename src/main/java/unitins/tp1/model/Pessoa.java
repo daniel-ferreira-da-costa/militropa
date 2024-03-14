@@ -1,48 +1,37 @@
 package unitins.tp1.model;
 
-import java.time.LocalDate;
+import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class Pessoa extends DefaultEntity {
 
     @Column(length = 60)
-    private String nome;
+    private String nome_fantasia;
 
     @Column(length = 20)
-    private String cpf;
+    private String cpf_cnpj;
 
     @Column(length = 20)
     private String telefone;
 
-    @Column(name = "data_nascimento")
-    private LocalDate dataNascimento;
+    @Column(length = 100)
+    private String email;
 
-    @OneToOne
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinTable(name = "pessoa_endereco", joinColumns = @JoinColumn(name = "id_pessoa"), inverseJoinColumns = @JoinColumn(name = "id_endereco"))
-    private Endereco endereco;
+    private List<Endereco> enderecos;
 
-    //gets e sets
-    public String getNome() {
-        return nome;
-    }
+    @Column(name = "tipo_pessoa")
+    private TipoPessoa tipoPessoa;
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public String getCpf() {
-        return cpf;
-    }
-
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
-    }
+    // gets e sets
 
     public String getTelefone() {
         return telefone;
@@ -52,20 +41,44 @@ public class Pessoa extends DefaultEntity {
         this.telefone = telefone;
     }
 
-    public LocalDate getDataNascimento() {
-        return dataNascimento;
+    public List<Endereco> getEnderecos() {
+        return enderecos;
     }
 
-    public void setDataNascimento(LocalDate dataNascimento) {
-        this.dataNascimento = dataNascimento;
+    public void setEnderecos(List<Endereco> enderecos) {
+        this.enderecos = enderecos;
     }
 
-    public Endereco getEndereco() {
-        return endereco;
+    public TipoPessoa getTipoPessoa() {
+        return tipoPessoa;
     }
 
-    public void setEndereco(Endereco endereco) {
-        this.endereco = endereco;
+    public void setTipoPessoa(TipoPessoa tipoPessoa) {
+        this.tipoPessoa = tipoPessoa;
+    }
+
+    public String getCpf_cnpj() {
+        return cpf_cnpj;
+    }
+
+    public void setCpf_cnpj(String cpf_cnpj) {
+        this.cpf_cnpj = cpf_cnpj;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getNome_fantasia() {
+        return nome_fantasia;
+    }
+
+    public void setNome_fantasia(String nome_fantasia) {
+        this.nome_fantasia = nome_fantasia;
     }
 
 }

@@ -10,17 +10,18 @@ public class ArmaDTO extends ProdutoDTO {
     String tipoMunicao;
     @NotBlank(message = "insira o peso corretamente")
     Double peso;
-    @NotBlank(message = "insira o peso corretamente")
+    @NotBlank(message = "insira o rna corretamente")
     String rna;
 
     public ArmaDTO(@NotBlank(message = "insira o nome corretamente") String nome,
             @NotBlank(message = "insira a qtdNoEstoque corretamente") int qtdNoEstoque,
-            @NotBlank(message = "insira o valor corretamente") Double valor,
-            @NotBlank(message = "insira o preco corretamente") Double preco,
+            @NotBlank(message = "insira o valor corretamente") double valor,
+            @NotBlank(message = "insira o preco corretamente") double preco,
             @NotBlank(message = "insira a descrição corretamente") String descricao,
             @NotBlank(message = "insira o tipo de arma corretamente") TipoArma tipo,
             @NotBlank(message = "insira o tipo de munição corretamente") String tipoMunicao,
-            @NotBlank(message = "insira o peso corretamente") Double peso) {
+            @NotBlank(message = "insira o peso corretamente") Double peso,
+            @NotBlank(message = "insira o rna corretamente") String rna) {
         super(nome, qtdNoEstoque, valor, preco, descricao);
         this.tipo = tipo;
         this.tipoMunicao = tipoMunicao;
