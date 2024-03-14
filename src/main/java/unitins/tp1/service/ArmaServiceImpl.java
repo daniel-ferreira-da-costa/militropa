@@ -28,6 +28,7 @@ public class ArmaServiceImpl implements ArmaService {
             novaArma.setTipo(dto.getTipo());
             novaArma.setTipoMunicao(dto.getTipoMunicao());
             novaArma.setPeso(dto.getPeso());
+            novaArma.setRna(dto.getRna());
 
         repository.persist(novaArma);
 
@@ -48,6 +49,7 @@ public class ArmaServiceImpl implements ArmaService {
             arma.setTipo(dto.getTipo());
             arma.setTipoMunicao(dto.getTipoMunicao());
             arma.setPeso(dto.getPeso());
+            arma.setRna(dto.getRna());
         } else
             throw new NotFoundException();
         return ArmaResponseDTO.valueOf(arma);

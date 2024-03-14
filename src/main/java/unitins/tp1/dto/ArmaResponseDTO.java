@@ -12,18 +12,20 @@ public record ArmaResponseDTO(
     int qtdNoEstoque,
     TipoArma tipo,
     String tipoMunicao,
-    Double peso
+    Double peso,
+    String rna
     ){
         public static ArmaResponseDTO valueOf(Arma arma){
             return new ArmaResponseDTO(
-            arma.getId(),
-            arma.getNome(),
-            arma.getDescricao(),
-            arma.getPreco(),
-            arma.getValor(),
-            arma.getQtdNoEstoque(),
-            arma.getTipo(),
-            arma.getTipoMunicao(),
-            arma.getPeso());
-        }
+                    arma.getId(),
+                    arma.getNome(),
+                    arma.getDescricao(),
+                    arma.getPreco(),
+                    arma.getValor(),
+                    arma.getQtdNoEstoque(),
+                    arma.getTipo(),
+                    arma.getTipoMunicao(),
+                    arma.getPeso(),
+                    arma.getRna());
+    }
 }

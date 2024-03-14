@@ -12,9 +12,11 @@ public class Produto extends DefaultEntity{
     @Column(length = 60)
     private int qtdNoEstoque;
 
+    //valor é qnt o produto vale
     @Column(length = 60)
     private Double valor;
     
+    //preço é qnt o produto custou
     @Column(length = 60)
     private Double preco;
 

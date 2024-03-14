@@ -34,3 +34,10 @@ VALUES
     (1, 1),
     (2, 2),
     (3, 3);
+
+INSERT INTO produto (peso, preco, qtdnoestoque, tipo_arma, valor, dtype, nome, tipomunicao, descricao)
+VALUES 
+    (2.5, 499.99, 50, 1, 999.99, 'Arma', 'Pistola 9mm', '9mm', 'Uma pistola compacta e confiável.'),
+    (3.0, 799.99, 30, 3, 1499.99, 'Arma', 'Rifle de Precisão', '5.56mm', 'Um rifle de precisão para longo alcance.'),
+    (1.5, 299.99, 100, 0, 599.99, 'Arma', 'Revólver Magnum', '.357 Magnum', 'Um revólver clássico com alto poder de fogo.');
+

@@ -12,6 +12,7 @@ class Produto{
 class Arma{
     - tipoMunicao: String
     - peso: Double
+    - String: rna
 }
 
 enum TipoArma{
@@ -52,7 +53,7 @@ class Pessoa{
 'Registro Nacional de Armas (RNA)'
 class PessoaFisica{
     - cpf: String
-    - RegistroMilitar: String 
+    - RgMilitar: String 
 }
 
 class PessoaJuridica{
