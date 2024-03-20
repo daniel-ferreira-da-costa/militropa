@@ -16,31 +16,5 @@ public record PessoaDTO(
         @NotBlank(message = "O campo enderecos não pode ficar em branco")
         List<EnderecoDTO> enderecos,
         @NotBlank(message = "O campo usuario não pode ficar em branco")
-        UsuarioDTO usuario) {
-
-        public String nome() {
-                return nome;
-        }
-
-        public String cpf() {
-                return cpf;
-        }
-
-        public String email() {
-                return email;
-        }
-
-        public List<String> listaTelefones() {
-                return listaTelefones;
-        }
-
-        public List<EnderecoDTO> enderecos() {
-                return enderecos;
-        }
-
-        public UsuarioDTO usuario() {
-                return usuario;
-        }
-
-                
+        Long idUsuario) {          
 }
