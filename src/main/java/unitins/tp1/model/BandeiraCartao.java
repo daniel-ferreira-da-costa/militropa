@@ -1,5 +1,7 @@
 package unitins.tp1.model;
+import lombok.Getter;
 
+@Getter
 public enum BandeiraCartao {
 
     VISA(1, "Visa"),
@@ -12,14 +14,6 @@ public enum BandeiraCartao {
     BandeiraCartao(int id, String label) {
         this.id = id;
         this.label = label;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public String getLabel() {
-        return label;
     }
 
 }

@@ -5,14 +5,13 @@ class Produto{
     - nome: String
     - descricao: String
     - preco: Double
-    - valor: Double
     - qtdNoEstoque: Integer
 }
 
 class Arma{
     - tipoMunicao: String
     - peso: Double
-    - String: rna
+    - rna: String
 }
 
 enum TipoArma{
@@ -35,28 +34,28 @@ class Usuario{
 }
 
 enum Perfil{
-    CLIENTE,
-    FUNCIONARIO, 
+    USER, 
     ADMIN;
 
     - id: Long
     - label: String
 }
 
-class Pessoa{
+class Funcionario{
     - id: Long
-    - nome_fantasia: String
+    - nome: String
+    - matricula: String
     - email: String
     - telefone: String
-    - cpf_cnpj: String
+    - cpf: String
 }
 
-enum TipoPessoa{
-    PESSOA FISICA,
-    PESSOA JURIDICA;
-
+class Pessoa{
     - id: Long
-    - label: String
+    - nome: String
+    - cpf: String
+    - email: String
+    - listaTelefone: List<String>
 }
 '========Venda========='
 class Pedido {
@@ -73,8 +72,8 @@ class ItemPedido {
 
 enum Status{
     PROCESSANDO, 
-    ACEITA,
-    RECUSADA,
+    ACEITO,
+    RECUSADO,
     EM TRASNSITO,
     ENTREGUE;
 
@@ -84,13 +83,14 @@ enum Status{
 '========Pagamento========='
 class Pagamento{
     - id: Long
+    - data: Date
 }
 
 class Cartao{
     - id: Long
     - numero: String
     - dataVencimento: Date
-    - codVerificacao: int
+    - codVerificacao: String
     - nomeTitular: String
 }
 
@@ -134,9 +134,9 @@ class Endereco {
 
 '========Relacionamentos========='
 
-Pedido "1" *--> "1" Pagamento
-Pedido "1" *--> "*" ItemPedido
-Pedido "1" *--> "1" Status
+Pedido "1" --> "1" Pagamento
+Pedido "1" --> "*" ItemPedido
+Pedido "1" --> "1" Status
 Pedido "*" --> "1" Usuario
 Pedido "*" --> "1" Endereco
 
@@ -150,10 +150,10 @@ Cartao "1" --> "1" BandeiraCartao
 ItemPedido "*" --> "1" Produto
 
 Usuario "1" --> "1" Perfil
-Usuario "1" --> "1" Pessoa : "Dados Pessoais"
-Pessoa "1" *--> "*" Endereco
+Pessoa "1" --> "1" Usuario
+Pessoa "1" --> "*" Endereco
 Pessoa "1" --> "*" Cartao
-Pessoa "1" *--> "1" TipoPessoa
+Funcionario "1" --> "1" Usuario
 
 Arma --|> Produto
 Arma "1" --> "1" TipoArma

@@ -19,7 +19,11 @@ INSERT INTO endereco(numero, cep, cidade, estado, logradouro, nome, bairro, comp
 VALUES 
     (123, '77000-000', 'Palmas', 'TO', 'Rua das Flores', 'Casa Azul', 'Centro', 'kitnet 4'),
     (456, '77001-001', 'Gurupi', 'TO', 'Avenida dos Bandeirantes', 'Casa Verde', 'Jardim Bela Vista', 'Esquina com a Rua Principal'),
-    (789, '77002-002', 'Araguaína', 'TO', 'Travessa das Oliveiras', 'Casa Amarela', 'Setor Norte', 'Ao lado da praça');
+    (789, '77002-002', 'Araguaína', 'TO', 'Travessa das Oliveiras', 'Casa Amarela', 'Setor Norte', 'Ao lado da praça'),
+    (101, '77003-003', 'Porto Nacional', 'TO', 'Rua das Águias', 'Casa Vermelha', 'Centro', 'Próximo à Escola Municipal'),
+    (202, '77004-004', 'Paraíso do Tocantins', 'TO', 'Avenida das Rosas', 'Casa Rosa', 'Jardim Primavera', 'Próximo ao Supermercado'),
+    (303, '77005-005', 'Colinas do Tocantins', 'TO', 'Alameda dos Ipês', 'Casa Lilás', 'Centro', 'Ao lado do Banco do Brasil');
+
 
 INSERT INTO pessoa(tipo_pessoa, cpf_cnpj, telefone, nome_fantasia, email)
 VALUES 
@@ -34,7 +38,10 @@ INSERT INTO pessoa_endereco(id_endereco, id_pessoa)
 VALUES 
         (1, 1),
         (2, 2),
-        (3, 3);
+        (3, 3),
+        (4, 4),
+        (5, 5),
+        (6, 6);
 
 INSERT INTO usuario_pessoa(	id_pessoa, id_usuario)
 VALUES 

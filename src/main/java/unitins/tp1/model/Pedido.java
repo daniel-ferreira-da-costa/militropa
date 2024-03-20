@@ -9,7 +9,11 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 @Entity
 public class Pedido extends DefaultEntity {
 
@@ -23,37 +27,5 @@ public class Pedido extends DefaultEntity {
     private List<ItemPedido> itens;
 
     private Double totalPedido;
-
-    public LocalDateTime getDataHora() {
-        return dataHora;
-    }
-
-    public void setDataHora(LocalDateTime dataHora) {
-        this.dataHora = dataHora;
-    }
-
-    public Usuario getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
-    }
-
-    public List<ItemPedido> getItens() {
-        return itens;
-    }
-
-    public void setItens(List<ItemPedido> itens) {
-        this.itens = itens;
-    }
-
-    public Double getTotalPedido() {
-        return totalPedido;
-    }
-
-    public void setTotalPedido(Double totalPedido) {
-        this.totalPedido = totalPedido;
-    }
 
 }

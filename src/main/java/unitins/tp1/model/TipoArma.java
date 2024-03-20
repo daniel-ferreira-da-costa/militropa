@@ -1,5 +1,7 @@
 package unitins.tp1.model;
+import lombok.Getter;
 
+@Getter
 public enum TipoArma {
 
     REVOLVER(1, "Revolver"),
@@ -15,14 +17,6 @@ public enum TipoArma {
     private TipoArma(int id, String label) {
         this.id = id;
         this.label = label;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public String getLabel() {
-        return label;
     }
 
     public static TipoArma fromLabel(String label) {

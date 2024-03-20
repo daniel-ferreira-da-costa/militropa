@@ -23,7 +23,6 @@ public class ProdutoServiceImpl implements ProdutoService{
             novoProduto.setNome(dto.getNome());
             novoProduto.setDescricao(dto.getDescricao());
             novoProduto.setPreco(dto.getPreco());
-            novoProduto.setValor(dto.getValor());
             novoProduto.setQtdNoEstoque(dto.getQtdNoEstoque());
 
         repository.persist(novoProduto);
@@ -40,7 +39,6 @@ public class ProdutoServiceImpl implements ProdutoService{
             produto.setNome(dto.getNome());
             produto.setDescricao(dto.getDescricao());
             produto.setPreco(dto.getPreco());
-            produto.setValor(dto.getValor());
             produto.setQtdNoEstoque(dto.getQtdNoEstoque());
         } else 
             throw new NotFoundException();
