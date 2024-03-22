@@ -26,7 +26,7 @@ public class PagamentoResource {
     private static final Logger LOG = Logger.getLogger(PagamentoResource.class);
 
     @Path("/cartao")
-    @RolesAllowed({"Admin","User"})
+   // @RolesAllowed({"Admin","User"})
     @POST
     @Transactional
     public Response postCartaoPagamento(@Valid CartaoDTO dto) {

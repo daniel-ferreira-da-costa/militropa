@@ -34,7 +34,7 @@ public class UsuarioLogadoResource {
     UsuarioService usuarioService;
 
     @GET
-    @RolesAllowed({ "User", "Admin" })
+   // @RolesAllowed({ "User", "Admin" })
     public Response getUsuario() {
 
         // Obtendo o login pelo token jwt

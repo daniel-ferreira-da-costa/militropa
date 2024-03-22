@@ -11,29 +11,21 @@ public enum TipoArma {
     CARABINA(5, "Carabina"),
     METRALHADORA(6, "Metralhadora");
 
-    private final int id;
+    private final Integer id;
     private final String label;
 
-    private TipoArma(int id, String label) {
+    private TipoArma(Integer id, String label) {
         this.id = id;
         this.label = label;
     }
 
-    public static TipoArma fromLabel(String label) {
-        for (TipoArma tipoArma : TipoArma.values()) {
-            if (tipoArma.getLabel().equalsIgnoreCase(label)) {
+    public static TipoArma valueOf(Integer id) {
+        for (TipoArma tipoArma : values()) {
+            if (tipoArma.id == id) {
                 return tipoArma;
             }
         }
-        throw new IllegalArgumentException("Id inválido" + label);
+        throw new IllegalArgumentException("Nenhum TipoArma encontrado com o ID: " + id);
     }
 
-    public static TipoArma fromId(int id) {
-        for (TipoArma tipoArma : TipoArma.values()) {
-            if (tipoArma.getId() == id) {
-                return tipoArma;
-            }
-        }
-        throw new IllegalArgumentException("Id inválido" + id);
-    }
 }

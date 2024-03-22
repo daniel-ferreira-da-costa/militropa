@@ -9,6 +9,7 @@ import jakarta.ws.rs.NotFoundException;
 import unitins.tp1.dto.ArmaDTO;
 import unitins.tp1.dto.ArmaResponseDTO;
 import unitins.tp1.model.Arma;
+import unitins.tp1.model.TipoArma;
 import unitins.tp1.repository.ArmaRepository;
 
 @ApplicationScoped
@@ -24,7 +25,7 @@ public class ArmaServiceImpl implements ArmaService {
             novaArma.setDescricao(dto.getDescricao());
             novaArma.setPreco(dto.getPreco());
             novaArma.setQtdNoEstoque(dto.getQtdNoEstoque());
-            novaArma.setTipo(dto.getTipo());
+            novaArma.setTipo(TipoArma.valueOf(dto.getTipo()));
             novaArma.setTipoMunicao(dto.getTipoMunicao());
             novaArma.setPeso(dto.getPeso());
             novaArma.setRna(dto.getRna());
@@ -44,7 +45,7 @@ public class ArmaServiceImpl implements ArmaService {
             arma.setDescricao(dto.getDescricao());
             arma.setPreco(dto.getPreco());
             arma.setQtdNoEstoque(dto.getQtdNoEstoque());
-            arma.setTipo(dto.getTipo());
+            arma.setTipo(TipoArma.valueOf(dto.getTipo()));
             arma.setTipoMunicao(dto.getTipoMunicao());
             arma.setPeso(dto.getPeso());
             arma.setRna(dto.getRna());

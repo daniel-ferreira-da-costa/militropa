@@ -5,9 +5,9 @@ import java.util.List;
 import jakarta.validation.constraints.NotBlank;
 
 public record PessoaDTO(
-        @NotBlank(message = "O campo nome_fantasia não pode ficar em branco") 
+        @NotBlank(message = "O campo nome não pode ficar em branco") 
         String nome,
-        @NotBlank(message = "O campo CPF/CNPJ não pode ficar em branco")
+        @NotBlank(message = "O campo CPF não pode ficar em branco")
         String cpf,
         @NotBlank(message = "O campo email não pode ficar em branco")
         String email,

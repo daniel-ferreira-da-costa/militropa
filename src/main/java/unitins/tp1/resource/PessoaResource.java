@@ -38,7 +38,7 @@ public class PessoaResource {
     private static final Logger LOG = Logger.getLogger(PessoaResource.class);
 
     @POST
-    @RolesAllowed({"User","Admin"})
+   // @RolesAllowed({"User","Admin"})
     public Response insert(@Valid PessoaDTO dto){
         PessoaResponseDTO retorno = service.insert(dto);
         return Response.status(201).entity(retorno).build();
@@ -46,7 +46,7 @@ public class PessoaResource {
 
     @PUT
     @Transactional
-    @RolesAllowed({"User","Admin"})
+    //@RolesAllowed({"User","Admin"})
     @Path("/{id}")
     public Response update (PessoaDTO dto, @PathParam("id") Long id) {
         service.update(dto, id);
@@ -55,7 +55,7 @@ public class PessoaResource {
 
     @DELETE
     @Transactional
-    @RolesAllowed({"Admin"})
+   // @RolesAllowed({"Admin"})
     @Path("/{id}")
     public Response delete(@PathParam("id") Long id){
         service.delete(id);
@@ -64,7 +64,7 @@ public class PessoaResource {
 
 
     @GET
-    @RolesAllowed({"Admin"})
+    //@RolesAllowed({"Admin"})
     @Path("/search/endereco/{enderecoId}")
     public Response findByEnderecoId(@PathParam("enderecoId") Long enderecoId) {
         List<PessoaResponseDTO> pessoas = service.findByEnderecoId(enderecoId);
@@ -73,20 +73,20 @@ public class PessoaResource {
 
 
     @GET
-    @RolesAllowed({"Admin"})
+    //@RolesAllowed({"Admin"})
     public Response findAll(){
         return Response.ok(service.findByAll()).build();
     }
 
     @GET
-    @RolesAllowed({"Admin"})
+    //@RolesAllowed({"Admin"})
     @Path("/{id}")
     public Response findById(@PathParam("id") Long id){
         return Response.ok(service.findById(id)).build();
     }
 
     @GET
-    @RolesAllowed({"Admin"})
+    //@RolesAllowed({"Admin"})
     @Path("/search/nome/{nome}")
     public Response findByNome(@PathParam("nome") String nome){
         return Response.ok(service.findByNome(nome)).build();

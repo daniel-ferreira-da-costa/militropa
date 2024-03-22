@@ -154,6 +154,7 @@ Pessoa "1" --> "1" Usuario
 Pessoa "1" --> "*" Endereco
 Pessoa "1" --> "*" Cartao
 Funcionario "1" --> "1" Usuario
+Funcionario "1" --> "1" Endereco
 
 Arma --|> Produto
 Arma "1" --> "1" TipoArma

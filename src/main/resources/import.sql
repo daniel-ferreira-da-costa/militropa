@@ -5,15 +5,6 @@
 -- insert into myentity (id, field) values(3, 'field-3');
 -- alter sequence myentity_seq restart with 4;
 
-INSERT INTO usuario(perfil, login, senha)
-VALUES 
-    (2, 'daniel', 'mvJiSec3uZLUqe825+2/3gsotQ5Ar+XalO7KWvyv/3KJaUVQQ3o7aiPHavKLuSxUitM/BVb3c4SQ00XCH61DcQ=='),
-    (1, 'henrique', 'rR4uLvAZvTMqPrYpYDkdcpYFVCjK/jA9R5dFA680S5/NonVk++TiBP6E/DUXgFyWkzMqpsqC+mszw1fycViklg=='),
-    (1, 'heitor', 'm8qzYJ9CPzALDOeZhoXfvjvotP5Mgio+Pwp3gULAKYE1IkQ8Yv6pKGKwDcbXFo87Kjyb+OUkdPXSI3MXMVGe8A=='),
-    (1, 'empresa_a', 'm8qzYJ9CPzALDOeZhoXfvjvotP5Mgio+Pwp3gULAKYE1IkQ8Yv6pKGKwDcbXFo87Kjyb+OUkdPXSI3MXMVGe8A=='),
-    (1, 'empresa_b', 'm8qzYJ9CPzALDOeZhoXfvjvotP5Mgio+Pwp3gULAKYE1IkQ8Yv6pKGKwDcbXFo87Kjyb+OUkdPXSI3MXMVGe8A=='),
-    (1, 'empresa_c', 'm8qzYJ9CPzALDOeZhoXfvjvotP5Mgio+Pwp3gULAKYE1IkQ8Yv6pKGKwDcbXFo87Kjyb+OUkdPXSI3MXMVGe8A==');
-
 
 INSERT INTO endereco(numero, cep, cidade, estado, logradouro, nome, bairro, complemento)
 VALUES 
@@ -25,36 +16,26 @@ VALUES
     (303, '77005-005', 'Colinas do Tocantins', 'TO', 'Alameda dos Ipês', 'Casa Lilás', 'Centro', 'Ao lado do Banco do Brasil');
 
 
-INSERT INTO pessoa(tipo_pessoa, cpf_cnpj, telefone, nome_fantasia, email)
-VALUES 
-    (0, '123.456.789-10', '(11) 98765-4321', 'Daniel', 'daniel@example.com'),
-    (0, '987.654.321-98', '(11) 12345-6789', 'Henrique', 'henrique@example.com'),
-    (0, '111.222.333-44', '(11) 55555-5555', 'Heitor', 'heitor@example.com'),
-    (1, '12.345.678/0001-01', '(11) 33333-3333', 'Empresa A', 'empresa_a@example.com'),
-    (1, '98.765.432/0001-02', '(11) 44444-4444', 'Empresa B', 'empresa_b@example.com'),
-    (1, '11.222.333/0001-03', '(11) 66666-6666', 'Empresa C', 'empresa_c@example.com');
-
-INSERT INTO pessoa_endereco(id_endereco, id_pessoa)
-VALUES 
-        (1, 1),
-        (2, 2),
-        (3, 3),
-        (4, 4),
-        (5, 5),
-        (6, 6);
-
-INSERT INTO usuario_pessoa(	id_pessoa, id_usuario)
-VALUES 
-        (1, 1),
-        (2, 2),
-        (3, 3),
-        (4, 4),
-        (5, 5),
-        (6, 6);
-
 INSERT INTO produto (peso, preco, qtdnoestoque, tipo_arma, valor, dtype, nome, tipomunicao, descricao)
 VALUES 
     (2.5, 499.99, 50, 1, 999.99, 'Arma', 'Pistola 9mm', '9mm', 'Uma pistola compacta e confiável.'),
     (3.0, 799.99, 30, 3, 1499.99, 'Arma', 'Rifle de Precisão', '5.56mm', 'Um rifle de precisão para longo alcance.'),
     (1.5, 299.99, 100, 0, 599.99, 'Arma', 'Revólver Magnum', '.357 Magnum', 'Um revólver clássico com alto poder de fogo.');
 
+INSERT INTO pessoa(cpf, nome, email, listatelefones)
+VALUES 
+  ('123.456.789-00', 'Daniel', 'daniel@example.com', '{(11) 1234-5678, (11) 9876-5432}'),
+  ('987.654.321-00', 'Isabela', 'isabela@example.com', '{(21) 5555-1234}'),
+  ('555.444.333-00', 'Bene', 'bene@example.com', '{(31) 9999-8888}'),
+  ('222.333.444-00', 'Heitor', 'heitor@example.com', '{(41) 7777-6666, (41) 3333-2222}'),
+  ('999.888.777-00', 'Henrique', 'henrique@example.com', '{(51) 2222-3333}'),
+  ('777.666.555-00', 'Luana', 'luana@example.com', '{(61) 9999-1111, (61) 4444-5555}');
+
+INSERT INTO usuario(perfil, login, senha)
+VALUES 
+  (1, 'daniel', 'senha123'),
+  (1, 'isabela', 'senha456'),
+  (1, 'bene', 'senha789'),
+  (1, 'heitor', 'senhaabc'),
+  (1, 'henrique', 'senhadef'),
+  (1, 'luana', 'senhaghi');
