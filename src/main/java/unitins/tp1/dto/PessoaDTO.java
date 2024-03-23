@@ -3,6 +3,7 @@ package unitins.tp1.dto;
 import java.util.List;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 public record PessoaDTO(
         @NotBlank(message = "O campo nome não pode ficar em branco") 
@@ -13,8 +14,8 @@ public record PessoaDTO(
         String email,
         @NotBlank(message = "O campo telefone não pode ficar em branco")
         List<String> listaTelefones,
-        @NotBlank(message = "O campo enderecos não pode ficar em branco")
+        @NotNull(message = "O campo enderecos não pode ficar em branco")
         List<EnderecoDTO> enderecos,
-        @NotBlank(message = "O campo usuario não pode ficar em branco")
+        @NotNull(message = "O campo usuario não pode ficar em branco")
         Long idUsuario) {          
 }
