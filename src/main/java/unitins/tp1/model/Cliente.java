@@ -26,6 +26,9 @@ public class Cliente extends DefaultEntity{
     @Column(length = 100)
     private String email;
 
+    @Column(length = 10)
+    private String numeroRegistro_posse_porte;
+
     @Column(length = 20)
     private List<String> listaTelefones;
         

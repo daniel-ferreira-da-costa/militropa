@@ -7,15 +7,15 @@ import unitins.tp1.model.ItemPedido;
 public record ItemPedidoResponseDTO(
     Integer quantidade,
     Double preco,
-    Long idProduto,
+    Long idArma,
     String nome
 ) { 
     public static ItemPedidoResponseDTO valueOf(ItemPedido item){
         return new ItemPedidoResponseDTO(
             item.getQuantidade(), 
             item.getPreco(),
-            item.getProduto().getId(),
-            item.getProduto().getNome());
+            item.getArma().getId(),
+            item.getArma().getNome());
     }
 
     public static List<ItemPedidoResponseDTO> valueOf(List<ItemPedido> item) {

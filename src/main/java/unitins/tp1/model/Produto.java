@@ -1,13 +1,13 @@
 package unitins.tp1.model;
 
 import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
+import jakarta.persistence.MappedSuperclass;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-@Entity
+@MappedSuperclass
 public class Produto extends DefaultEntity{
     
     @Column(length = 60)
@@ -16,11 +16,6 @@ public class Produto extends DefaultEntity{
     @Column(length = 60)
     private int qtdNoEstoque;
 
-    //valor é qnt o produto vale
-    @Column(length = 60)
-    private Double valor;
-    
-    //preço é qnt o produto custou
     @Column(length = 60)
     private Double preco;
 

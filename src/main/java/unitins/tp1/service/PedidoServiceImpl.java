@@ -7,10 +7,10 @@ import java.util.List;
 import unitins.tp1.dto.ItemPedidoDTO;
 import unitins.tp1.dto.PedidoDTO;
 import unitins.tp1.dto.PedidoResponseDTO;
-import unitins.tp1.model.Produto;
+import unitins.tp1.model.Arma;
 import unitins.tp1.model.ItemPedido;
 import unitins.tp1.model.Pedido;
-import unitins.tp1.repository.ProdutoRepository;
+import unitins.tp1.repository.ArmaRepository;
 import unitins.tp1.repository.PedidoRepository;
 import unitins.tp1.repository.UsuarioRepository;
 import jakarta.enterprise.context.ApplicationScoped;
@@ -21,7 +21,7 @@ import jakarta.transaction.Transactional;
 public class PedidoServiceImpl implements PedidoService {
 
     @Inject
-    ProdutoRepository ProdutoRepository;
+    ArmaRepository armaRepository;
 
     @Inject
     UsuarioRepository usuarioRepository;
@@ -49,11 +49,11 @@ public class PedidoServiceImpl implements PedidoService {
             item.setPreco(itemDto.preco());
             item.setQuantidade(itemDto.quantidade());
             item.setPedido(pedido);
-            Produto Produto = ProdutoRepository.findById(itemDto.idProduto());
-            item.setProduto(Produto);
+            Arma Arma = armaRepository.findById(itemDto.idArma());
+            item.setArma(Arma);
 
             // atualizado o estoque
-            Produto.setQtdNoEstoque(Produto.getQtdNoEstoque() - item.getQuantidade());
+            Arma.setQtdNoEstoque(Arma.getQtdNoEstoque() - item.getQuantidade());
 
             pedido.getItens().add(item);
         }

@@ -37,6 +37,7 @@ public class ClienteServiceImpl implements ClienteService {
         novoCliente.setNome(dto.nome());
         novoCliente.setCpf(dto.cpf());
         novoCliente.setEmail(dto.email());
+        novoCliente.setNumeroRegistro_posse_porte(dto.numeroRegistro_posse_porte());
         if (dto.enderecos() != null &&
                 !dto.enderecos().isEmpty()) {
             novoCliente.setEnderecos(new ArrayList<Endereco>());
@@ -76,6 +77,7 @@ public class ClienteServiceImpl implements ClienteService {
             clienteUpdate.setNome(dto.nome());
             clienteUpdate.setCpf(dto.cpf());
             clienteUpdate.setEmail(dto.email());
+            clienteUpdate.setNumeroRegistro_posse_porte(dto.numeroRegistro_posse_porte());
             if (dto.enderecos() != null && !dto.enderecos().isEmpty()) {
                 clienteUpdate.setEnderecos(new ArrayList<Endereco>());
                 for (EnderecoDTO enderecoDTO : dto.enderecos()) {

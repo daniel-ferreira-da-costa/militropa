@@ -15,8 +15,8 @@ public class ItemPedido extends DefaultEntity {
     private Double preco;
 
     @ManyToOne
-    @JoinColumn(name = "id_produto")
-    private Produto produto;
+    @JoinColumn(name = "id_arma")
+    private Arma arma;
 
     @ManyToOne
     @JoinColumn(name = "id_pedido")

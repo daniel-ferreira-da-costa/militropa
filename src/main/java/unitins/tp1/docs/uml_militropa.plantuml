@@ -9,14 +9,15 @@ class Produto{
 }
 
 class Arma{
-    - tipoMunicao: String
-    - peso: Double
-}
-
-class Rna{
-    - id: Long
-    - numeroRegistro: String
-    - dataRegistro: Date
+    - marca: String
+    - acabamento: String
+    - calibre: String
+    - comprimentoDoCano: String
+    - capacidadeDeTiro: int
+    - numeroSigma: String
+    - numeroDaArma: String
+    - modelo: String
+    - rna: String
 }
 
 enum TipoArma{
@@ -52,6 +53,7 @@ class Funcionario{
 }
 
 class Cliente{
+    - numeroRegistro_posse_porte: String
     - listaTelefone: List<String>
 }
 '========Venda========='
@@ -154,7 +156,5 @@ Cliente "1" o--> "1" Usuario
 
 Arma --|> Produto
 Arma "1" *--> "1" TipoArma
-Arma "1" *--> "1" Rna
 
-Rna "1" o--> "1" Cliente
 @enduml
