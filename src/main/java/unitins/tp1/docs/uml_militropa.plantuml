@@ -11,7 +11,12 @@ class Produto{
 class Arma{
     - tipoMunicao: String
     - peso: Double
-    - rna: String
+}
+
+class Rna{
+    - id: Long
+    - numeroRegistro: String
+    - dataRegistro: Date
 }
 
 enum TipoArma{
@@ -22,7 +27,7 @@ enum TipoArma{
     CARABINA,
     METRALHADORA;
 
-    - id: Long
+    - id: int
     - label: String
 }
 
@@ -37,24 +42,16 @@ enum Perfil{
     USER, 
     ADMIN;
 
-    - id: Long
+    - id: int
     - label: String
 }
 
 class Funcionario{
-    - id: Long
-    - nome: String
     - matricula: String
-    - email: String
     - telefone: String
-    - cpf: String
 }
 
-class Pessoa{
-    - id: Long
-    - nome: String
-    - cpf: String
-    - email: String
+class Cliente{
     - listaTelefone: List<String>
 }
 '========Venda========='
@@ -77,7 +74,7 @@ enum Status{
     EM TRASNSITO,
     ENTREGUE;
 
-    - id: Long
+    - id: int
     - label: String
 }
 '========Pagamento========='
@@ -99,7 +96,7 @@ enum TipoCartao{
     DEBITO, 
     CREDITO E DEBITO;
 
-    - id: Long
+    - id: int
     - label: String 
 }
 
@@ -107,7 +104,7 @@ enum TipoPagamento {
     CREDITO, 
     DEBITO;
 
-    - id: Long
+    - id: Iint
     - label: String 
 }
 
@@ -116,7 +113,7 @@ enum BandeiraCartao {
     ELO,
     MASTERCARD;
 
-    - id: Long
+    - id: int
     - label: String 
 }
 '========Endereco========='
@@ -134,28 +131,30 @@ class Endereco {
 
 '========Relacionamentos========='
 
-Pedido "1" --> "1" Pagamento
+Pedido "1" *--> "1" Pagamento
 Pedido "1" --> "*" ItemPedido
-Pedido "1" --> "1" Status
-Pedido "*" --> "1" Usuario
-Pedido "*" --> "1" Endereco
+Pedido "1" o--> "1" Status
+Pedido "*" o--> "1" Usuario
+Pedido "*" o--> "1" Endereco
 
-Pagamento "1" --> "1" Status
-Pagamento "1" --> "1" Cartao
-Pagamento "1" --> "1" TipoPagamento
+Pagamento "1" o--> "1" Status
+Pagamento "1" o--> "1" Cartao
+Pagamento "1" *--> "1" TipoPagamento
 
-Cartao "1" --> "1" TipoCartao
-Cartao "1" --> "1" BandeiraCartao
+Cartao "1" *--> "1" TipoCartao
+Cartao "1" *--> "1" BandeiraCartao
 
-ItemPedido "*" --> "1" Produto
+ItemPedido "*" --> "1" Arma
 
-Usuario "1" --> "1" Perfil
-Pessoa "1" --> "1" Usuario
-Pessoa "1" --> "*" Endereco
-Pessoa "1" --> "*" Cartao
-Funcionario "1" --> "1" Usuario
-Funcionario "1" --> "1" Endereco
+Usuario "1" *--> "1" Perfil
+Funcionario "1" o--> "1" Usuario
+Funcionario "1" o--> "1" Endereco
+Cliente "1" o--> "*" Endereco
+Cliente "1" o--> "1" Usuario
 
 Arma --|> Produto
-Arma "1" --> "1" TipoArma
+Arma "1" *--> "1" TipoArma
+Arma "1" *--> "1" Rna
+
+Rna "1" o--> "1" Cliente
 @enduml

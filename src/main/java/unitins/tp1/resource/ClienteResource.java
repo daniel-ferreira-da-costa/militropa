@@ -19,28 +19,29 @@ import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.Response.Status;
-import unitins.tp1.dto.PessoaDTO;
-import unitins.tp1.dto.PessoaResponseDTO;
+import unitins.tp1.dto.ClienteDTO;
+import unitins.tp1.dto.ClienteResponseDTO;
 import unitins.tp1.service.EnderecoServiceImpl;
-import unitins.tp1.service.PessoaService;
+import unitins.tp1.service.ClienteService;
 
-@Path("/pessoa")    
+@Path("/clientes")    
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-public class PessoaResource {
+public class ClienteResource {
 
     @Inject
-    PessoaService service;
+    ClienteService service;
+    
     @Inject
     EnderecoServiceImpl enderecoImpl;
 
 
-    private static final Logger LOG = Logger.getLogger(PessoaResource.class);
+    private static final Logger LOG = Logger.getLogger(ClienteResource.class);
 
     @POST
    // @RolesAllowed({"User","Admin"})
-    public Response insert(@Valid PessoaDTO dto){
-        PessoaResponseDTO retorno = service.insert(dto);
+    public Response insert(@Valid ClienteDTO dto){
+        ClienteResponseDTO retorno = service.insert(dto);
         return Response.status(201).entity(retorno).build();
     }
 
@@ -48,7 +49,7 @@ public class PessoaResource {
     @Transactional
     //@RolesAllowed({"User","Admin"})
     @Path("/{id}")
-    public Response update (PessoaDTO dto, @PathParam("id") Long id) {
+    public Response update (ClienteDTO dto, @PathParam("id") Long id) {
         service.update(dto, id);
         return Response.status(Status.NO_CONTENT).build();
     }
@@ -67,8 +68,8 @@ public class PessoaResource {
     //@RolesAllowed({"Admin"})
     @Path("/search/endereco/{enderecoId}")
     public Response findByEnderecoId(@PathParam("enderecoId") Long enderecoId) {
-        List<PessoaResponseDTO> pessoas = service.findByEnderecoId(enderecoId);
-        return Response.ok(pessoas).build();
+        List<ClienteResponseDTO> Clientes = service.findByEnderecoId(enderecoId);
+        return Response.ok(Clientes).build();
     }
 
 

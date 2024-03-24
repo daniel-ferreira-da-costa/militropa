@@ -9,20 +9,20 @@ import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.NotFoundException;
 import unitins.tp1.dto.EnderecoDTO;
-import unitins.tp1.dto.PessoaDTO;
-import unitins.tp1.dto.PessoaResponseDTO;
+import unitins.tp1.dto.ClienteDTO;
+import unitins.tp1.dto.ClienteResponseDTO;
 import unitins.tp1.model.Endereco;
-import unitins.tp1.model.Pessoa;
+import unitins.tp1.model.Cliente;
 import unitins.tp1.model.Usuario;
 import unitins.tp1.repository.EnderecoRepository;
-import unitins.tp1.repository.PessoaRepository;
+import unitins.tp1.repository.ClienteRepository;
 import unitins.tp1.repository.UsuarioRepository;
 
 @ApplicationScoped
-public class PessoaServiceImpl implements PessoaService {
+public class ClienteServiceImpl implements ClienteService {
 
     @Inject
-    PessoaRepository repository;
+    ClienteRepository repository;
 
     @Inject
     EnderecoRepository enderecoRepository;
@@ -32,14 +32,14 @@ public class PessoaServiceImpl implements PessoaService {
 
     @Override
     @Transactional
-    public PessoaResponseDTO insert(PessoaDTO dto) {
-        Pessoa novaPessoa = new Pessoa();
-        novaPessoa.setNome(dto.nome());
-        novaPessoa.setCpf(dto.cpf());
-        novaPessoa.setEmail(dto.email());
+    public ClienteResponseDTO insert(ClienteDTO dto) {
+        Cliente novoCliente = new Cliente();
+        novoCliente.setNome(dto.nome());
+        novoCliente.setCpf(dto.cpf());
+        novoCliente.setEmail(dto.email());
         if (dto.enderecos() != null &&
                 !dto.enderecos().isEmpty()) {
-            novaPessoa.setEnderecos(new ArrayList<Endereco>());
+            novoCliente.setEnderecos(new ArrayList<Endereco>());
             for (EnderecoDTO end : dto.enderecos()) {
                 Endereco endereco = new Endereco();
                 endereco.setNome(end.nome());
@@ -49,35 +49,35 @@ public class PessoaServiceImpl implements PessoaService {
                 endereco.setComplemento(end.complemento());
                 endereco.setCidade(end.cidade());
                 endereco.setEstado(end.estado());
-                novaPessoa.getEnderecos().add(endereco);
+                novoCliente.getEnderecos().add(endereco);
             }
         }
         if (dto.listaTelefones() != null &&
                 !dto.listaTelefones().isEmpty()) {
-            novaPessoa.setListaTelefones(new ArrayList<String>());
+            novoCliente.setListaTelefones(new ArrayList<String>());
             for (String telefone : dto.listaTelefones()) {
-                novaPessoa.getListaTelefones().add(telefone);
+                novoCliente.getListaTelefones().add(telefone);
             }
         }
         Usuario usuario = usuarioRepository.findById(dto.idUsuario());
-        novaPessoa.setUsuario(usuario);
+        novoCliente.setUsuario(usuario);
 
-        repository.persist(novaPessoa);
+        repository.persist(novoCliente);
 
-        return PessoaResponseDTO.valueOf(novaPessoa);
+        return ClienteResponseDTO.valueOf(novoCliente);
     }
 
     @Override
     @Transactional
-    public PessoaResponseDTO update(PessoaDTO dto, Long id) {
+    public ClienteResponseDTO update(ClienteDTO dto, Long id) {
 
-        Pessoa pessoaUpdate = repository.findById(id);
-        if (pessoaUpdate != null) {
-            pessoaUpdate.setNome(dto.nome());
-            pessoaUpdate.setCpf(dto.cpf());
-            pessoaUpdate.setEmail(dto.email());
+        Cliente clienteUpdate = repository.findById(id);
+        if (clienteUpdate != null) {
+            clienteUpdate.setNome(dto.nome());
+            clienteUpdate.setCpf(dto.cpf());
+            clienteUpdate.setEmail(dto.email());
             if (dto.enderecos() != null && !dto.enderecos().isEmpty()) {
-                pessoaUpdate.setEnderecos(new ArrayList<Endereco>());
+                clienteUpdate.setEnderecos(new ArrayList<Endereco>());
                 for (EnderecoDTO enderecoDTO : dto.enderecos()) {
                     Endereco endereco = new Endereco();
                     endereco.setNome(enderecoDTO.nome());
@@ -87,25 +87,25 @@ public class PessoaServiceImpl implements PessoaService {
                     endereco.setComplemento(enderecoDTO.complemento());
                     endereco.setCidade(enderecoDTO.cidade());
                     endereco.setEstado(enderecoDTO.estado());
-                    pessoaUpdate.getEnderecos().add(endereco);
+                    clienteUpdate.getEnderecos().add(endereco);
                 }
             }
             if (dto.listaTelefones() != null && !dto.listaTelefones().isEmpty()) {
-                pessoaUpdate.setListaTelefones(new ArrayList<String>());
+                clienteUpdate.setListaTelefones(new ArrayList<String>());
                 for (String tel : dto.listaTelefones()) {
-                    pessoaUpdate.getListaTelefones().add(tel);
+                    clienteUpdate.getListaTelefones().add(tel);
                 }
             }
 
             Usuario usuario = usuarioRepository.findById(dto.idUsuario());
-            pessoaUpdate.setUsuario(usuario);
+            clienteUpdate.setUsuario(usuario);
 
-            repository.persist(pessoaUpdate);
+            repository.persist(clienteUpdate);
         } else {
             throw new NotFoundException();
         }
 
-        return PessoaResponseDTO.valueOf(pessoaUpdate);
+        return ClienteResponseDTO.valueOf(clienteUpdate);
     }
 
     @Override
@@ -116,27 +116,27 @@ public class PessoaServiceImpl implements PessoaService {
     }
 
     @Override
-    public List<PessoaResponseDTO> findByEnderecoId(Long enderecoId) {
+    public List<ClienteResponseDTO> findByEnderecoId(Long enderecoId) {
         return repository.findByEnderecoId(enderecoId).stream()
-                .map(PessoaResponseDTO::valueOf)
+                .map(ClienteResponseDTO::valueOf)
                 .collect(Collectors.toList());
     }
 
     @Override
-    public PessoaResponseDTO findById(Long id) {
-        return PessoaResponseDTO.valueOf(repository.findById(id));
+    public ClienteResponseDTO findById(Long id) {
+        return ClienteResponseDTO.valueOf(repository.findById(id));
     }
 
     @Override
-    public List<PessoaResponseDTO> findByNome(String nome) {
+    public List<ClienteResponseDTO> findByNome(String nome) {
         return repository.findByNome(nome).stream()
-                .map(e -> PessoaResponseDTO.valueOf(e)).toList();
+                .map(e -> ClienteResponseDTO.valueOf(e)).toList();
     }
 
     @Override
-    public List<PessoaResponseDTO> findByAll() {
+    public List<ClienteResponseDTO> findByAll() {
         return repository.listAll().stream()
-                .map(e -> PessoaResponseDTO.valueOf(e)).toList();
+                .map(e -> ClienteResponseDTO.valueOf(e)).toList();
     }
 
 }

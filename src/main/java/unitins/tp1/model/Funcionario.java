@@ -19,12 +19,12 @@ public class Funcionario extends DefaultEntity {
     @Column(length = 20)
     private String cpf;
     
+    @Column(length = 100)
+    private String email;
+    
     @Column(length = 20)
     private String telefone;
     
-    @Column(length = 100)
-    private String email;
-
     @Column(length = 10)
     private String matricula;
     
