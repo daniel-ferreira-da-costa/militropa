@@ -1,7 +1,11 @@
 package unitins.tp1.model;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import lombok.Getter;
 
 @Getter
+@JsonFormat(shape = JsonFormat.Shape.OBJECT)
 public enum TipoArma {
 
     REVOLVER(1, "Revolver"),

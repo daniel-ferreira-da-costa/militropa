@@ -28,7 +28,7 @@ enum TipoArma{
     CARABINA,
     METRALHADORA;
 
-    - id: int
+    - id: Integer
     - label: String
 }
 
@@ -40,10 +40,10 @@ class Usuario{
 }
 
 enum Perfil{
-    USER, 
+    USER,
     ADMIN;
 
-    - id: int
+    - id: Integer
     - label: String
 }
 
@@ -70,13 +70,13 @@ class ItemPedido {
 }
 
 enum Status{
-    PROCESSANDO, 
+    PROCESSANDO,
     ACEITO,
     RECUSADO,
     EM TRASNSITO,
     ENTREGUE;
 
-    - id: int
+    - id: Integer
     - label: String
 }
 '========Pagamento========='
@@ -94,20 +94,20 @@ class Cartao{
 }
 
 enum TipoCartao{
-    CREDITO, 
-    DEBITO, 
+    CREDITO,
+    DEBITO,
     CREDITO E DEBITO;
 
-    - id: int
-    - label: String 
+    - id: Integer
+    - label: String
 }
 
 enum TipoPagamento {
-    CREDITO, 
+    CREDITO,
     DEBITO;
 
-    - id: Iint
-    - label: String 
+    - id: Integer
+    - label: String
 }
 
 enum BandeiraCartao {
@@ -115,8 +115,8 @@ enum BandeiraCartao {
     ELO,
     MASTERCARD;
 
-    - id: int
-    - label: String 
+    - id: Integer
+    - label: String
 }
 '========Endereco========='
 class Endereco {

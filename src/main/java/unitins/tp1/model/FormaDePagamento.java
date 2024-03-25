@@ -8,8 +8,8 @@ import lombok.Getter;
 public enum FormaDePagamento {
 
     DEBITO(1, "Débito"),
-    CREDITO(2, "Crédito"),
-    PIX(3, "Pix");
+    CREDITO(2, "Crédito");
+
     private final Integer id;
     private final String label;
 
@@ -21,9 +21,9 @@ public enum FormaDePagamento {
     public static FormaDePagamento valueOf(Integer id) throws IllegalArgumentException {
         if (id == null)
             return null;
-        for (FormaDePagamento tipoDePagamento : FormaDePagamento.values()) {
-            if (tipoDePagamento.getId().equals(id))
-                return tipoDePagamento;
+        for (FormaDePagamento fp : FormaDePagamento.values()) {
+            if (fp.getId().equals(id))
+                return fp;
         }
 
         throw new IllegalArgumentException("Id inválida" + id);
