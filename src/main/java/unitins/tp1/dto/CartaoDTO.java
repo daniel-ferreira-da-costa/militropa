@@ -1,51 +1,29 @@
 package unitins.tp1.dto;
 
-import unitins.tp1.model.BandeiraCartao;
+import java.util.Date;
+
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 
-public class CartaoDTO {
-
-    private Long idPedido;
-    @NotBlank(message = "O campo nome não pode ser nulo")
-    private String nome;
-    private String numero;
-    private String dataValidade ;
-    private BandeiraCartao bandeiraCartao;
-    private Integer cvc;
-
-    // CONSTRUTOR PADRÃO
-    public CartaoDTO(Long idPedido, @NotBlank(message = "O campo nome não pode ser nulo") String nome, String numero, String dataValidade,
-           BandeiraCartao bandeiraCartao, Integer cvc) {
-        this.idPedido = idPedido;
-        this.nome = nome;
-        this.dataValidade = dataValidade;
-        this.numero = numero;
-        this.cvc = cvc;
-        this.bandeiraCartao = bandeiraCartao;
-
-    }
-
-    public Long getIdPedido() {
-        return idPedido;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public String getNumero() {
-        return numero;
-    }
-
-    public String getDataValidade() {
-        return dataValidade;
-    }
-
-    public BandeiraCartao getBandeiraCartao() {
-        return bandeiraCartao;
-    }
-
-    public Integer getCvc() {
-        return cvc;
-    }
-}
+public record CartaoDTO(
+    @NotBlank(message = "O campo banco não pode estar em branco")
+    String banco,
+    
+    @NotBlank(message = "O campo número não pode estar em branco")
+    @Pattern(regexp = "\\d{16}", message = "O número do cartão deve conter exatamente 16 dígitos")
+    String numero,
+    
+    @NotNull(message = "O campo data de vencimento não pode ser nulo")
+    Date dataVencimento,
+    
+    @NotBlank(message = "O campo código de verificação não pode estar em branco")
+    @Pattern(regexp = "\\d{3}", message = "O código de verificação deve conter exatamente 3 dígitos")
+    String codVerificacao,
+    
+    @NotBlank(message = "O campo nome do titular não pode estar em branco")
+    String nomeTitular,
+    
+    Integer idTipoCartao,
+    Integer idBandeiraCartao
+) {}

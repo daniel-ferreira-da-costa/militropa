@@ -7,7 +7,7 @@ public record UsuarioResponseDTO(
         String login,
         String senha,
         Perfil perfil) {
-            
+
     public static UsuarioResponseDTO valueOf(Usuario usuario) {
         return new UsuarioResponseDTO(
                 usuario.getLogin(),
@@ -17,6 +17,6 @@ public record UsuarioResponseDTO(
 
     public Perfil getPerfil() {
         return perfil;
-    }    
+    }
 
 }
