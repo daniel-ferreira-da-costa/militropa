@@ -11,6 +11,7 @@ public record ClienteResponseDTO(
                 String email,
                 String numeroRegistro_posse_porte,
                 List<String> listaTelefones,
+                List<CartaoResponseDTO> listaCartoes,
                 List<EnderecoResponseDTO> enderecos,
                 UsuarioResponseDTO usuario) {
 
@@ -23,7 +24,9 @@ public record ClienteResponseDTO(
                                 cliente.getNumeroRegistro_posse_porte(),
                                 cliente.getListaTelefones().stream()
                                                 .map(t -> String.valueOf(t)).toList(),
-                                cliente.getEnderecos().stream()
+                                cliente.getListaCartoes().stream()
+                                                .map(c -> CartaoResponseDTO.valueOf(c)).toList(),
+                                cliente.getListaEnderecos().stream()
                                                 .map(e -> EnderecoResponseDTO.valueOf(e)).toList(),
                                 UsuarioResponseDTO.valueOf(cliente.getUsuario()));
 

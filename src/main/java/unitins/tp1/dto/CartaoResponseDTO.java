@@ -1,6 +1,6 @@
 package unitins.tp1.dto;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import unitins.tp1.model.BandeiraCartao;
 import unitins.tp1.model.Cartao;
@@ -9,7 +9,7 @@ import unitins.tp1.model.TipoCartao;
 public record CartaoResponseDTO(
         Long id,
         String numero,
-        Date dataVencimento,
+        LocalDate dataVencimento,
         String codVerificacao,
         String nomeTitular,
         TipoCartao tipoCartao,

@@ -68,27 +68,18 @@ class ItemPedido {
     - quantidade: Integer
     - preco: Double
 }
-
-enum Status{
-    PROCESSANDO,
-    ACEITO,
-    RECUSADO,
-    EM TRASNSITO,
-    ENTREGUE;
-
-    - id: Integer
-    - label: String
-}
 '========Pagamento========='
 class Pagamento{
     - id: Long
-    - data: Date
+    - confirmacaoDePagamento: Boolean
+    - dataConfirmacaoDePagamento: Date
 }
 
 class Cartao{
     - id: Long
+    - banco: String
     - numero: String
-    - dataVencimento: Date
+    - dataVencimento: LocalDate
     - codVerificacao: String
     - nomeTitular: String
 }
@@ -102,7 +93,7 @@ enum TipoCartao{
     - label: String
 }
 
-enum TipoPagamento {
+enum FormaDePagamento {
     CREDITO,
     DEBITO;
 
@@ -121,7 +112,7 @@ enum BandeiraCartao {
 '========Endereco========='
 class Endereco {
     - id: Long
-    - principal: Boolean
+    - nome: String
     - logradouro: String
     - bairro: String
     - numero: String
@@ -135,13 +126,11 @@ class Endereco {
 
 Pedido "1" *--> "1" Pagamento
 Pedido "1" --> "*" ItemPedido
-Pedido "1" o--> "1" Status
 Pedido "*" o--> "1" Usuario
 Pedido "*" o--> "1" Endereco
 
-Pagamento "1" o--> "1" Status
 Pagamento "1" o--> "1" Cartao
-Pagamento "1" *--> "1" TipoPagamento
+Pagamento "1" *--> "1" FormaDePagamento
 
 Cartao "1" *--> "1" TipoCartao
 Cartao "1" *--> "1" BandeiraCartao
@@ -153,6 +142,7 @@ Funcionario "1" o--> "1" Usuario
 Funcionario "1" o--> "1" Endereco
 Cliente "1" o--> "*" Endereco
 Cliente "1" o--> "1" Usuario
+Cliente "1" o--> "*" Cartao
 
 Arma --|> Produto
 Arma "1" *--> "1" TipoArma

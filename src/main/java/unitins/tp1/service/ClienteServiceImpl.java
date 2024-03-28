@@ -1,5 +1,6 @@
 package unitins.tp1.service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -9,12 +10,17 @@ import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.NotFoundException;
 import unitins.tp1.dto.EnderecoDTO;
+import unitins.tp1.dto.CartaoDTO;
 import unitins.tp1.dto.ClienteDTO;
 import unitins.tp1.dto.ClienteResponseDTO;
 import unitins.tp1.model.Endereco;
+import unitins.tp1.model.TipoCartao;
+import unitins.tp1.model.BandeiraCartao;
+import unitins.tp1.model.Cartao;
 import unitins.tp1.model.Cliente;
 import unitins.tp1.model.Usuario;
 import unitins.tp1.repository.EnderecoRepository;
+import unitins.tp1.repository.CartaoRepository;
 import unitins.tp1.repository.ClienteRepository;
 import unitins.tp1.repository.UsuarioRepository;
 
@@ -30,6 +36,9 @@ public class ClienteServiceImpl implements ClienteService {
     @Inject
     UsuarioRepository usuarioRepository;
 
+    @Inject
+    CartaoRepository cartaoRepository;
+
     @Override
     @Transactional
     public ClienteResponseDTO insert(ClienteDTO dto) {
@@ -38,10 +47,10 @@ public class ClienteServiceImpl implements ClienteService {
         novoCliente.setCpf(dto.cpf());
         novoCliente.setEmail(dto.email());
         novoCliente.setNumeroRegistro_posse_porte(dto.numeroRegistro_posse_porte());
-        if (dto.enderecos() != null &&
-                !dto.enderecos().isEmpty()) {
-            novoCliente.setEnderecos(new ArrayList<Endereco>());
-            for (EnderecoDTO end : dto.enderecos()) {
+        if (dto.listaEnderecos() != null &&
+                !dto.listaEnderecos().isEmpty()) {
+            novoCliente.setListaEnderecos(new ArrayList<Endereco>());
+            for (EnderecoDTO end : dto.listaEnderecos()) {
                 Endereco endereco = new Endereco();
                 endereco.setNome(end.nome());
                 endereco.setLogradouro(end.logradouro());
@@ -50,7 +59,23 @@ public class ClienteServiceImpl implements ClienteService {
                 endereco.setComplemento(end.complemento());
                 endereco.setCidade(end.cidade());
                 endereco.setEstado(end.estado());
-                novoCliente.getEnderecos().add(endereco);
+                novoCliente.getListaEnderecos().add(endereco);
+            }
+        }
+        if (dto.listaCartoes() != null &&
+                !dto.listaCartoes().isEmpty()) {
+            novoCliente.setListaCartoes(new ArrayList<Cartao>());
+            for (CartaoDTO c : dto.listaCartoes()) {
+                Cartao cartao = new Cartao();
+                cartao.setTipoCartao(TipoCartao.valueOf(c.idTipoCartao()));
+                cartao.setNumero(c.numero());
+                cartao.setBanco(c.banco());
+                cartao.setBandeiraCartao(BandeiraCartao.valueOf(c.idBandeiraCartao()));
+                cartao.setCodVerificacao(c.codVerificacao());
+                LocalDate dataVencimento = LocalDate.parse(c.dataVencimento() + "-01");
+                cartao.setDataVencimento(dataVencimento);
+                cartao.setNomeTitular(c.nomeTitular());
+                novoCliente.getListaCartoes().add(cartao);
             }
         }
         if (dto.listaTelefones() != null &&
@@ -78,9 +103,9 @@ public class ClienteServiceImpl implements ClienteService {
             clienteUpdate.setCpf(dto.cpf());
             clienteUpdate.setEmail(dto.email());
             clienteUpdate.setNumeroRegistro_posse_porte(dto.numeroRegistro_posse_porte());
-            if (dto.enderecos() != null && !dto.enderecos().isEmpty()) {
-                clienteUpdate.setEnderecos(new ArrayList<Endereco>());
-                for (EnderecoDTO enderecoDTO : dto.enderecos()) {
+            if (dto.listaEnderecos() != null && !dto.listaEnderecos().isEmpty()) {
+                clienteUpdate.setListaEnderecos(new ArrayList<Endereco>());
+                for (EnderecoDTO enderecoDTO : dto.listaEnderecos()) {
                     Endereco endereco = new Endereco();
                     endereco.setNome(enderecoDTO.nome());
                     endereco.setLogradouro(enderecoDTO.logradouro());
@@ -89,7 +114,7 @@ public class ClienteServiceImpl implements ClienteService {
                     endereco.setComplemento(enderecoDTO.complemento());
                     endereco.setCidade(enderecoDTO.cidade());
                     endereco.setEstado(enderecoDTO.estado());
-                    clienteUpdate.getEnderecos().add(endereco);
+                    clienteUpdate.getListaEnderecos().add(endereco);
                 }
             }
             if (dto.listaTelefones() != null && !dto.listaTelefones().isEmpty()) {

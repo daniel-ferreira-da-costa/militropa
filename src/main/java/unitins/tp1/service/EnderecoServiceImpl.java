@@ -21,14 +21,14 @@ public class EnderecoServiceImpl implements EnderecoService {
     @Transactional
     public EnderecoResponseDTO insert(EnderecoDTO dto) {
         Endereco novoEndereco = new Endereco();
-        novoEndereco.setCidade(dto.cidade());
         novoEndereco.setNome(dto.nome());
-        novoEndereco.setBairro(dto.bairro());
+        novoEndereco.setEstado(dto.estado());
+        novoEndereco.setCidade(dto.cidade());
         novoEndereco.setLogradouro(dto.logradouro());
         novoEndereco.setNumero(dto.numero());
+        novoEndereco.setBairro(dto.bairro());
         novoEndereco.setComplemento(dto.complemento());
         novoEndereco.setCep(dto.cep());
-        novoEndereco.setEstado(dto.estado());
 
         repository.persist(novoEndereco);
 
@@ -40,14 +40,14 @@ public class EnderecoServiceImpl implements EnderecoService {
     public EnderecoResponseDTO update(EnderecoDTO dto, Long id) {
         Endereco endereco = repository.findById(id);
         if (endereco != null) {
-            endereco.setCidade(dto.cidade());
             endereco.setNome(dto.nome());
+            endereco.setEstado(dto.estado());
+            endereco.setCidade(dto.cidade());
             endereco.setLogradouro(dto.logradouro());
             endereco.setNumero(dto.numero());
-            endereco.setComplemento(dto.complemento());
             endereco.setBairro(dto.bairro());
+            endereco.setComplemento(dto.complemento());
             endereco.setCep(dto.cep());
-            endereco.setEstado(dto.estado());
         } else
             throw new NotFoundException();
 

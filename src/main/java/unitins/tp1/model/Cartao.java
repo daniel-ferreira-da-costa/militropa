@@ -1,6 +1,7 @@
 package unitins.tp1.model;
 
-import java.util.Date;
+
+import java.time.LocalDate;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -19,7 +20,7 @@ public class Cartao extends DefaultEntity {
     private String numero;
 
     @Column(name = "data_vencimento")
-    private Date dataVencimento;
+    private LocalDate dataVencimento;
 
     @Column(name = "cod_verificacao")
     private String codVerificacao;
@@ -34,4 +35,3 @@ public class Cartao extends DefaultEntity {
     @Column(name = "bandeira_cartao")
     private BandeiraCartao bandeiraCartao;
 }
-

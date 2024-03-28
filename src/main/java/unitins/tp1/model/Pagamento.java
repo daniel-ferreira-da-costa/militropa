@@ -13,7 +13,7 @@ public class Pagamento extends DefaultEntity{
     private Double valor;
     private Boolean confirmacaoPagamento;
     private FormaDePagamento formaDePagamento;
-
+    
     private LocalDate dataConfirmacaoPagamento;
 
     @OneToOne

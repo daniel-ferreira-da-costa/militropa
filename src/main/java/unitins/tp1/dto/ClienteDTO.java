@@ -20,7 +20,9 @@ public record ClienteDTO(
         @NotNull(message = "O campo telefone não pode ficar em branco")
         List<String> listaTelefones,
         @NotNull(message = "O campo enderecos não pode ficar em branco")
-        List<EnderecoDTO> enderecos,
+        List<CartaoDTO> listaCartoes,
+        @NotNull(message = "O campo enderecos não pode ficar em branco")
+        List<EnderecoDTO> listaEnderecos,
         @NotNull(message = "O campo usuario não pode ficar em branco")
         Long idUsuario){       
 }
