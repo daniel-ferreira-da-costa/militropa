@@ -12,9 +12,9 @@ import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
-import unitins.tp1.dto.CartaoDTO;
-import unitins.tp1.dto.CartaoResponseDTO;
-import unitins.tp1.service.CartaoService;
+import unitins.tp1.dto.cartao.CartaoDTO;
+import unitins.tp1.dto.cartao.CartaoResponseDTO;
+import unitins.tp1.service.cartao.CartaoService;
 
 @Path("/cartoes")
 @Produces(MediaType.APPLICATION_JSON)

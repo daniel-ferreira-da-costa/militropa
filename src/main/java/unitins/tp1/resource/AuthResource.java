@@ -1,10 +1,11 @@
 package unitins.tp1.resource;
 
-import unitins.tp1.dto.LoginDTO;
-import unitins.tp1.dto.UsuarioResponseDTO;
-import unitins.tp1.service.HashService;
-import unitins.tp1.service.JwtService;
-import unitins.tp1.service.UsuarioService;
+import unitins.tp1.dto.usuario.LoginDTO;
+import unitins.tp1.dto.usuario.UsuarioResponseDTO;
+import unitins.tp1.service.hash.HashService;
+import unitins.tp1.service.jwt.JwtService;
+import unitins.tp1.service.usuario.UsuarioService;
+
 import org.jboss.logging.Logger;
 
 import jakarta.inject.Inject;

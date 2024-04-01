@@ -1,6 +1,5 @@
 package unitins.tp1.resource;
 
-import unitins.tp1.service.UsuarioService;
 import java.io.IOException;
 
 import org.eclipse.microprofile.jwt.JsonWebToken;
@@ -20,6 +19,7 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.Response.ResponseBuilder;
 import jakarta.ws.rs.core.Response.Status;
+import unitins.tp1.service.usuario.UsuarioService;
 
 @Path("/usuariologado")
 @Produces(MediaType.APPLICATION_JSON)

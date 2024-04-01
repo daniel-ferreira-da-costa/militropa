@@ -12,9 +12,9 @@ import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
-import unitins.tp1.dto.EnderecoDTO;
-import unitins.tp1.dto.EnderecoResponseDTO;
-import unitins.tp1.service.EnderecoService;
+import unitins.tp1.dto.endereco.EnderecoDTO;
+import unitins.tp1.dto.endereco.EnderecoResponseDTO;
+import unitins.tp1.service.endereco.EnderecoService;
 
 @Path("/enderecos")
 @Produces(MediaType.APPLICATION_JSON)

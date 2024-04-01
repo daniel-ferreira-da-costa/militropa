@@ -1,7 +1,9 @@
 package unitins.tp1.resource;
 
-import unitins.tp1.dto.UsuarioDTO;
-import unitins.tp1.service.UsuarioService;
+
+import unitins.tp1.dto.usuario.UsuarioDTO;
+import unitins.tp1.service.usuario.UsuarioService;
+
 import org.eclipse.microprofile.jwt.JsonWebToken;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;

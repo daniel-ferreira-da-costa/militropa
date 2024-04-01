@@ -144,3 +144,21 @@ VALUES
     (1, '2039-04-01', 1, 'Banestes', '789', 'Camila Santos', '3456789012345678'),
     (2, '2040-05-01', 1, 'Banpará', '012', 'Guilherme Oliveira', '4567890123456789'),
     (3, '2041-06-01', 1, 'Banco Central do Brasil', '345', 'Ana Paula Lima', '5678901234567890');
+
+INSERT INTO cliente_cartao (id_cartao, id_cliente)
+VALUES 
+    (1, 1),
+    (2, 2),
+    (3, 3),
+    (4, 4),
+    (5, 5),
+    (6, 6),
+    (7, 7),
+    (8, 8),
+    (9, 9),
+    (10, 1),
+    (11, 2),
+    (12, 3),
+    (13, 4),
+    (14, 5),
+    (15, 6);

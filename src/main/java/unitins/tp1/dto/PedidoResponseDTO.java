@@ -3,6 +3,7 @@ package unitins.tp1.dto;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import unitins.tp1.dto.usuario.UsuarioResponseDTO;
 import unitins.tp1.model.Pedido;
 
 

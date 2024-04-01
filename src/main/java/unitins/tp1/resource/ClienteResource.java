@@ -19,10 +19,11 @@ import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.Response.Status;
-import unitins.tp1.dto.ClienteDTO;
-import unitins.tp1.dto.ClienteResponseDTO;
-import unitins.tp1.service.EnderecoServiceImpl;
-import unitins.tp1.service.ClienteService;
+import unitins.tp1.dto.cliente.ClienteDTO;
+import unitins.tp1.dto.cliente.ClienteResponseDTO;
+import unitins.tp1.service.cliente.ClienteService;
+import unitins.tp1.service.endereco.EnderecoServiceImpl;
+
 
 @Path("/clientes")    
 @Produces(MediaType.APPLICATION_JSON)

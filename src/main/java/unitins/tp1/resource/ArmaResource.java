@@ -12,9 +12,10 @@ import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
-import unitins.tp1.dto.ArmaDTO;
-import unitins.tp1.dto.ArmaResponseDTO;
-import unitins.tp1.service.ArmaService;
+import unitins.tp1.dto.arma.ArmaDTO;
+import unitins.tp1.dto.arma.ArmaResponseDTO;
+import unitins.tp1.service.arma.ArmaService;
+
 
 @Path("/armas")
 @Produces(MediaType.APPLICATION_JSON)

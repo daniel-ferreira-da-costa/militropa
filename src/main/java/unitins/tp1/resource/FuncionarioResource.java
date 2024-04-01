@@ -19,10 +19,10 @@ import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.Response.Status;
-import unitins.tp1.dto.FuncionarioDTO;
-import unitins.tp1.dto.FuncionarioResponseDTO;
-import unitins.tp1.service.EnderecoServiceImpl;
-import unitins.tp1.service.FuncionarioService;
+import unitins.tp1.dto.funcionario.FuncionarioDTO;
+import unitins.tp1.dto.funcionario.FuncionarioResponseDTO;
+import unitins.tp1.service.endereco.EnderecoServiceImpl;
+import unitins.tp1.service.funcionario.FuncionarioService;
 
 @Path("/funcionarios")    
 @Produces(MediaType.APPLICATION_JSON)
