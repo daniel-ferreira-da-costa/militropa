@@ -4,6 +4,7 @@ import java.util.List;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import jakarta.persistence.NoResultException;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.NotFoundException;
 import unitins.tp1.dto.arma.ArmaDTO;
@@ -66,22 +67,31 @@ public class ArmaServiceImpl implements ArmaService {
         return ArmaResponseDTO.valueOf(arma);
     }
 
+
+    //TRATAR ERRO DE ID INVALIDO
     @Override
     @Transactional
     public void delete(Long id) {
         if (!repository.deleteById(id)) 
-        throw new NotFoundException();
+        throw new NotFoundException("Arma não encontrada para o ID: " + id);
     }
 
     @Override
     public ArmaResponseDTO findById(Long id) {
-        return ArmaResponseDTO.valueOf(repository.findById(id));
+        if(repository.findById(id) != null)
+            return ArmaResponseDTO.valueOf(repository.findById(id));
+        else{
+            throw new NotFoundException("Arma não encontrada para o ID: " + id);
+        }
     }
 
     @Override
     public List<ArmaResponseDTO> findByNome(String nome) {
+        if(nome != null || nome == ""){
         return repository.findByNome(nome).stream()
             .map(p -> ArmaResponseDTO.valueOf(p)).toList();
+        }
+        throw new NotFoundException("Nome não encontrado!");
     }
 
     @Override

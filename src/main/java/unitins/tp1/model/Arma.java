@@ -15,19 +15,19 @@ public class Arma extends Produto{
     private TipoArma tipo;
     @Column(length = 60)
     private String marca;
-    @Column(length = 15)
+    @Column(length = 60)
     private String acabamento;
     @Column
     private String calibre;
-    @Column(length = 10)
+    @Column(length = 60)
     private String comprimentoDoCano;
     @Column
     private int capacidadeDeTiro;
-    @Column(length = 10)
+    @Column(length = 60)
     private String numeroSigma;
     @Column
     private String numeroDaArma;
-    @Column(length = 10)
+    @Column(length = 60)
     private String modelo;
     
     @Column(name="registro_nacional_armas")

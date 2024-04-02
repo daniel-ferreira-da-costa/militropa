@@ -66,7 +66,6 @@ public class EnderecoResourceTest {
 
     @Test
     public void testUpdate() {
-        // Adicionando um endereço no banco de dados
         EnderecoDTO endereco = new EnderecoDTO(
                 "Minha Casa",
                 "Quadra 404 Sul",
@@ -78,7 +77,6 @@ public class EnderecoResourceTest {
                 "Tocantins");
         Long id = enderecoService.insert(endereco).id();
 
-        // Criando outro endereço para atualização
         EnderecoDTO enderecoUpdate = new EnderecoDTO(
                 "Nova Casa",
                 "Quadra 603 Sul",
@@ -92,7 +90,6 @@ public class EnderecoResourceTest {
         EnderecoResponseDTO enderecoAtualizado = enderecoService.update(enderecoUpdate, id);
         assertThat(enderecoAtualizado, notNullValue());
 
-        // Verificando se os dados foram atualizados no banco de dados
         EnderecoResponseDTO enderecoResponse = enderecoService.findById(id);
         assertThat(enderecoResponse.nome(), is("Nova Casa"));
         assertThat(enderecoResponse.logradouro(), is("Quadra 603 Sul"));
@@ -106,7 +103,6 @@ public class EnderecoResourceTest {
 
     @Test
     public void testDelete() {
-        // Adicionando um endereco no banco de dados
         EnderecoDTO endereco = new EnderecoDTO(
                 "casa",
                 "603 sul",
@@ -118,16 +114,13 @@ public class EnderecoResourceTest {
                 "Tocantins");
         Long id = enderecoService.insert(endereco).id();
 
-        // Excluindo o endereco
         enderecoService.delete(id);
 
-        // Verificando se o endereco foi excluído
         assertThrows(Exception.class, () -> enderecoService.findById(id));
     }
 
     @Test
     public void testFindById() {
-        // Adicionando um endereço ao banco de dados
         EnderecoDTO endereco = new EnderecoDTO(
             "casa", 
             "123 rua", 
@@ -140,7 +133,6 @@ public class EnderecoResourceTest {
         );
         Long id = enderecoService.insert(endereco).id();
         
-        // Testando a requisição GET para buscar o endereço por ID
         given()
             .pathParam("id", id)
             .when().get("/enderecos/{id}")
