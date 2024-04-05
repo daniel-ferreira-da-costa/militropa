@@ -61,7 +61,7 @@ public class UsuarioResourceTest {
     public void testUpdate() {
 
         UsuarioDTO usuario = new UsuarioDTO(
-                "daniel",
+                "danielOjaca",
                 "senha123",
                 2);
         Long id = usuarioService.insert(usuario).id();
@@ -84,7 +84,7 @@ public class UsuarioResourceTest {
     @Test
     public void testDelete() {
         UsuarioDTO usuario = new UsuarioDTO(
-                "Jacamencia",
+                "Jacomilao",
                 "senha123",
                 2);
         Long id = usuarioService.insert(usuario).id();
@@ -115,7 +115,7 @@ public class UsuarioResourceTest {
                 "senha123",
                 2);
         Long id = usuarioService.insert(usuario).id();
-        
+
         given()
                 .pathParam("id", id)
                 .when().get("/usuarios/{id}")
