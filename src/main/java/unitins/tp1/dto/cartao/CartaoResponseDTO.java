@@ -8,6 +8,7 @@ import unitins.tp1.model.TipoCartao;
 
 public record CartaoResponseDTO(
         Long id,
+        String banco,
         String numero,
         LocalDate dataVencimento,
         String codVerificacao,
@@ -17,6 +18,7 @@ public record CartaoResponseDTO(
     public static CartaoResponseDTO valueOf(Cartao cartao) {
         return new CartaoResponseDTO(
                 cartao.getId(),
+                cartao.getBanco(),
                 cartao.getNumero(),
                 cartao.getDataVencimento(),
                 cartao.getCodVerificacao(),

@@ -30,8 +30,6 @@ public class EnderecoResourceTest {
     @Inject
     EnderecoService enderecoService;
 
-    private String token;
-
     @Test
     public void testGetAll() {
         given()
@@ -136,6 +134,27 @@ public class EnderecoResourceTest {
         given()
             .pathParam("id", id)
             .when().get("/enderecos/{id}")
+            .then()
+            .statusCode(200);
+    }
+
+    @Test
+    public void testFindByNome() {
+        EnderecoDTO endereco = new EnderecoDTO(
+            "baixa da egua", 
+            "123 rua", 
+            "123",
+            "complemento1", 
+            "bairro1", 
+            "12345678", 
+            "Palmas", 
+            "Tocantins"
+        );
+        enderecoService.insert(endereco);
+        
+        given()
+            .pathParam("nome", endereco.nome())
+            .when().get("/enderecos/search/nome/{nome}")
             .then()
             .statusCode(200);
     }

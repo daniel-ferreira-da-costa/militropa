@@ -5,6 +5,7 @@ import java.util.List;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import jakarta.transaction.Transactional;
 import jakarta.ws.rs.NotFoundException;
 import unitins.tp1.dto.cartao.CartaoDTO;
 import unitins.tp1.dto.cartao.CartaoResponseDTO;
@@ -20,14 +21,14 @@ public class CartaoServiceImpl implements CartaoService {
     CartaoRepository repository;
 
     @Override
+    @Transactional
     public CartaoResponseDTO insert(CartaoDTO dto) {
         Cartao novoCartao = new Cartao();
         novoCartao.setTipoCartao(TipoCartao.valueOf(dto.idTipoCartao()));
         novoCartao.setBanco(dto.banco());
         novoCartao.setNumero(dto.numero());
         novoCartao.setCodVerificacao(dto.codVerificacao());
-        LocalDate dataVencimento = LocalDate.parse(dto.dataVencimento() + "-01");
-        novoCartao.setDataVencimento(dataVencimento);
+        novoCartao.setDataVencimento(dto.dataVencimento());
         novoCartao.setBandeiraCartao(BandeiraCartao.valueOf(dto.idBandeiraCartao()));
         novoCartao.setNomeTitular(dto.nomeTitular());
         
@@ -37,6 +38,7 @@ public class CartaoServiceImpl implements CartaoService {
     }
 
     @Override
+    @Transactional
     public CartaoResponseDTO update(CartaoDTO dto, Long id) {
         Cartao cartao = repository.findById(id);
         if(cartao != null){
@@ -44,8 +46,7 @@ public class CartaoServiceImpl implements CartaoService {
         cartao.setBanco(dto.banco());
         cartao.setNumero(dto.numero());
         cartao.setCodVerificacao(dto.codVerificacao());
-        LocalDate dataVencimento = LocalDate.parse(dto.dataVencimento() + "-01");
-        cartao.setDataVencimento(dataVencimento);
+        cartao.setDataVencimento(dto.dataVencimento());
         cartao.setBandeiraCartao(BandeiraCartao.valueOf(dto.idBandeiraCartao()));
         cartao.setNomeTitular(dto.nomeTitular());
         }else
@@ -55,6 +56,7 @@ public class CartaoServiceImpl implements CartaoService {
     }
 
     @Override
+    @Transactional
     public void delete(Long id) {
         if (!repository.deleteById(id))
         throw new NotFoundException();

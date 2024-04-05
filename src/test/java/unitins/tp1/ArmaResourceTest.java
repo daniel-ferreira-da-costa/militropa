@@ -123,6 +123,81 @@ public class ArmaResourceTest {
         assertThat(armaResponse.numeroDaArma(), is("123456"));
         assertThat(armaResponse.modelo(), is("M686"));
         assertThat(armaResponse.rna(), is("RN123456"));
+    }
 
+    @Test
+    public void testDelete(){
+        ArmaDTO arma = new ArmaDTO(
+                "3oiao",
+                100,
+                8000,
+                "chegar no forró dar tiro pra riba, e negada correndo, sonho de qlqr um",
+                1,
+                "duvidosa",
+                "de má qualidade",
+                ".38",
+                "cano longo",
+                5,
+                "dadaad000",
+                "999jjjj99",
+                "gg777",
+                "000001111");
+        Long id = armaService.insert(arma).id();
+
+        armaService.delete(id);
+
+        assertThrows(Exception.class, () -> armaService.findById(id));
+    }
+
+    @Test
+    public void testFindById(){
+        ArmaDTO arma = new ArmaDTO(
+                "3oiao",
+                100,
+                8000,
+                "chegar no forró dar tiro pra riba, e negada correndo, sonho de qlqr um",
+                1,
+                "duvidosa",
+                "de má qualidade",
+                ".38",
+                "cano longo",
+                5,
+                "dadaad000",
+                "999jjjj99",
+                "gg777",
+                "000001111");
+        Long id = armaService.insert(arma).id();
+
+        given()
+            .pathParam("id", id)
+            .when().get("/armas/{id}")
+            .then()
+            .statusCode(200);
+    }
+
+    @Test
+    public void testFindByNome(){
+        ArmaDTO arma = new ArmaDTO(
+                "3oiao boladão brecado",
+                100,
+                8000,
+                "chegar no forró dar tiro pra riba, e negada correndo, sonho de qlqr um",
+                1,
+                "duvidosa",
+                "de má qualidade",
+                ".38",
+                "cano longo",
+                5,
+                "dadaad000",
+                "999jjjj99",
+                "gg777",
+                "000001111");
+        armaService.insert(arma);
+
+        given()
+            .pathParam("nome", arma.getNome())
+            .when().get("/armas/search/nome/{nome}")
+            .then()
+            .statusCode(200);
     }
 }

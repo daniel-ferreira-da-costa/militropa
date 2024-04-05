@@ -50,14 +50,6 @@ public class UsuarioServiceImpl implements UsuarioService {
     @Override
     @Transactional
     public UsuarioResponseDTO update(UsuarioDTO dto, Long id) {
-    // Obtendo o login pelo token jwt
-    String loginUsuarioLogado = jwt.getSubject();
-
-    // Verificando se o usuário logado está tentando atualizar o próprio perfil
-    Usuario usuarioLogado = repository.findByLogin(loginUsuarioLogado);
-    if (usuarioLogado == null || (usuarioLogado.getPerfil() != Perfil.ADMIN && !usuarioLogado.getId().equals(id)))  {
-        throw new ForbiddenException("Você não tem permissão para atualizar este usuário.");
-    }
 
         Usuario usuario = repository.findById(id);
         usuario.setLogin(dto.login());
