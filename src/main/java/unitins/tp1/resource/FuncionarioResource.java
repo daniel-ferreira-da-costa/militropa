@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.jboss.logging.Logger;
 
-import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
@@ -35,6 +34,7 @@ public class FuncionarioResource {
     EnderecoServiceImpl enderecoImpl;
 
 
+    @SuppressWarnings("unused")
     private static final Logger LOG = Logger.getLogger(FuncionarioResource.class);
 
     @POST

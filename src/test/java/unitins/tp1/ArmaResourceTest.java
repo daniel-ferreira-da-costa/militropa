@@ -1,6 +1,10 @@
 package unitins.tp1;
 
 import static io.restassured.RestAssured.given;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
@@ -10,16 +14,6 @@ import unitins.tp1.dto.arma.ArmaDTO;
 import unitins.tp1.dto.arma.ArmaResponseDTO;
 import unitins.tp1.model.TipoArma;
 import unitins.tp1.service.arma.ArmaService;
-import io.restassured.http.ContentType;
-import io.restassured.response.Response;
-
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.notNullValue;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
-import io.quarkus.test.junit.QuarkusTest;
 
 @QuarkusTest
 public class ArmaResourceTest {

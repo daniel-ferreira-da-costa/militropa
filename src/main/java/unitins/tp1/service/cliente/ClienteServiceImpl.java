@@ -72,8 +72,7 @@ public class ClienteServiceImpl implements ClienteService {
                 cartao.setBanco(c.banco());
                 cartao.setBandeiraCartao(BandeiraCartao.valueOf(c.idBandeiraCartao()));
                 cartao.setCodVerificacao(c.codVerificacao());
-                LocalDate dataVencimento = LocalDate.parse(c.dataVencimento() + "-01");
-                cartao.setDataVencimento(dataVencimento);
+                cartao.setDataVencimento(c.dataVencimento());
                 cartao.setNomeTitular(c.nomeTitular());
                 novoCliente.getListaCartoes().add(cartao);
             }

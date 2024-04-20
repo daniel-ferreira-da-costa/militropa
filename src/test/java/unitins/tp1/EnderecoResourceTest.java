@@ -8,21 +8,12 @@ import io.quarkus.test.junit.QuarkusTest;
 import jakarta.inject.Inject;
 import unitins.tp1.dto.endereco.EnderecoDTO;
 import unitins.tp1.dto.endereco.EnderecoResponseDTO;
-import unitins.tp1.dto.usuario.AuthUsuarioDTO;
 import unitins.tp1.service.endereco.EnderecoService;
-
-import io.restassured.http.ContentType;
-import io.restassured.response.Response;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-
-import java.util.List;
-
-import org.junit.jupiter.api.BeforeEach;
 
 @QuarkusTest
 public class EnderecoResourceTest {
@@ -48,7 +39,7 @@ public class EnderecoResourceTest {
                 "Plano Diretor Sul",
                 "77021-550",
                 "Palmas",
-                "Tocantins");
+                "TO");
 
         EnderecoResponseDTO enderecoResponse = enderecoService.insert(endereco);
         assertThat(enderecoResponse, notNullValue());
@@ -59,7 +50,7 @@ public class EnderecoResourceTest {
         assertThat(enderecoResponse.complemento(), is("Casa 1"));
         assertThat(enderecoResponse.cep(), is("77021-550"));
         assertThat(enderecoResponse.cidade(), is("Palmas"));
-        assertThat(enderecoResponse.estado(), is("Tocantins"));
+        assertThat(enderecoResponse.estado(), is("TO"));
     }
 
     @Test
@@ -72,7 +63,7 @@ public class EnderecoResourceTest {
                 "Plano Diretor Sul",
                 "77021-550",
                 "Palmas",
-                "Tocantins");
+                "TO");
         Long id = enderecoService.insert(endereco).id();
 
         EnderecoDTO enderecoUpdate = new EnderecoDTO(
@@ -83,7 +74,7 @@ public class EnderecoResourceTest {
                 "Plano Diretor Sul",
                 "77022-660",
                 "Palmas",
-                "Tocantins");
+                "TO");
 
         EnderecoResponseDTO enderecoAtualizado = enderecoService.update(enderecoUpdate, id);
         assertThat(enderecoAtualizado, notNullValue());
@@ -96,7 +87,7 @@ public class EnderecoResourceTest {
         assertThat(enderecoResponse.complemento(), is("Casa 2"));
         assertThat(enderecoResponse.cep(), is("77022-660"));
         assertThat(enderecoResponse.cidade(), is("Palmas"));
-        assertThat(enderecoResponse.estado(), is("Tocantins"));
+        assertThat(enderecoResponse.estado(), is("TO"));
     }
 
     @Test
@@ -109,7 +100,7 @@ public class EnderecoResourceTest {
                 "QI 17 LT 30",
                 "88888-864",
                 "Palmas",
-                "Tocantins");
+                "TO");
         Long id = enderecoService.insert(endereco).id();
 
         enderecoService.delete(id);
@@ -127,7 +118,7 @@ public class EnderecoResourceTest {
             "bairro1", 
             "12345678", 
             "Palmas", 
-            "Tocantins"
+            "TO"
         );
         Long id = enderecoService.insert(endereco).id();
         
@@ -141,14 +132,14 @@ public class EnderecoResourceTest {
     @Test
     public void testFindByNome() {
         EnderecoDTO endereco = new EnderecoDTO(
-            "baixa da egua", 
+            "casa das prima", 
             "123 rua", 
             "123",
             "complemento1", 
             "bairro1", 
             "12345678", 
             "Palmas", 
-            "Tocantins"
+            "TO"
         );
         enderecoService.insert(endereco);
         

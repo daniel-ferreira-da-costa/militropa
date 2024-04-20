@@ -2,8 +2,6 @@ package unitins.tp1.service.usuario;
 
 import java.util.List;
 
-
-import jakarta.validation.Valid;
 import unitins.tp1.dto.usuario.UsuarioDTO;
 import unitins.tp1.dto.usuario.UsuarioResponseDTO;
 

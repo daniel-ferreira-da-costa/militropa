@@ -1,6 +1,5 @@
 package unitins.tp1.service.cartao;
 
-import java.time.LocalDate;
 import java.util.List;
 
 import jakarta.enterprise.context.ApplicationScoped;

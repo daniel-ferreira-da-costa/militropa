@@ -14,7 +14,6 @@ import unitins.tp1.validation.ValidationException;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
-import io.quarkus.security.ForbiddenException;
 import jakarta.ws.rs.NotFoundException;
 
 @ApplicationScoped

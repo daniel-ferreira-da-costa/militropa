@@ -1,6 +1,10 @@
 package unitins.tp1;
 
 import static io.restassured.RestAssured.given;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
@@ -9,24 +13,7 @@ import jakarta.inject.Inject;
 import unitins.tp1.dto.usuario.UsuarioDTO;
 import unitins.tp1.dto.usuario.UsuarioResponseDTO;
 import unitins.tp1.model.Perfil;
-import unitins.tp1.service.cartao.CartaoService;
 import unitins.tp1.service.usuario.UsuarioService;
-import io.restassured.http.ContentType;
-import io.restassured.response.Response;
-
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.notNullValue;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeFormatterBuilder;
-import java.time.temporal.ChronoField;
-import java.util.List;
-
-import org.junit.jupiter.api.BeforeEach;
 
 @QuarkusTest
 public class UsuarioResourceTest {
