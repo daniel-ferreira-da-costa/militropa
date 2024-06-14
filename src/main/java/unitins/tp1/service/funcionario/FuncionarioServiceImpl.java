@@ -86,7 +86,7 @@ public class FuncionarioServiceImpl implements FuncionarioService {
 
     @Override
     public List<FuncionarioResponseDTO> findByNome(String nome) {
-        return repository.findByMatricula(nome).stream()
+        return repository.findByNome(nome).stream()
             .map(n -> FuncionarioResponseDTO.valueOf(n)).toList();
     }
 

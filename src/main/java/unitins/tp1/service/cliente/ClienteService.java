@@ -21,7 +21,4 @@ public interface ClienteService {
 
     public List<ClienteResponseDTO> findByAll(); 
 
-    public List<ClienteResponseDTO> findByEnderecoId(Long enderecoId);
-    
-
 }

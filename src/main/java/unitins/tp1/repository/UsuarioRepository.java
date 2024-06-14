@@ -5,6 +5,7 @@ import java.util.List;
 import io.quarkus.hibernate.orm.panache.PanacheRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.persistence.NoResultException;
+import jakarta.validation.ValidationException;
 import unitins.tp1.model.Usuario;
 
 @ApplicationScoped
@@ -25,11 +26,10 @@ public class UsuarioRepository implements PanacheRepository<Usuario>{
 
     public Usuario findByLoginAndSenha(String login, String senha) {
         try {
-            return find("login = ?1 AND senha = ?2 ", login, senha).singleResult();
+            return find("login = ?1 and senha = ?2", login, senha).singleResult();
         } catch (NoResultException e) {
             e.printStackTrace();
-            return null;
+            throw new ValidationException("Login ou senha inválido");
         }
-        
     }
 }

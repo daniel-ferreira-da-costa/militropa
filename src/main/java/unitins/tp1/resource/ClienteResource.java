@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.jboss.logging.Logger;
 
+import io.quarkus.logging.Log;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
@@ -35,62 +37,55 @@ public class ClienteResource {
     @Inject
     EnderecoServiceImpl enderecoImpl;
 
-
-    @SuppressWarnings("unused")
     private static final Logger LOG = Logger.getLogger(ClienteResource.class);
 
     @POST
-   // @RolesAllowed({"User","Admin"})
     public Response insert(@Valid ClienteDTO dto){
+        Log.info("Inserindo um cliente.");
         ClienteResponseDTO retorno = service.insert(dto);
         return Response.status(201).entity(retorno).build();
     }
 
     @PUT
     @Transactional
-    //@RolesAllowed({"User","Admin"})
+    @RolesAllowed({"User","Admin"})
     @Path("/{id}")
     public Response update (ClienteDTO dto, @PathParam("id") Long id) {
+        Log.info("Atualizando dados de um cliente.");
         service.update(dto, id);
         return Response.status(Status.NO_CONTENT).build();
     }
 
     @DELETE
     @Transactional
-   // @RolesAllowed({"Admin"})
+   @RolesAllowed({"Admin"})
     @Path("/{id}")
     public Response delete(@PathParam("id") Long id){
+        Log.info("Deletando um cliente.");
         service.delete(id);
         return Response.status(Status.NO_CONTENT).build();
     }
 
-
     @GET
-    //@RolesAllowed({"Admin"})
-    @Path("/search/endereco/{enderecoId}")
-    public Response findByEnderecoId(@PathParam("enderecoId") Long enderecoId) {
-        List<ClienteResponseDTO> Clientes = service.findByEnderecoId(enderecoId);
-        return Response.ok(Clientes).build();
-    }
-
-
-    @GET
-    //@RolesAllowed({"Admin"})
+    @RolesAllowed({"Admin"})
     public Response findAll(){
+        Log.info("Buscando todos os clientes.");
         return Response.ok(service.findByAll()).build();
     }
 
     @GET
-    //@RolesAllowed({"Admin"})
+    @RolesAllowed({"Admin"})
     @Path("/{id}")
     public Response findById(@PathParam("id") Long id){
+        Log.info("Buscando um cliente expecificando o id.");
         return Response.ok(service.findById(id)).build();
     }
 
     @GET
-    //@RolesAllowed({"Admin"})
+    @RolesAllowed({"Admin"})
     @Path("/search/nome/{nome}")
     public Response findByNome(@PathParam("nome") String nome){
+        Log.info("Buscando um cliente expecificando o nome.");
         return Response.ok(service.findByNome(nome)).build();
     }
 }

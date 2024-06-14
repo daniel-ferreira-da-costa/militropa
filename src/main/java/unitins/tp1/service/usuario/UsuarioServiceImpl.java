@@ -6,11 +6,13 @@ import org.eclipse.microprofile.jwt.JsonWebToken;
 
 import unitins.tp1.dto.usuario.UsuarioDTO;
 import unitins.tp1.dto.usuario.UsuarioResponseDTO;
+import unitins.tp1.dto.usuario.alterarSenhaUsuarioDTO;
 import unitins.tp1.model.Perfil;
 import unitins.tp1.model.Usuario;
 import unitins.tp1.repository.UsuarioRepository;
 import unitins.tp1.service.hash.HashService;
 import unitins.tp1.validation.ValidationException;
+import io.quarkus.logging.Log;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
@@ -60,9 +62,27 @@ public class UsuarioServiceImpl implements UsuarioService {
 
     @Override
     @Transactional
+    public UsuarioResponseDTO alterarSenha(alterarSenhaUsuarioDTO alterarSenhaUsuarioDTO, String login) {
+        Usuario usuario = repository.findByLogin(login);
+        Log.info("Senha antiga: "+ usuario.getSenha());
+        usuario.setSenha(hashService.getHashSenha(alterarSenhaUsuarioDTO.senha()));
+        Log.info("Senha nova: "+ usuario.getSenha());
+        Log.info("Senha alterada com sucesso!");
+        repository.persist(usuario);
+
+        return UsuarioResponseDTO.valueOf(usuario);
+    }
+
+
+    @Override
+    @Transactional
     public void delete(Long id) {
-        if (!repository.deleteById(id)) {
-            throw new NotFoundException();
+        Usuario usuario = repository.findById(id);
+
+        if(usuario != null){
+            repository.delete(usuario);
+        }else {
+            throw new NotFoundException("Usuário não encontrado!");
         }
     }
 
@@ -88,12 +108,16 @@ public class UsuarioServiceImpl implements UsuarioService {
 
     @Override
     public UsuarioResponseDTO findByLoginAndSenha(String login, String senha) {
-        Usuario usuario = repository.findByLoginAndSenha(login, senha);
-        if (usuario == null)
-            throw new ValidationException("login", "Login ou senha inválidos");
-
-        return UsuarioResponseDTO.valueOf(usuario);
-
+        try {
+            Usuario usuario = repository.findByLoginAndSenha(login, senha);
+            if (usuario == null) {
+                throw new ValidationException("login", "Login ou senha inválido");
+            }
+            return UsuarioResponseDTO.valueOf(usuario);
+        } catch (Exception e) {
+            e.printStackTrace(); // Adicione esta linha para imprimir a pilha de exceção no console
+            throw new ValidationException("login", "Ocorreu um erro durante a autenticação. Consulte os logs para obter mais informações.");
+        }
     }
 
     @Override

@@ -1,5 +1,7 @@
 package unitins.tp1.resource;
 
+import io.quarkus.logging.Log;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.Consumes;
@@ -25,42 +27,48 @@ public class CartaoResource {
     CartaoService service;
 
     @POST
-    //@RolesAllowed({"Admin"})
+    @RolesAllowed({"Admin"})
     public CartaoResponseDTO insert(CartaoDTO dto) {
+        Log.info("Cadastrando um cartao.");
         return service.insert(dto);
     }
 
     @PUT
     @Transactional
     @Path("/{id}")
-    //@RolesAllowed({"Admin"})
+    @RolesAllowed({"Admin"})
     public CartaoResponseDTO update(CartaoDTO dto, @PathParam("id") Long id) {
+        Log.info("Atualizando dados de um cartao.");
         return service.update(dto, id);
     }
 
     @DELETE
     @Transactional
     @Path("/{id}")
-    //@RolesAllowed({"Admin"})
+    @RolesAllowed({"Admin"})
     public void delete(@PathParam("id") Long id) {
+        Log.info("Deletando um cartao.");
         service.delete(id);
     }
 
     @GET
     public Response findAll(){
+        Log.info("Buscando todos os cartoes.");
         return Response.ok(service.findByAll()).build();
     }
 
     @GET
     @Path("/{id}")
-    //@RolesAllowed({"Admin"})
+    @RolesAllowed({"Admin"})
     public Response findById(@PathParam("id") Long id){
+        Log.info("Buscando um cartao expecificado pelo id.");
         return Response.ok(service.findById(id)).build();
     }
 
     @GET
     @Path("/search/banco/{banco}")
     public Response findByBanco(@PathParam("banco") String banco){
+        Log.info("Buscando um cartao expecificado pelo banco.");
         return Response.ok(service.findByBanco(banco)).build();
     }
 }

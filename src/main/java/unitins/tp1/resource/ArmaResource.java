@@ -1,5 +1,7 @@
 package unitins.tp1.resource;
 
+import io.quarkus.logging.Log;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.Consumes;
@@ -26,42 +28,48 @@ public class ArmaResource {
     ArmaService service;
 
     @POST
-    //@RolesAllowed({"Admin"})
+    @RolesAllowed({"Admin"})
     public ArmaResponseDTO insert(ArmaDTO dto) {
+        Log.info("Cadastrando uma arma.");
         return service.insert(dto);
     }
 
     @PUT
     @Transactional
     @Path("/{id}")
-    //@RolesAllowed({"Admin"})
+    @RolesAllowed({"Admin"})
     public ArmaResponseDTO update(ArmaDTO dto, @PathParam("id") Long id) {
+        Log.info("Atualizando dados de uma arma.");
         return service.update(dto, id);
     }
 
     @DELETE
     @Transactional
     @Path("/{id}")
-    //@RolesAllowed({"Admin"})
+    @RolesAllowed({"Admin"})
     public void delete(@PathParam("id") Long id) {
+        Log.info("Arma deletada.");
         service.delete(id);
     }
 
     @GET
     public Response findAll(){
+        Log.info("Busca de todas as armas");
         return Response.ok(service.findByAll()).build();
     }
 
     @GET
     @Path("/{id}")
-    //@RolesAllowed({"Admin"})
+    @RolesAllowed({"Admin"})
     public Response findById(@PathParam("id") Long id){
+        Log.info("Busca de uma arma expecificada pelo id");
         return Response.ok(service.findById(id)).build();
     }
 
     @GET
     @Path("/search/nome/{nome}")
     public Response findByNome(@PathParam("nome") String nome){
+        Log.info("Busca de uma arma expecificada pelo nome");
         return Response.ok(service.findByNome(nome)).build();
     }
 }

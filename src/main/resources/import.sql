@@ -57,17 +57,29 @@ VALUES
 
 INSERT INTO usuario (perfil, login, senha)
 VALUES 
-    (1, 'cliente_andre', 'senha_cliente_andre'),
-    (1, 'cliente_bene', 'senha_cliente_bene'),
-    (1, 'cliente_hirosh', 'senha_cliente_hirosh'),
-    (1, 'cliente_heitor', 'senha_cliente_heitor'),
-    (1, 'cliente_henrique', 'senha_cliente_henrique'),
-    (1, 'cliente_junin', 'senha_cliente_junin'),
-    (1, 'cliente_maria', 'senha_cliente_maria'),
-    (1, 'cliente_aline', 'senha_cliente_aline'),
-    (1, 'cliente_fernanda', 'senha_cliente_fernanda'),
-    (2, 'funcionario_daniel', 'senha_funcionario_daniel'),
-    (2, 'funcionario_jacare', 'senha_funcionario_jacare');
+-- senha_cliente_andre
+    (1, 'cliente_andre', '/GOjHgpptfKVaR92/cXMp7sJi0raFpcUWzVNZj5jjwjx0Z/oi19lZx6/v+f6nOpnnYLb9fg9vGw8pUWW08ekUw=='),
+-- senha_cliente_bene
+    (1, 'cliente_bene', 'tHg5Av764hOiw2peQgpDxMBsweO2HAsg4znQ5kxtcNMz/vPhKldRslxOL53tWghnqAQzna1E80x6CkNJbLT/kQ=='),
+-- senha_cliente_hirosh
+    (1, 'cliente_hirosh', 'a55M/kc9MqJFbtr5FGF6Ru8LZSwm36pYubnZZMvyox3Tyg8wOt7NZEDKUAIqr/NFejO6r8R+eUj0NvLLlgyl2Q=='),
+-- senha_cliente_heitor
+    (1, 'cliente_heitor', 'bbkoG72xCIeM+5TONI15VERApwynQf256JHHvX6bkAve00r43+cXaOOVLBYk/Q3xnnjce/7/jsvSaTOHB8RadQ=='),
+-- senha_cliente_henrique
+    (1, 'cliente_henrique', 'VobPCVa6t0EWSzXmvjNz/1iyKtcnISau1orzafq2UZEflPtvY9IjE/XCSg4Eccw/ifM14KsdoqWy+ag1r0OWFg=='),
+-- senha_cliente_junin
+    (1, 'cliente_junin', 'dsBjbU2BWnA/oQtxfZ7WLv3/Wdb4vRRb+YzXqHw+qJMuZ3rUoZKX0nWOvsp+r12ZZnhNriIxNsrIS/L2ROm1Ag=='),
+-- senha_cliente_maria
+    (1, 'cliente_maria', 'gQvX0a7+KxRYbi5K/1hDHzq32iNHUZHwYkF2ok22XL6MJ2SvWLZlduiM8D4UZdP57jvpyU89CSiFKinzIjXw1g=='),
+-- senha_cliente_aline
+    (1, 'cliente_aline', 'pzn74eUzJBP32jVsBmOpL50OTrZVgI9VBF7jKLXKKkAsGRfpqnaKblr696yAzh/1ALEyuVAkmOWVyXZzDGu+SQ=='),
+-- senha_cliente_fernanda
+    (1, 'cliente_fernanda', 'GJT+Wolwvp3TaibJtfTCixQ6mXbWOH6Y5M3FWOYCN0Twh+kdjIn5wSD0eVKjqQbhdiue9w8mRPRgbquvOBp3fw=='),
+-- senha_funcionario_daniel
+    (2, 'funcionario_daniel', 'gz92jkTcveMCL5phxX4m8vcDbE7IwdfMYLEbCFjsd55e89YZ8XlOte2oYZKk9l+UgIR94tyzIt1wyI22/K1sdg=='),
+-- senha_funcionario_jacare
+    (2, 'funcionario_jacare', '/1TvZJJL/8eyuJ8ktCm35K2ShjAQYM9dPzdDUwU8Fk2S5UMQlZ+AJI6ruk/VRwEB+6LISFzdAOVVQvhl0Owc3w==');
+
 
 INSERT INTO cliente_usuario (id_cliente, id_usuario)
 VALUES 

@@ -4,12 +4,15 @@ import java.util.List;
 
 import unitins.tp1.dto.usuario.UsuarioDTO;
 import unitins.tp1.dto.usuario.UsuarioResponseDTO;
+import unitins.tp1.dto.usuario.alterarSenhaUsuarioDTO;
 
 public interface UsuarioService {
 
     public UsuarioResponseDTO insert(UsuarioDTO dto);
 
     public UsuarioResponseDTO update(UsuarioDTO dto, Long id);
+
+    public UsuarioResponseDTO alterarSenha(alterarSenhaUsuarioDTO alterarSenhaUsuarioDTO, String login);
 
     public void delete(Long id);
 

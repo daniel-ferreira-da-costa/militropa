@@ -142,13 +142,6 @@ public class ClienteServiceImpl implements ClienteService {
     }
 
     @Override
-    public List<ClienteResponseDTO> findByEnderecoId(Long enderecoId) {
-        return repository.findByEnderecoId(enderecoId).stream()
-                .map(ClienteResponseDTO::valueOf)
-                .collect(Collectors.toList());
-    }
-
-    @Override
     public ClienteResponseDTO findById(Long id) {
         return ClienteResponseDTO.valueOf(repository.findById(id));
     }
