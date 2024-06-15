@@ -53,6 +53,7 @@ public class ArmaResource {
     }
 
     @GET
+    @RolesAllowed({"User","Admin"})
     public Response findAll(){
         Log.info("Busca de todas as armas");
         return Response.ok(service.findByAll()).build();
@@ -68,6 +69,7 @@ public class ArmaResource {
 
     @GET
     @Path("/search/nome/{nome}")
+    @RolesAllowed({"User","Admin"})
     public Response findByNome(@PathParam("nome") String nome){
         Log.info("Busca de uma arma expecificada pelo nome");
         return Response.ok(service.findByNome(nome)).build();

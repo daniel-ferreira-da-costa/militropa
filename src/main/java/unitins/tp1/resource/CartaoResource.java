@@ -52,6 +52,7 @@ public class CartaoResource {
     }
 
     @GET
+    @RolesAllowed({"User","Admin"})
     public Response findAll(){
         Log.info("Buscando todos os cartoes.");
         return Response.ok(service.findByAll()).build();
@@ -67,6 +68,7 @@ public class CartaoResource {
 
     @GET
     @Path("/search/banco/{banco}")
+    @RolesAllowed({"User","Admin"})
     public Response findByBanco(@PathParam("banco") String banco){
         Log.info("Buscando um cartao expecificado pelo banco.");
         return Response.ok(service.findByBanco(banco)).build();

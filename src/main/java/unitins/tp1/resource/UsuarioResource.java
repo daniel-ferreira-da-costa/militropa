@@ -39,52 +39,52 @@ public class UsuarioResource {
         return Response.status(Status.CREATED).entity(service.insert(dto)).build();
     }
 
-    @RolesAllowed({"User","Admin"})
     @PUT
     @Transactional
     @Path("/{id}")
+    @RolesAllowed({"User","Admin"})
     public Response update(UsuarioDTO dto, @PathParam("id") Long id) {
         Log.info("Fazendo update de um usuario.");
         service.update(dto, id);
         return Response.noContent().build();
     }
 
-    @RolesAllowed({"Admin"})
     @DELETE
     @Transactional
     @Path("/{id}")
+    @RolesAllowed({"Admin"})
     public Response delete(@PathParam("id") Long id) {
         Log.info("Deletando um usuario.");
         service.delete(id);
         return Response.status(Status.NO_CONTENT).build();
     }
  
-    @RolesAllowed({"Admin"})
     @GET
+    @RolesAllowed({"Admin"})
     public Response findAll() {
         Log.info("Busca de todos os usuarios");
         return Response.ok(service.findByAll()).build();
     }
 
-    @RolesAllowed({"Admin"})
     @GET
     @Path("/{id}")
+    @RolesAllowed({"Admin"})
     public Response findById(@PathParam("id") Long id) {
         Log.info("Busca de um usuario especificado pelo id.");
        return Response.ok(service.findById(id)).build();
     }
     
-    @RolesAllowed({"Admin"})
     @GET
     @Path("/search/login/{login}")
+    @RolesAllowed({"Admin"})
     public Response findByNome(@PathParam("login") String login) {
         Log.info("Busca de um usuario especificado pelo login.");
         return Response.ok(service.findByNome(login)).build();
     }
 
-    @RolesAllowed({"User","Admin"})
     @GET
     @Path("/my-user")
+    @RolesAllowed({"User","Admin"})
     public Response findMyUser() {
         Log.info("Busca do proprio usuario.");
        return Response.ok(service.findMyUser()).build();

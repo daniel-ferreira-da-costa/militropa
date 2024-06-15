@@ -7,13 +7,9 @@ import jakarta.enterprise.context.ApplicationScoped;
 import unitins.tp1.model.Pedido;
 
 @ApplicationScoped
-public class PedidoRepository implements PanacheRepository<Pedido> {
-
-    public List<Pedido> findAll(String login) {
-        return find("pessoa.login = ?1", login).list();
-    }
+public class PedidoRepository implements PanacheRepository<Pedido> {   
     
-    public List<Pedido> findAll(Long idPessoa) {
-        return find("pessoa.id = ?1", idPessoa).list();
+    public List<Pedido> findByCliente(Long idCliente) {
+        return find("Cliente.id = ?1", idCliente).list();
     }
 }

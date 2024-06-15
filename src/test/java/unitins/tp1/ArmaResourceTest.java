@@ -6,23 +6,46 @@ import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import org.eclipse.microprofile.jwt.JsonWebToken;
 import org.junit.jupiter.api.Test;
 
 import io.quarkus.test.junit.QuarkusTest;
 import jakarta.inject.Inject;
 import unitins.tp1.dto.arma.ArmaDTO;
 import unitins.tp1.dto.arma.ArmaResponseDTO;
+import unitins.tp1.dto.usuario.LoginDTO;
+import unitins.tp1.dto.usuario.UsuarioResponseDTO;
 import unitins.tp1.model.TipoArma;
 import unitins.tp1.service.arma.ArmaService;
+import unitins.tp1.service.hash.HashService;
+import unitins.tp1.service.hash.HashServiceImpl;
+import unitins.tp1.service.jwt.JwtService;
+import unitins.tp1.service.usuario.UsuarioService;
 
 @QuarkusTest
 public class ArmaResourceTest {
-
     @Inject
     ArmaService armaService;
 
+    @Inject
+    JwtService jwtService;
+    
+    @Inject
+    HashService hashService;
+
+    @Inject
+    UsuarioService usuarioService;
+
+    @Inject
+    JsonWebToken jwt;
+
     @Test
     public void testGetAll() {
+        LoginDTO loginDTO = new LoginDTO("musk", "senha1");
+        String hashSenha = hashService.getHashSenha(loginDTO.senha());
+        UsuarioResponseDTO result = usuarioService.findByLoginAndSenha(loginDTO.login(), hashSenha.toString());
+        String tokenUser = jwtService.generateJwt(result);
+
         given()
                 .when().get("/armas")
                 .then()
