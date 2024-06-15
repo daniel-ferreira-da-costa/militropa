@@ -192,7 +192,13 @@ public class ArmaResourceTest {
                 "000001111");
         Long id = armaService.insert(arma).id();
 
-        given()
+        LoginDTO loginDTO = new LoginDTO("funcionario_jacare", "senha_funcionario_jacare");
+                String hashSenha = hashService.getHashSenha(loginDTO.senha());
+                UsuarioResponseDTO result = usuarioService.findByLoginAndSenha(loginDTO.login(), hashSenha.toString());
+                String token = jwtService.generateJwt(result);
+                given()
+                                .headers("Authorization", "Bearer " + token)
+                                .contentType(ContentType.JSON)
             .pathParam("id", id)
             .when().get("/armas/{id}")
             .then()
@@ -218,7 +224,13 @@ public class ArmaResourceTest {
                 "000001111");
         armaService.insert(arma);
 
-        given()
+        LoginDTO loginDTO = new LoginDTO("funcionario_jacare", "senha_funcionario_jacare");
+                String hashSenha = hashService.getHashSenha(loginDTO.senha());
+                UsuarioResponseDTO result = usuarioService.findByLoginAndSenha(loginDTO.login(), hashSenha.toString());
+                String token = jwtService.generateJwt(result);
+                given()
+                                .headers("Authorization", "Bearer " + token)
+                                .contentType(ContentType.JSON)
             .pathParam("nome", arma.getNome())
             .when().get("/armas/search/nome/{nome}")
             .then()
