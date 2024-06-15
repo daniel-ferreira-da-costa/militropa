@@ -18,9 +18,9 @@ import unitins.tp1.dto.usuario.UsuarioResponseDTO;
 import unitins.tp1.model.TipoArma;
 import unitins.tp1.service.arma.ArmaService;
 import unitins.tp1.service.hash.HashService;
-import unitins.tp1.service.hash.HashServiceImpl;
 import unitins.tp1.service.jwt.JwtService;
 import unitins.tp1.service.usuario.UsuarioService;
+import io.restassured.http.ContentType;
 
 @QuarkusTest
 public class ArmaResourceTest {
@@ -41,12 +41,13 @@ public class ArmaResourceTest {
 
     @Test
     public void testGetAll() {
-        LoginDTO loginDTO = new LoginDTO("musk", "senha1");
+        LoginDTO loginDTO = new LoginDTO("cliente_andre", "senha_cliente_andre");
         String hashSenha = hashService.getHashSenha(loginDTO.senha());
         UsuarioResponseDTO result = usuarioService.findByLoginAndSenha(loginDTO.login(), hashSenha.toString());
-        String tokenUser = jwtService.generateJwt(result);
-
+        String token = jwtService.generateJwt(result);
         given()
+                .headers("Authorization", "Bearer " + token)
+                .contentType(ContentType.JSON)
                 .when().get("/armas")
                 .then()
                 .statusCode(200);
@@ -69,22 +70,27 @@ public class ArmaResourceTest {
                 "40028922",
                 "ajajaj999",
                 "0000011111");
-        ArmaResponseDTO armaResponse = armaService.insert(arma);
-        assertThat(armaResponse, notNullValue());
-        assertThat(armaResponse.nome(), is("Glock"));
-        assertThat(armaResponse.qtdNoEstoque(), is(20));
-        assertThat(armaResponse.preco(), is(15000.0));
-        assertThat(armaResponse.descricao(), is("Bom dia princesa, pfvr sente na glock"));
-        assertThat(armaResponse.tipo(), is(TipoArma.valueOf(2)));
-        assertThat(armaResponse.marca(), is("princesa"));
-        assertThat(armaResponse.acabamento(), is("madeira rustica"));
-        assertThat(armaResponse.calibre(), is("9mm"));
-        assertThat(armaResponse.comprimentoDoCano(), is("curto"));
-        assertThat(armaResponse.capacidadeDeTiro(), is(100));
-        assertThat(armaResponse.numeroSigma(), is("adf9999"));
-        assertThat(armaResponse.numeroDaArma(), is("40028922"));
-        assertThat(armaResponse.modelo(), is("ajajaj999"));
-        assertThat(armaResponse.rna(), is("0000011111"));
+        
+                LoginDTO loginDTO = new LoginDTO("funcionario_jacare", "senha_funcionario_jacare");
+                String hashSenha = hashService.getHashSenha(loginDTO.senha());
+                UsuarioResponseDTO result = usuarioService.findByLoginAndSenha(loginDTO.login(), hashSenha.toString());
+                String token = jwtService.generateJwt(result);
+
+                ArmaResponseDTO armaResponse = armaService.insert(arma);
+                given()
+                                .header("Authorization", "Bearer " + token)
+                                .contentType(ContentType.JSON)
+                                .body(armaResponse)
+                                .when().post("/armas")
+                                .then()
+                                .statusCode(201)
+                                .body("id", notNullValue(),
+                                                "nome", is("Glock"), "qtdNoEstoque", is(20),
+                                                "preco", is(15000.0), "descricao", is("Bom dia princesa, pfvr sente na glock"), "tipo", is(TipoArma.valueOf(2)),
+                                                "marca", is("princesa"), "acabamento", is("madeira rustica"), "calibre", is("9mm"), "comprimentoDoCano", is("curto"),
+                                                "capacidadeDeTiro", is(100), "numeroSigma", is("adf9999"), "numeroDaArma", is("40028922"), "modelo", is("ajajaj999"),
+                                                "rna", is("0000011111")
+                                );
     }
 
     @Test
@@ -121,6 +127,7 @@ public class ArmaResourceTest {
                 "123456",
                 "M686",
                 "RN123456");
+        
 
         ArmaResponseDTO armaAtualizada = armaService.update(armaUpdate, id);
         assertThat(armaAtualizada, notNullValue());

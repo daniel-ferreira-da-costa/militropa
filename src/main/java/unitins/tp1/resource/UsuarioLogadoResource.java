@@ -4,12 +4,8 @@ import org.eclipse.microprofile.jwt.JsonWebToken;
 // import org.jboss.resteasy.annotations.providers.multipart.MultipartForm;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 
-
-import java.util.logging.Logger;
-
 import io.quarkus.logging.Log;
 import jakarta.ws.rs.*;
-import org.eclipse.microprofile.jwt.JsonWebToken;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.core.MediaType;
@@ -29,7 +25,6 @@ public class UsuarioLogadoResource {
     @Inject
     UsuarioService usuarioService;
 
-    private static final Logger LOG = Logger.getLogger(String.valueOf(UsuarioLogadoResource.class));
     @GET
     @RolesAllowed({ "User", "Admin" })
     public Response getUsuario() {

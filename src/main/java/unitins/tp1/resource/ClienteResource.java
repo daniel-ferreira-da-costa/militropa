@@ -1,9 +1,5 @@
 package unitins.tp1.resource;
 
-import java.util.List;
-
-import org.jboss.logging.Logger;
-
 import io.quarkus.logging.Log;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
@@ -36,8 +32,6 @@ public class ClienteResource {
     
     @Inject
     EnderecoServiceImpl enderecoImpl;
-
-    private static final Logger LOG = Logger.getLogger(ClienteResource.class);
 
     @POST
     public Response insert(@Valid ClienteDTO dto){

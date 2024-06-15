@@ -1,40 +1,32 @@
 package unitins.tp1;
 
 import static io.restassured.RestAssured.given;
-import static io.restassured.RestAssured.ntlm;
 
+import org.eclipse.microprofile.jwt.JsonWebToken;
 import org.junit.jupiter.api.Test;
 
 import io.quarkus.test.junit.QuarkusTest;
+import io.restassured.http.ContentType;
 import jakarta.inject.Inject;
 import unitins.tp1.dto.cartao.CartaoDTO;
-import unitins.tp1.dto.cartao.CartaoResponseDTO;
 import unitins.tp1.dto.cliente.ClienteDTO;
 import unitins.tp1.dto.cliente.ClienteResponseDTO;
 import unitins.tp1.dto.endereco.EnderecoDTO;
-import unitins.tp1.dto.endereco.EnderecoResponseDTO;
-import unitins.tp1.dto.usuario.AuthUsuarioDTO;
+import unitins.tp1.dto.usuario.LoginDTO;
 import unitins.tp1.dto.usuario.UsuarioDTO;
-import unitins.tp1.model.BandeiraCartao;
-import unitins.tp1.model.TipoCartao;
+import unitins.tp1.dto.usuario.UsuarioResponseDTO;
 import unitins.tp1.service.cartao.CartaoService;
 import unitins.tp1.service.cliente.ClienteService;
-import unitins.tp1.service.endereco.EnderecoService;
+import unitins.tp1.service.hash.HashService;
+import unitins.tp1.service.jwt.JwtService;
 import unitins.tp1.service.usuario.UsuarioService;
-import io.restassured.http.ContentType;
-import io.restassured.response.Response;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.List;
-
-import org.junit.jupiter.api.BeforeEach;
 
 @QuarkusTest
 public class ClienteResourceTest {
@@ -43,14 +35,29 @@ public class ClienteResourceTest {
         ClienteService clienteService;
 
         @Inject
+        JwtService jwtService;
+
+        @Inject
+        HashService hashService;
+
+        @Inject
         UsuarioService usuarioService;
+
+        @Inject
+        JsonWebToken jwt;
 
         @Inject
         CartaoService cartaoService;
 
         @Test
         public void testGetAll() {
-                given()
+                LoginDTO loginDTO = new LoginDTO("funcionario_jacare", "senha_funcionario_jacare");
+        String hashSenha = hashService.getHashSenha(loginDTO.senha());
+        UsuarioResponseDTO result = usuarioService.findByLoginAndSenha(loginDTO.login(), hashSenha.toString());
+        String token = jwtService.generateJwt(result);
+        given()
+                .headers("Authorization", "Bearer " + token)
+                .contentType(ContentType.JSON)
                                 .when().get("/clientes")
                                 .then()
                                 .statusCode(200);

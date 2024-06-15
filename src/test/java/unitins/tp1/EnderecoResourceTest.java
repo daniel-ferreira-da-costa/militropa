@@ -5,18 +5,37 @@ import static io.restassured.RestAssured.given;
 import org.junit.jupiter.api.Test;
 
 import io.quarkus.test.junit.QuarkusTest;
+import io.restassured.http.ContentType;
 import jakarta.inject.Inject;
 import unitins.tp1.dto.endereco.EnderecoDTO;
 import unitins.tp1.dto.endereco.EnderecoResponseDTO;
+import unitins.tp1.dto.usuario.LoginDTO;
+import unitins.tp1.dto.usuario.UsuarioResponseDTO;
 import unitins.tp1.service.endereco.EnderecoService;
+import unitins.tp1.service.hash.HashService;
+import unitins.tp1.service.jwt.JwtService;
+import unitins.tp1.service.usuario.UsuarioService;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import org.eclipse.microprofile.jwt.JsonWebToken;
+
 @QuarkusTest
 public class EnderecoResourceTest {
+    @Inject
+    JwtService jwtService;
+
+    @Inject
+    HashService hashService;
+
+    @Inject
+    UsuarioService usuarioService;
+
+    @Inject
+    JsonWebToken jwt;
 
     @Inject
     EnderecoService enderecoService;
@@ -111,42 +130,52 @@ public class EnderecoResourceTest {
     @Test
     public void testFindById() {
         EnderecoDTO endereco = new EnderecoDTO(
-            "casa", 
-            "123 rua", 
-            "123",
-            "complemento1", 
-            "bairro1", 
-            "12345678", 
-            "Palmas", 
-            "TO"
-        );
+                "casa",
+                "123 rua",
+                "123",
+                "complemento1",
+                "bairro1",
+                "12345678",
+                "Palmas",
+                "TO");
         Long id = enderecoService.insert(endereco).id();
-        
+
+        LoginDTO loginDTO = new LoginDTO("funcionario_jacare", "senha_funcionario_jacare");
+        String hashSenha = hashService.getHashSenha(loginDTO.senha());
+        UsuarioResponseDTO result = usuarioService.findByLoginAndSenha(loginDTO.login(), hashSenha.toString());
+        String token = jwtService.generateJwt(result);
         given()
-            .pathParam("id", id)
-            .when().get("/enderecos/{id}")
-            .then()
-            .statusCode(200);
+                .headers("Authorization", "Bearer " + token)
+                .contentType(ContentType.JSON)
+                .pathParam("id", id)
+                .when().get("/enderecos/{id}")
+                .then()
+                .statusCode(200);
     }
 
     @Test
     public void testFindByNome() {
         EnderecoDTO endereco = new EnderecoDTO(
-            "casa das prima", 
-            "123 rua", 
-            "123",
-            "complemento1", 
-            "bairro1", 
-            "12345678", 
-            "Palmas", 
-            "TO"
-        );
+                "casa das prima",
+                "123 rua",
+                "123",
+                "complemento1",
+                "bairro1",
+                "12345678",
+                "Palmas",
+                "TO");
         enderecoService.insert(endereco);
-        
+
+        LoginDTO loginDTO = new LoginDTO("funcionario_jacare", "senha_funcionario_jacare");
+        String hashSenha = hashService.getHashSenha(loginDTO.senha());
+        UsuarioResponseDTO result = usuarioService.findByLoginAndSenha(loginDTO.login(), hashSenha.toString());
+        String token = jwtService.generateJwt(result);
         given()
-            .pathParam("nome", endereco.nome())
-            .when().get("/enderecos/search/nome/{nome}")
-            .then()
-            .statusCode(200);
+                .headers("Authorization", "Bearer " + token)
+                .contentType(ContentType.JSON)
+                .pathParam("nome", endereco.nome())
+                .when().get("/enderecos/search/nome/{nome}")
+                .then()
+                .statusCode(200);
     }
 }
