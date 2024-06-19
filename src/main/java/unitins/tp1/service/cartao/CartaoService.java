@@ -8,11 +8,11 @@ import unitins.tp1.dto.cartao.CartaoResponseDTO;
 
 
 public interface CartaoService {
-        public CartaoResponseDTO insert(CartaoDTO dto);
+        public CartaoResponseDTO insert(Long idCliente, CartaoDTO dto);
 
     public CartaoResponseDTO update(CartaoDTO dto, Long id);
 
-    public void delete(Long id);
+    public void delete(Long idCartao);
 
     public CartaoResponseDTO findById(Long id);
     

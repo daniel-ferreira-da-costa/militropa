@@ -10,8 +10,10 @@ import unitins.tp1.dto.cartao.CartaoDTO;
 import unitins.tp1.dto.cartao.CartaoResponseDTO;
 import unitins.tp1.model.BandeiraCartao;
 import unitins.tp1.model.Cartao;
+import unitins.tp1.model.Cliente;
 import unitins.tp1.model.TipoCartao;
 import unitins.tp1.repository.CartaoRepository;
+import unitins.tp1.repository.ClienteRepository;
 
 @ApplicationScoped
 public class CartaoServiceImpl implements CartaoService {
@@ -19,9 +21,12 @@ public class CartaoServiceImpl implements CartaoService {
     @Inject
     CartaoRepository repository;
 
+    @Inject
+    ClienteRepository clienteRepository;
+
     @Override
     @Transactional
-    public CartaoResponseDTO insert(CartaoDTO dto) {
+    public CartaoResponseDTO insert(Long idCliente, CartaoDTO dto) {
         Cartao novoCartao = new Cartao();
         novoCartao.setTipoCartao(TipoCartao.valueOf(dto.idTipoCartao()));
         novoCartao.setBanco(dto.banco());
@@ -32,6 +37,10 @@ public class CartaoServiceImpl implements CartaoService {
         novoCartao.setNomeTitular(dto.nomeTitular());
         
         repository.persist(novoCartao);
+
+        Cliente cliente = clienteRepository.findById(idCliente);
+        cliente.getListaCartoes().add(novoCartao);
+        
 
         return CartaoResponseDTO.valueOf(novoCartao);
     }
@@ -56,8 +65,8 @@ public class CartaoServiceImpl implements CartaoService {
 
     @Override
     @Transactional
-    public void delete(Long id) {
-        if (!repository.deleteById(id))
+    public void delete(Long idCartao) {
+        if (!repository.deleteById(idCartao))
         throw new NotFoundException();
     }
 

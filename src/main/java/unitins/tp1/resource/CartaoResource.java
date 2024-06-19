@@ -27,16 +27,16 @@ public class CartaoResource {
     CartaoService service;
 
     @POST
-    @RolesAllowed({"Admin"})
-    public CartaoResponseDTO insert(CartaoDTO dto) {
+    @RolesAllowed({"User"})
+    public CartaoResponseDTO insert(Long idCliente, CartaoDTO dto) {
         Log.info("Cadastrando um cartao.");
-        return service.insert(dto);
+        return service.insert(idCliente, dto);
     }
 
     @PUT
     @Transactional
     @Path("/{id}")
-    @RolesAllowed({"Admin"})
+    @RolesAllowed({"User"})
     public CartaoResponseDTO update(CartaoDTO dto, @PathParam("id") Long id) {
         Log.info("Atualizando dados de um cartao.");
         return service.update(dto, id);
@@ -52,7 +52,7 @@ public class CartaoResource {
     }
 
     @GET
-    @RolesAllowed({"User","Admin"})
+    @RolesAllowed({"Admin"})
     public Response findAll(){
         Log.info("Buscando todos os cartoes.");
         return Response.ok(service.findByAll()).build();
