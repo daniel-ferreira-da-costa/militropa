@@ -8,14 +8,12 @@ import org.junit.jupiter.api.Test;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.http.ContentType;
 import jakarta.inject.Inject;
-import unitins.tp1.dto.cartao.CartaoDTO;
 import unitins.tp1.dto.cliente.ClienteDTO;
 import unitins.tp1.dto.cliente.ClienteResponseDTO;
 import unitins.tp1.dto.endereco.EnderecoDTO;
 import unitins.tp1.dto.usuario.LoginDTO;
 import unitins.tp1.dto.usuario.UsuarioDTO;
 import unitins.tp1.dto.usuario.UsuarioResponseDTO;
-import unitins.tp1.service.cartao.CartaoService;
 import unitins.tp1.service.cliente.ClienteService;
 import unitins.tp1.service.hash.HashService;
 import unitins.tp1.service.jwt.JwtService;
@@ -45,9 +43,6 @@ public class ClienteResourceTest {
 
         @Inject
         JsonWebToken jwt;
-
-        @Inject
-        CartaoService cartaoService;
 
         @Test
         public void testGetAll() {
@@ -80,20 +75,7 @@ public class ClienteResourceTest {
                 ArrayList<String> listaTelefones = new ArrayList<String>();
                 listaTelefones.add("63 90000-1222");
 
-                LocalDate dataVencimento = LocalDate.now();
-                CartaoDTO cartao = new CartaoDTO(
-                                "santander",
-                                "0000000000000003",
-                                dataVencimento,
-                                "080",
-                                "kkkk",
-                                3,
-                                2);
-
-                ArrayList<CartaoDTO> listaCartoes = new ArrayList<CartaoDTO>();
-                listaCartoes.add(cartao);
-
-                UsuarioDTO usuario = new UsuarioDTO(
+                                UsuarioDTO usuario = new UsuarioDTO(
                                 "jacarvalho",
                                 "senha123",
                                 1);
@@ -103,7 +85,7 @@ public class ClienteResourceTest {
                                 "Jac arvalho",
                                 "321.123.111-66",
                                 "jacaaa@gmail.com",
-                                "9999988888", listaTelefones, listaCartoes, listaEnderecos, idUsuario);
+                                "9999988888", listaTelefones, listaEnderecos, idUsuario);
                 ClienteResponseDTO clienteResponse = clienteService.insert(cliente);
 
                 assertThat(clienteResponse.id(), notNullValue());
@@ -112,7 +94,6 @@ public class ClienteResourceTest {
                 assertThat(clienteResponse.email(), is("jacaaa@gmail.com"));
                 assertThat(clienteResponse.numeroRegistro_posse_porte(), is("9999988888"));
                 assertThat(clienteResponse.listaTelefones(), is(listaTelefones));
-                assertThat(clienteResponse.listaCartoes(), is(listaCartoes));
                 assertThat(clienteResponse.enderecos(), is(listaEnderecos));
                 assertThat(clienteResponse.usuario(), is(idUsuario));
         }

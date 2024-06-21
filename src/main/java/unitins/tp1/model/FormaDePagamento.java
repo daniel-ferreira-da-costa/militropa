@@ -8,7 +8,8 @@ import lombok.Getter;
 public enum FormaDePagamento {
 
     DEBITO(1, "Débito"),
-    CREDITO(2, "Crédito");
+    CREDITO(2, "Crédito"),
+    PIX(3, "Pix");
 
     private final Integer id;
     private final String label;

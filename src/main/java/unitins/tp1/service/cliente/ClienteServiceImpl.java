@@ -8,17 +8,12 @@ import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.NotFoundException;
 import unitins.tp1.model.Endereco;
-import unitins.tp1.model.TipoCartao;
-import unitins.tp1.dto.cartao.CartaoDTO;
 import unitins.tp1.dto.cliente.ClienteDTO;
 import unitins.tp1.dto.cliente.ClienteResponseDTO;
 import unitins.tp1.dto.endereco.EnderecoDTO;
-import unitins.tp1.model.BandeiraCartao;
-import unitins.tp1.model.Cartao;
 import unitins.tp1.model.Cliente;
 import unitins.tp1.model.Usuario;
 import unitins.tp1.repository.EnderecoRepository;
-import unitins.tp1.repository.CartaoRepository;
 import unitins.tp1.repository.ClienteRepository;
 import unitins.tp1.repository.UsuarioRepository;
 
@@ -33,9 +28,6 @@ public class ClienteServiceImpl implements ClienteService {
 
     @Inject
     UsuarioRepository usuarioRepository;
-
-    @Inject
-    CartaoRepository cartaoRepository;
 
     @Override
     @Transactional
@@ -60,21 +52,7 @@ public class ClienteServiceImpl implements ClienteService {
                 novoCliente.getListaEnderecos().add(endereco);
             }
         }
-        if (dto.listaCartoes() != null &&
-                !dto.listaCartoes().isEmpty()) {
-            novoCliente.setListaCartoes(new ArrayList<Cartao>());
-            for (CartaoDTO c : dto.listaCartoes()) {
-                Cartao cartao = new Cartao();
-                cartao.setTipoCartao(TipoCartao.valueOf(c.idTipoCartao()));
-                cartao.setNumero(c.numero());
-                cartao.setBanco(c.banco());
-                cartao.setBandeiraCartao(BandeiraCartao.valueOf(c.idBandeiraCartao()));
-                cartao.setCodVerificacao(c.codVerificacao());
-                cartao.setDataVencimento(c.dataVencimento());
-                cartao.setNomeTitular(c.nomeTitular());
-                novoCliente.getListaCartoes().add(cartao);
-            }
-        }
+
         if (dto.listaTelefones() != null &&
                 !dto.listaTelefones().isEmpty()) {
             novoCliente.setListaTelefones(new ArrayList<String>());
