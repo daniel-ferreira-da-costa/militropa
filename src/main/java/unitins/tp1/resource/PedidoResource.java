@@ -18,7 +18,7 @@ import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.Response.Status;
-import unitins.tp1.dto.PedidoDTO;
+import unitins.tp1.dto.pedido.PedidoDTO;
 import unitins.tp1.service.pedido.PedidoService;
 
 @Produces(MediaType.APPLICATION_JSON)

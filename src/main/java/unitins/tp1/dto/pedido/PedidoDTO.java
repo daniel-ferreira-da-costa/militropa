@@ -1,4 +1,4 @@
-package unitins.tp1.dto;
+package unitins.tp1.dto.pedido;
 import java.util.List;
 
 import unitins.tp1.dto.itemPedido.ItemPedidoDTO;

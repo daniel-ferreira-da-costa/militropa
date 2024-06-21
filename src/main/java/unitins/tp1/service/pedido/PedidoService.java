@@ -2,8 +2,8 @@ package unitins.tp1.service.pedido;
 
 import java.util.List;
 
-import unitins.tp1.dto.PedidoDTO;
 import unitins.tp1.dto.PedidoResponseDTO;
+import unitins.tp1.dto.pedido.PedidoDTO;
 import jakarta.validation.Valid;
 
 public interface PedidoService {
