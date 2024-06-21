@@ -18,12 +18,15 @@ import lombok.Setter;
 public class Pedido extends DefaultEntity {
 
     private LocalDateTime dataHora;
+    private FormaDePagamento formaDePagamento;
+    private Status status;
 
     @ManyToOne
-    @JoinColumn(name = "id_usuario")
-    private Usuario usuario;
+    @JoinColumn(name = "id_cliente")
+    private Cliente cliente;
 
-    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "pedido", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "id_pedido")
     private List<ItemPedido> itens;
 
     private Double totalPedido;

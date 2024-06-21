@@ -73,4 +73,12 @@ public class CartaoResource {
         Log.info("Buscando um cartao expecificado pelo banco.");
         return Response.ok(service.findByBanco(banco)).build();
     }
+
+    @GET
+    @Path("/search/cartao/cliente/{idCliente}")
+    @RolesAllowed({"User","Admin"})
+    public Response findByCliente(@PathParam("idCliente") Long idCliente){
+        Log.info("Buscando um cartao expecificado pelo id do cliente.");
+        return Response.ok(service.findByCliente(idCliente)).build();
+    }
 }

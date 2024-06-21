@@ -8,8 +8,7 @@ import unitins.tp1.model.Pedido;
 
 @ApplicationScoped
 public class PedidoRepository implements PanacheRepository<Pedido> {   
-    
-    public List<Pedido> findByCliente(Long idCliente) {
-        return find("Cliente.id = ?1", idCliente).list();
+    public List<Pedido> findByCliente (Long clienteId){
+        return find("cliente.id", clienteId).list();
     }
 }

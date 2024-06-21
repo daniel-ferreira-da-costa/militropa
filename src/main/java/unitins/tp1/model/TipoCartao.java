@@ -8,8 +8,7 @@ import lombok.Getter;
 @JsonFormat(shape = JsonFormat.Shape.OBJECT)
 public enum TipoCartao {
     CREDITO(1, "Credito"),
-    DEBITO(2, "Debito"),
-    CREDITO_E_DEBITO(3, "Credito e Debito");
+    DEBITO(2, "Debito");
 
     private final Integer id;
     private final String label;

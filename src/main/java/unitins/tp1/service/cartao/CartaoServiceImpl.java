@@ -86,5 +86,11 @@ public class CartaoServiceImpl implements CartaoService {
         return repository.listAll().stream()
                 .map(c -> CartaoResponseDTO.valueOf(c)).toList();
     }
+
+    @Override
+    public List<CartaoResponseDTO> findByCliente(Long idCliente) {
+        return repository.findByCliente(idCliente).stream()
+                .map(b -> CartaoResponseDTO.valueOf(b)).toList();
+    }
     
 }

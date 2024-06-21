@@ -12,7 +12,6 @@ import lombok.Setter;
 public class ItemPedido extends DefaultEntity {
 
     private Integer quantidade;
-    private Double preco;
 
     @ManyToOne
     @JoinColumn(name = "id_arma")

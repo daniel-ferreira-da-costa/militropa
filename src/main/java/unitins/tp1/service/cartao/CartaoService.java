@@ -18,5 +18,7 @@ public interface CartaoService {
     
     public List<CartaoResponseDTO> findByBanco(String banco);
 
+    public List<CartaoResponseDTO> findByCliente(Long idCliente);
+
     public List<CartaoResponseDTO> findByAll();
 }
