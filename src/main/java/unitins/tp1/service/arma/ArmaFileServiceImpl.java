@@ -19,6 +19,7 @@ import jakarta.enterprise.context.ApplicationScoped;
 
 @ApplicationScoped
 public class ArmaFileServiceImpl implements FileService {
+    //Users/danie/quarkus/images/usuario
     private final String PATH_USER = System.getProperty("user.home") +
             File.separator + "quarkus" +
             File.separator + "images" +
