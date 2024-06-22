@@ -1,5 +1,6 @@
 package unitins.tp1.resource;
 
+import org.eclipse.microprofile.jwt.JsonWebToken;
 import org.jboss.logging.Logger;
 
 import io.quarkus.security.identity.SecurityIdentity;
@@ -19,6 +20,7 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.Response.Status;
 import unitins.tp1.dto.pedido.PedidoDTO;
+import unitins.tp1.service.cliente.ClienteService;
 import unitins.tp1.service.pedido.PedidoService;
 
 @Produces(MediaType.APPLICATION_JSON)
@@ -34,17 +36,20 @@ public class PedidoResource {
     @Inject
     SecurityIdentity securityIdentity;
 
+    @Inject
+    JsonWebToken jwt;
+
+    @Inject
+    ClienteService clienteService;
+
     @POST
     @RolesAllowed({ "User"})
     public Response insert(@Valid PedidoDTO dto) {
         LOG.info("Executando criação de pedido");
-        String username = securityIdentity.getPrincipal().getName();
+        String login = jwt.getSubject();
+        Long idCliente = clienteService.findByUsuario(login).id();
 
-        if(!pedidoService.AutenticacaoCliente(username, dto.idCliente())){
-            throw new ValidationException("Você não tem permissão para realizar o pedido.");
-        }
-
-        return Response.status(Status.CREATED).entity(pedidoService.insert(dto)).build();
+        return Response.status(Status.CREATED).entity(pedidoService.insert(dto, idCliente)).build();
     }
 
     @GET
