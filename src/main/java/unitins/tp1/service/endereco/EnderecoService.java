@@ -8,6 +8,7 @@ import unitins.tp1.dto.endereco.EnderecoResponseDTO;
 
 
 public interface EnderecoService {
+    public EnderecoResponseDTO insert(EnderecoDTO dto);
 
     public EnderecoResponseDTO update(EnderecoDTO dto, Long id);
 
