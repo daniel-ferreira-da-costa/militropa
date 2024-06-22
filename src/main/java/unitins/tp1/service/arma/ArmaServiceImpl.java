@@ -98,5 +98,12 @@ public class ArmaServiceImpl implements ArmaService {
         return repository.listAll().stream()
             .map(p -> ArmaResponseDTO.valueOf(p)).toList();
     }
+
+    @Override
+    public ArmaResponseDTO updateNomeImagem(Long id, String nomeImagem) {
+        Arma arma = repository.findById(id);
+        arma.setNomeImagem(nomeImagem);
+        return ArmaResponseDTO.valueOf(arma);
+    }
     
 }

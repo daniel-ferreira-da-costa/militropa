@@ -18,7 +18,8 @@ public record ArmaResponseDTO(
     String numeroSigma,
     String numeroDaArma,
     String modelo,
-    String rna
+    String rna,
+    String nomeImagem
     ){
         public static ArmaResponseDTO valueOf(Arma arma){
             return new ArmaResponseDTO(
@@ -36,6 +37,7 @@ public record ArmaResponseDTO(
                 arma.getNumeroSigma(),
                 arma.getNumeroDaArma(),
                 arma.getModelo(),
-                arma.getRna());                  
+                arma.getRna(),
+                arma.getNomeImagem());                  
     }
 }

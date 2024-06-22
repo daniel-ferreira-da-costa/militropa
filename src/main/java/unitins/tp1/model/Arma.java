@@ -33,4 +33,6 @@ public class Arma extends Produto{
     @Column(name="registro_nacional_armas")
     private String rna;
 
+    private String nomeImagem;
+
 }
