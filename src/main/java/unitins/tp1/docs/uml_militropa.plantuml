@@ -77,42 +77,10 @@ class ItemPedido {
     - preco: Double
 }
 '========Pagamento========='
-class Pagamento{
-    - id: Long
-    - confirmacaoDePagamento: Boolean
-    - dataConfirmacaoDePagamento: LocalDate
-}
-
-class Cartao{
-    - id: Long
-    - banco: String
-    - numero: String
-    - dataVencimento: LocalDate
-    - codVerificacao: String
-    - nomeTitular: String
-}
-
-enum TipoCartao{
-    CREDITO,
-    DEBITO,
-    CREDITO E DEBITO;
-
-    - id: Integer
-    - label: String
-}
-
 enum FormaDePagamento {
     CREDITO,
-    DEBITO;
-
-    - id: Integer
-    - label: String
-}
-
-enum BandeiraCartao {
-    VISA,
-    ELO,
-    MASTERCARD;
+    DEBITO,
+    PIX;
 
     - id: Integer
     - label: String
@@ -132,15 +100,9 @@ class Endereco {
 
 '========Relacionamentos========='
 
-Pedido "1" *--> "1" Pagamento
+Pedido "1" *--> "1" FormaDePagamento
 Pedido "1" --> "*" ItemPedido
 Pedido "*" o--> "1" Usuario
-
-Pagamento "1" o--> "1" Cartao
-Pagamento "1" *--> "1" FormaDePagamento
-
-Cartao "1" *--> "1" TipoCartao
-Cartao "1" *--> "1" BandeiraCartao
 
 ItemPedido "*" --> "1" Arma
 
@@ -149,7 +111,6 @@ Funcionario "1" o--> "1" Usuario
 Funcionario "1" o--> "1" Endereco
 Cliente "1" o--> "*" Endereco
 Cliente "1" o--> "1" Usuario
-Cliente "1" o--> "*" Cartao
 
 Arma --|> Produto
 Arma "1" *--> "1" TipoArma
