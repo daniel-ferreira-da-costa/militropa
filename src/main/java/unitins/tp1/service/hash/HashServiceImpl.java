@@ -34,6 +34,11 @@ public class HashServiceImpl implements HashService {
 
     }
 
+    @Override
+    public boolean confereHash(String senha, String hash){
+        return getHashSenha(senha).equals(hash);
+    }
+
     public static void main(String[] args) {
         HashService service = new HashServiceImpl();
         System.out.println(service.getHashSenha("senha_funcionario_daniel"));

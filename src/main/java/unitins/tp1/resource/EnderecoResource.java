@@ -1,5 +1,7 @@
 package unitins.tp1.resource;
 
+import org.eclipse.microprofile.jwt.JsonWebToken;
+
 import io.quarkus.logging.Log;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
@@ -7,7 +9,6 @@ import jakarta.transaction.Transactional;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
-import jakarta.ws.rs.POST;
 import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
@@ -26,19 +27,15 @@ public class EnderecoResource {
     @Inject
     EnderecoService service;
 
-    @POST
-    @RolesAllowed({"User","Admin"})
-    public EnderecoResponseDTO insert(EnderecoDTO dto) {
-        Log.info("Cadastrando um endereco.");
-        return service.insert(dto);
-    }
+    @Inject
+    JsonWebToken jwt;
 
     @PUT
     @Transactional
     @Path("/{id}")
     @RolesAllowed({"User","Admin"})
     public EnderecoResponseDTO update(EnderecoDTO dto, @PathParam("id") Long id) {
-        Log.info("Atualizando um endereco.");
+        Log.info("Atualizando um endereco: "+id);
         return service.update(dto, id);
     }
 
@@ -47,7 +44,7 @@ public class EnderecoResource {
     @Path("/{id}")
     @RolesAllowed({"User","Admin"})
     public void delete(@PathParam("id") Long id) {
-        Log.info("Deletando um endereco.");
+        Log.info("Deletando um endereco:" +id);
         service.delete(id);
     }
 
@@ -62,7 +59,7 @@ public class EnderecoResource {
     @Path("/{id}")
     @RolesAllowed({"Admin"})
     public Response findById(@PathParam("id") Long id){
-        Log.info("Buscando um endereco expecificado pelo id.");
+        Log.info("Buscando um endereco expecificado pelo id: "+id);
         return Response.ok(service.findById(id)).build();
     }
 
@@ -70,7 +67,7 @@ public class EnderecoResource {
     @Path("/search/nome/{nome}")
     @RolesAllowed({"User","Admin"})
     public Response findByNome(@PathParam("nome") String nome){
-        Log.info("Buscando um endereco expecificado pelo nome.");
+        Log.info("Buscando um endereco expecificado pelo nome: "+nome);
         return Response.ok(service.findByNome(nome)).build();
     }
 }

@@ -6,6 +6,7 @@ import org.eclipse.microprofile.jwt.JsonWebToken;
 
 import unitins.tp1.dto.usuario.UsuarioDTO;
 import unitins.tp1.dto.usuario.UsuarioResponseDTO;
+import unitins.tp1.dto.usuario.alterarLoginUsuarioDTO;
 import unitins.tp1.dto.usuario.alterarSenhaUsuarioDTO;
 import unitins.tp1.model.Perfil;
 import unitins.tp1.model.Usuario;
@@ -68,6 +69,19 @@ public class UsuarioServiceImpl implements UsuarioService {
         usuario.setSenha(hashService.getHashSenha(alterarSenhaUsuarioDTO.senha()));
         Log.info("Senha nova: "+ usuario.getSenha());
         Log.info("Senha alterada com sucesso!");
+        repository.persist(usuario);
+
+        return UsuarioResponseDTO.valueOf(usuario);
+    }
+
+    @Override
+    @Transactional
+    public UsuarioResponseDTO alterarLogin(alterarLoginUsuarioDTO alterarLoginUsuarioDTO, String login) {
+        Usuario usuario = repository.findByLogin(login);
+        Log.info("Login antigo: "+ usuario.getLogin());
+        usuario.setLogin(alterarLoginUsuarioDTO.login());
+        Log.info("Login novo: "+ usuario.getLogin());
+        Log.info("Login alterada com sucesso!");
         repository.persist(usuario);
 
         return UsuarioResponseDTO.valueOf(usuario);

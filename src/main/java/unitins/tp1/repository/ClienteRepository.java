@@ -12,12 +12,12 @@ public class ClienteRepository implements PanacheRepository<Cliente> {
         return find("UPPER(nome) LIKE UPPER(?1) ", "%" + nome + "%").list();
     }
 
-    public List<Cliente> findByCpf(String cpf) {
-        return find("UPPER(cpf) LIKE ?1", "%" + cpf.toUpperCase() + "%").list();
+    public Cliente findByCpf(String cpf) {
+        return find("UPPER(cpf) LIKE ?1", "%" + cpf.toUpperCase() + "%").firstResult();
     }
 
-    public Cliente validarCpf(String cpf) {
-        return find("UPPER(cpf) LIKE ?1", "%" + cpf.toUpperCase() + "%").firstResult();
+    public Cliente findByEmail(String email){
+        return find("UPPER(email) LIKE ?1", "%" + email.toUpperCase() + "%").firstResult();
     }
 
     public Cliente findByLoginAndSenha(String login, String senha) {

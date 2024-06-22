@@ -3,17 +3,15 @@ package unitins.tp1.dto.pedido;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import unitins.tp1.dto.cliente.ClienteResponseDTO;
+import unitins.tp1.dto.cliente.ClientePedidoDTO;
 import unitins.tp1.dto.itemPedido.ItemPedidoResponseDTO;
 import unitins.tp1.model.FormaDePagamento;
 import unitins.tp1.model.Pedido;
 import unitins.tp1.model.Status;
 
-
-
 public record PedidoResponseDTO(
         Long idPedido,
-        ClienteResponseDTO cliente,
+        ClientePedidoDTO cliente,
         LocalDateTime data,
         Double totalPedido,
         FormaDePagamento pagamento,
@@ -29,7 +27,7 @@ public record PedidoResponseDTO(
                                                                         .toList();
                 return new PedidoResponseDTO(
                         pedido.getId(), 
-                        ClienteResponseDTO.valueOf(pedido.getCliente()),
+                        ClientePedidoDTO.valueOf(pedido.getCliente()),
                         pedido.getDataHora(),
                         pedido.getTotalPedido(),
                         pedido.getFormaDePagamento(),

@@ -9,6 +9,7 @@ import jakarta.ws.rs.NotFoundException;
 import unitins.tp1.dto.endereco.EnderecoDTO;
 import unitins.tp1.dto.endereco.EnderecoResponseDTO;
 import unitins.tp1.model.Endereco;
+import unitins.tp1.repository.ClienteRepository;
 import unitins.tp1.repository.EnderecoRepository;
 
 @ApplicationScoped
@@ -17,23 +18,8 @@ public class EnderecoServiceImpl implements EnderecoService {
     @Inject
     EnderecoRepository repository;
 
-    @Override
-    @Transactional
-    public EnderecoResponseDTO insert(EnderecoDTO dto) {
-        Endereco novoEndereco = new Endereco();
-        novoEndereco.setNome(dto.nome());
-        novoEndereco.setEstado(dto.estado());
-        novoEndereco.setCidade(dto.cidade());
-        novoEndereco.setLogradouro(dto.logradouro());
-        novoEndereco.setNumero(dto.numero());
-        novoEndereco.setBairro(dto.bairro());
-        novoEndereco.setComplemento(dto.complemento());
-        novoEndereco.setCep(dto.cep());
-
-        repository.persist(novoEndereco);
-
-        return EnderecoResponseDTO.valueOf(novoEndereco);
-    }
+    @Inject
+    ClienteRepository clienteRepository;
 
     @Override
     @Transactional

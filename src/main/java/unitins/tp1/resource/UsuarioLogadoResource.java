@@ -10,6 +10,7 @@ import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import unitins.tp1.dto.usuario.alterarLoginUsuarioDTO;
 import unitins.tp1.dto.usuario.alterarSenhaUsuarioDTO;
 import unitins.tp1.service.usuario.UsuarioService;
 
@@ -27,7 +28,7 @@ public class UsuarioLogadoResource {
 
     @GET
     @RolesAllowed({ "User", "Admin" })
-    public Response getUsuario() {
+    public Response getMeuUsuario() {
 
         // Obtendo o login pelo token jwt
         String login = jwt.getSubject();
@@ -36,7 +37,7 @@ public class UsuarioLogadoResource {
         return Response.ok(usuarioService.findByLogin(login)).build();
     }
 
-     @Path("/usuariologado")
+    @Path("/usuariologado/alterarsenha")
     @PUT
     @RolesAllowed({"User", "Admin"})
     public Response putInfos(alterarSenhaUsuarioDTO senhaUsuarioDTO){
@@ -44,6 +45,17 @@ public class UsuarioLogadoResource {
         Log.info("Pegando o usuario logado string: " + login);
         Log.info("Alterando a senha do usuário logado");
         usuarioService.alterarSenha(senhaUsuarioDTO, login);
+        return Response.noContent().build();
+    }
+
+    @Path("/usuariologado/alterarlogin")
+    @PUT
+    @RolesAllowed({"User", "Admin"})
+    public Response putInfos(alterarLoginUsuarioDTO loginUsuarioDTO){
+        String login = jwt.getSubject();
+        Log.info("Pegando o usuario logado string: " + login);
+        Log.info("Alterando o login do usuário logado");
+        usuarioService.alterarLogin(loginUsuarioDTO, login);
         return Response.noContent().build();
     }
 

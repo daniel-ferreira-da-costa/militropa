@@ -30,7 +30,8 @@ public class ArmaResource {
     @POST
     @RolesAllowed({"Admin"})
     public ArmaResponseDTO insert(ArmaDTO dto) {
-        Log.info("Cadastrando uma arma.");
+        Log.info("Cadastrando uma arma." + dto.getNome());
+        Log.info(dto);
         return service.insert(dto);
     }
 
@@ -39,7 +40,7 @@ public class ArmaResource {
     @Path("/{id}")
     @RolesAllowed({"Admin"})
     public ArmaResponseDTO update(ArmaDTO dto, @PathParam("id") Long id) {
-        Log.info("Atualizando dados de uma arma.");
+        Log.info("Atualizando dados de uma arma." + dto.getNome());
         return service.update(dto, id);
     }
 
