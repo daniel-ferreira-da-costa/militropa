@@ -30,10 +30,8 @@ public class ArmaFileServiceImpl implements FileService {
 
     @Override
     public String salvar(String nomeArquivo, byte[] arquivo) throws IOException {
-        // Verificar o tamanho da imagem
         verificarTamanhoImagem(arquivo);
 
-        // Detectar o tipo MIME com base no conteúdo do arquivo
         String mimeType = detectarTipoMime(arquivo);
 
         if (mimeType == null || !SUPPORTED_MIME_TYPES.contains(mimeType)) {
@@ -51,7 +49,6 @@ public class ArmaFileServiceImpl implements FileService {
         // Definir o caminho completo do arquivo
         Path filePath = diretorio.resolve(novoNomeArquivo);
 
-        // Verificar se o arquivo já existe (mesmo sendo improvável com UUID)
         if (filePath.toFile().exists()) {
             throw new IOException("Nome de arquivo já existe. Tente novamente.");
         }
@@ -65,7 +62,6 @@ public class ArmaFileServiceImpl implements FileService {
     }
 
     private String detectarTipoMime(byte[] arquivo) throws IOException {
-        // Usar Apache Tika para detectar o tipo MIME baseado no conteúdo
         try (InputStream is = new ByteArrayInputStream(arquivo)) {
             Tika tika = new Tika();
             return tika.detect(is);
