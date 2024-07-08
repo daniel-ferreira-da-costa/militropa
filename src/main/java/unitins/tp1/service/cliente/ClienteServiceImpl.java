@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.eclipse.microprofile.jwt.JsonWebToken;
 
+import com.arjuna.ats.internal.jdbc.drivers.modifiers.list;
+
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
@@ -16,7 +18,6 @@ import unitins.tp1.dto.cliente.ClienteDTO;
 import unitins.tp1.dto.cliente.ClienteResponseDTO;
 import unitins.tp1.dto.endereco.EnderecoDTO;
 import unitins.tp1.dto.endereco.EnderecoResponseDTO;
-import unitins.tp1.dto.usuario.LoginDTO;
 import unitins.tp1.model.Cliente;
 import unitins.tp1.model.Usuario;
 import unitins.tp1.repository.EnderecoRepository;
@@ -180,6 +181,9 @@ public class ClienteServiceImpl implements ClienteService {
     @Transactional
     public EnderecoResponseDTO insetEndereco(EnderecoDTO dto, Long id) {
         Cliente cliente = clienteRepository.findById(id);
+        if (cliente == null) {
+            throw new ValidationException("cliente", "O Cliente " + cliente + " não encontrado, tente novamente.");
+        }
 
         Endereco novoEndereco = new Endereco();
         novoEndereco.setNome(dto.nome());
@@ -195,5 +199,15 @@ public class ClienteServiceImpl implements ClienteService {
         cliente.getListaEnderecos().add(novoEndereco);
 
         return EnderecoResponseDTO.valueOf(novoEndereco);
+    }
+
+    @Override
+    @Transactional
+    public String insetTelefone(String telefone, Long id) {
+        Cliente cliente = clienteRepository.findById(id);
+
+        cliente.getListaTelefones().add(telefone);
+
+        return telefone;
     }
 }

@@ -39,13 +39,6 @@ public class ClienteResource {
     @Inject
     JsonWebToken jwt;
 
-    @POST
-    public Response insert(@Valid ClienteDTO dto) {
-        Log.info("Inserindo um cliente."+dto.nome());
-        ClienteResponseDTO retorno = service.insert(dto);
-        return Response.status(201).entity(retorno).build();
-    }
-
     @PUT
     @Transactional
     @RolesAllowed({ "User"})
@@ -70,6 +63,20 @@ public class ClienteResource {
 
         Log.info("inserindo endereco: "+dto.nome()+" para: "+login);
         service.insetEndereco(dto, idCliente);
+
+        return Response.status(Status.NO_CONTENT).build();
+    }
+
+    @PATCH
+    @Transactional
+    @RolesAllowed({ "User"})
+    @Path("/insert-telefone")
+    public Response insertTelefone(String novoTelefone){
+        String login = jwt.getSubject();
+        Long idCliente = service.findByUsuario(login).id();
+
+        Log.info("inserindo Telefone: "+novoTelefone+" para: "+login);
+        service.insetTelefone(novoTelefone, idCliente);
 
         return Response.status(Status.NO_CONTENT).build();
     }

@@ -15,6 +15,7 @@ public interface ClienteService {
 
     public ClienteResponseDTO update(ClienteDTO dto, Long id);
     public EnderecoResponseDTO insetEndereco(EnderecoDTO dto, Long id);
+    public String insetTelefone(String telefone, Long id);
 
     public void delete(Long id);
 
