@@ -1,4 +1,4 @@
-@startuml Tabacaria
+@startuml Militropa
 '========Produto========='
 class Produto{
     - id: Long
