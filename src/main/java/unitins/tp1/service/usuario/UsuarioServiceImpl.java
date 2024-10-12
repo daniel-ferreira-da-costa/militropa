@@ -42,7 +42,7 @@ public class UsuarioServiceImpl implements UsuarioService {
         Usuario novoUsuario = new Usuario();
         novoUsuario.setLogin(dto.login());
         novoUsuario.setSenha(hashService.getHashSenha(dto.senha()));
-        novoUsuario.setPerfil(Perfil.valueOf(dto.idPerfil()));
+        novoUsuario.setPerfil(Perfil.valueOf(dto.perfil()));
 
             repository.persist(novoUsuario);
 

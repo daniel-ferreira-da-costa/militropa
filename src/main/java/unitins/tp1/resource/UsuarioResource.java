@@ -42,7 +42,7 @@ public class UsuarioResource {
     @PUT
     @Transactional
     @Path("/{id}")
-    @RolesAllowed({"User","Admin"})
+    //@RolesAllowed({"User","Admin"})
     public Response update(UsuarioDTO dto, @PathParam("id") Long id) {
         Log.info("Fazendo update de um usuario.");
         service.update(dto, id);
@@ -52,7 +52,7 @@ public class UsuarioResource {
     @DELETE
     @Transactional
     @Path("/{id}")
-    @RolesAllowed({"Admin"})
+    //@RolesAllowed({"Admin"})
     public Response delete(@PathParam("id") Long id) {
         Log.info("Deletando um usuario.");
         service.delete(id);
@@ -60,7 +60,7 @@ public class UsuarioResource {
     }
  
     @GET
-    @RolesAllowed({"Admin"})
+    //@RolesAllowed({"Admin"})
     public Response findAll() {
         Log.info("Busca de todos os usuarios");
         return Response.ok(service.findByAll()).build();
@@ -68,7 +68,7 @@ public class UsuarioResource {
 
     @GET
     @Path("/{id}")
-    @RolesAllowed({"Admin"})
+    //@RolesAllowed({"Admin"})
     public Response findById(@PathParam("id") Long id) {
         Log.info("Busca de um usuario especificado pelo id.");
        return Response.ok(service.findById(id)).build();
@@ -76,7 +76,7 @@ public class UsuarioResource {
     
     @GET
     @Path("/search/login/{login}")
-    @RolesAllowed({"Admin"})
+    //@RolesAllowed({"Admin"})
     public Response findByNome(@PathParam("login") String login) {
         Log.info("Busca de um usuario especificado pelo login.");
         return Response.ok(service.findByNome(login)).build();
@@ -84,7 +84,7 @@ public class UsuarioResource {
 
     @GET
     @Path("/my-user")
-    @RolesAllowed({"User","Admin"})
+    //@RolesAllowed({"User","Admin"})
     public Response findMyUser() {
         Log.info("Busca do proprio usuario.");
        return Response.ok(service.findMyUser()).build();

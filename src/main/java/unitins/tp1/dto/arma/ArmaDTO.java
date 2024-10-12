@@ -22,7 +22,7 @@ public class ArmaDTO extends ProdutoDTO {
     String comprimentoDoCano;
     @NotNull(message = "insira o 'capacidade de tiro' corretamente")
     int capacidadeDeTiro;
-    @NotBlank(message = "insira o 'nomero sigma' corretamente")
+    //@NotBlank(message = "insira o 'nomero sigma' corretamente")
     String numeroSigma;
     @NotBlank(message = "insira o 'numero da arma' corretamente")
     String numeroDaArma;
@@ -40,7 +40,7 @@ public class ArmaDTO extends ProdutoDTO {
             @NotBlank(message = "insira o 'calibre' corretamente") String calibre,
             @NotBlank(message = "insira o 'comprimento do cano' corretamente") String comprimentoDoCano,
             @NotNull(message = "insira o 'capacidade de tiro' corretamente") int capacidadeDeTiro,
-            @NotBlank(message = "insira o 'nomero sigma' corretamente") String numeroSigma,
+           // @NotBlank(message = "insira o 'nomero sigma' corretamente") String numeroSigma,
             @NotBlank(message = "insira o 'numero da arma' corretamente") String numeroDaArma,
             @NotBlank(message = "insira o 'modelo' corretamente") String modelo, String rna) {
         super(nome, qtdNoEstoque, preco, descricao);

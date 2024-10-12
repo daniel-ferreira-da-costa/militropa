@@ -41,7 +41,7 @@ public class ClienteResource {
 
     @PUT
     @Transactional
-    @RolesAllowed({ "User"})
+    //@RolesAllowed({ "User"})
     @Path("/{id}")
     //public Response update(ClienteDTO dto, @PathParam("id") Long id) {
     public Response update(ClienteDTO dto) {
@@ -55,7 +55,7 @@ public class ClienteResource {
 
     @PATCH
     @Transactional
-    @RolesAllowed({ "User"})
+    //@RolesAllowed({ "User"})
     @Path("/insert-endereco")
     public Response insertEndereco (EnderecoDTO dto){
         String login = jwt.getSubject();
@@ -69,7 +69,7 @@ public class ClienteResource {
 
     @PATCH
     @Transactional
-    @RolesAllowed({ "User"})
+    //@RolesAllowed({ "User"})
     @Path("/insert-telefone")
     public Response insertTelefone(String novoTelefone){
         String login = jwt.getSubject();
@@ -85,7 +85,7 @@ public class ClienteResource {
 
     @DELETE
     @Transactional
-    @RolesAllowed({ "Admin" })
+    //@RolesAllowed({ "Admin" })
     @Path("/{id}")
     public Response delete(@PathParam("id") Long id) {
         Log.info("Deletando um cliente."+ id);
@@ -94,14 +94,14 @@ public class ClienteResource {
     }
 
     @GET
-    @RolesAllowed({ "Admin" })
+    //@RolesAllowed({ "Admin" })
     public Response findAll() {
         Log.info("Buscando todos os clientes.");
         return Response.ok(service.findByAll()).build();
     }
 
     @GET
-    @RolesAllowed({ "Admin" })
+    //@RolesAllowed({ "Admin" })
     @Path("/{id}")
     public Response findById(@PathParam("id") Long id) {
         Log.info("Buscando um cliente expecificando o id."+ id);
@@ -109,7 +109,7 @@ public class ClienteResource {
     }
 
     @GET
-    @RolesAllowed({ "Admin" })
+    //@RolesAllowed({ "Admin" })
     @Path("/search/nome/{nome}")
     public Response findByNome(@PathParam("nome") String nome) {
         Log.info("Buscando um cliente expecificando o nome." + nome);
@@ -117,7 +117,7 @@ public class ClienteResource {
     }
 
     @GET
-    @RolesAllowed({"User", "Admin"})
+    //@RolesAllowed({"User", "Admin"})
     @Path("/dados-pessoais")
     public Response findByDadosPessoais(){
         String login = jwt.getSubject();
