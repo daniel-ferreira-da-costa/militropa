@@ -10,9 +10,9 @@ import unitins.tp1.model.Pedido;
 import unitins.tp1.model.Status;
 
 public record PedidoResponseDTO(
-        Long idPedido,
+        Long id,
         ClientePedidoDTO cliente,
-        LocalDateTime data,
+        LocalDateTime dataHora,
         Double totalPedido,
         FormaDePagamento pagamento,
         Status status,
