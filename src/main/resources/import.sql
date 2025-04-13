@@ -60,11 +60,11 @@ VALUES
     (30, 3500.00, 8, 8, 'FN SCAR', 'FNSCAR-007', '20"', 'Prateado', 'FN Herstal', 'Fuzil FN SCAR', 'Um fuzil de assalto moderno e versátil, utilizado por forças especiais em todo o mundo.', '5.56mm', 'FNS007', 'RN007'),
     (6, 1000.00, 18, 1, 'Smith & Wesson Model 637', 'SW637-008', '4"', 'Polido', 'Smith & Wesson', 'Revólver .38 Special', 'Um revólver compacto, ideal para uso como arma de backup ou defesa pessoal.', '.38 Special', 'SW002', 'RN008');
 
-INSERT INTO public.funcionario (
-    matricula, cpf, nome, email, listatelefones
-) VALUES
-    ('123456', '111.111.111-11', 'Daniel', 'daniel@example.com', '{123456789}'),
-    ('789012', '222.222.222-22', 'Jacare', 'jacare@example.com', '{987654321}');
+
+INSERT INTO funcionario (matricula, cpf, telefone, nome, email)
+VALUES
+    ('123456', '111.111.111-11', '123456789', 'Daniel', 'daniel@example.com'),
+    ('789012', '222.222.222-22', '987654321', 'Jacare', 'jacare@example.com');
 
 INSERT INTO usuario (perfil, login, senha)
 VALUES 
@@ -86,8 +86,11 @@ VALUES
     (1, 'cliente_aline', 'pzn74eUzJBP32jVsBmOpL50OTrZVgI9VBF7jKLXKKkAsGRfpqnaKblr696yAzh/1ALEyuVAkmOWVyXZzDGu+SQ=='),
 -- senha_cliente_fernanda
     (1, 'cliente_fernanda', 'GJT+Wolwvp3TaibJtfTCixQ6mXbWOH6Y5M3FWOYCN0Twh+kdjIn5wSD0eVKjqQbhdiue9w8mRPRgbquvOBp3fw=='),
--- senha_cliente_heitor
-    (1, 'cliente_heitor', 'bbkoG72xCIeM+5TONI15VERApwynQf256JHHvX6bkAve00r43+cXaOOVLBYk/Q3xnnjce/7/jsvSaTOHB8RadQ=='),
+-- senha_funcionario_daniel
+    (2, 'funcionario_daniel', 'gz92jkTcveMCL5phxX4m8vcDbE7IwdfMYLEbCFjsd55e89YZ8XlOte2oYZKk9l+UgIR94tyzIt1wyI22/K1sdg=='),
+-- senha_funcionario_jacare
+    (2, 'funcionario_jacare', '/1TvZJJL/8eyuJ8ktCm35K2ShjAQYM9dPzdDUwU8Fk2S5UMQlZ+AJI6ruk/VRwEB+6LISFzdAOVVQvhl0Owc3w=='),
+        (1, 'cliente_heitor', 'bbkoG72xCIeM+5TONI15VERApwynQf256JHHvX6bkAve00r43+cXaOOVLBYk/Q3xnnjce/7/jsvSaTOHB8RadQ=='),
 -- senha_cliente_henrique
     (1, 'cliente_henrique', 'VobPCVa6t0EWSzXmvjNz/1iyKtcnISau1orzafq2UZEflPtvY9IjE/XCSg4Eccw/ifM14KsdoqWy+ag1r0OWFg=='),
 -- senha_cliente_junin
@@ -99,9 +102,9 @@ VALUES
 -- senha_cliente_fernanda
     (1, 'cliente_fernanda', 'GJT+Wolwvp3TaibJtfTCixQ6mXbWOH6Y5M3FWOYCN0Twh+kdjIn5wSD0eVKjqQbhdiue9w8mRPRgbquvOBp3fw=='),
 -- senha_funcionario_daniel
-    (2, '123456', 'gz92jkTcveMCL5phxX4m8vcDbE7IwdfMYLEbCFjsd55e89YZ8XlOte2oYZKk9l+UgIR94tyzIt1wyI22/K1sdg=='),
+    (2, 'funcionario_daniel', 'gz92jkTcveMCL5phxX4m8vcDbE7IwdfMYLEbCFjsd55e89YZ8XlOte2oYZKk9l+UgIR94tyzIt1wyI22/K1sdg=='),
 -- senha_funcionario_jacare
-    (2, '789012', '/1TvZJJL/8eyuJ8ktCm35K2ShjAQYM9dPzdDUwU8Fk2S5UMQlZ+AJI6ruk/VRwEB+6LISFzdAOVVQvhl0Owc3w==');
+    (2, 'funcionario_jacare', '/1TvZJJL/8eyuJ8ktCm35K2ShjAQYM9dPzdDUwU8Fk2S5UMQlZ+AJI6ruk/VRwEB+6LISFzdAOVVQvhl0Owc3w==');
 
 
 INSERT INTO cliente_usuario (id_cliente, id_usuario)
@@ -128,9 +131,9 @@ VALUES
 INSERT INTO funcionario_usuario (id_funcionario, id_usuario)
 VALUES 
     -- Funcionário Daniel
-    (1, 16),
+    (1, 10),
     -- Funcionário Jacare
-    (2, 17);
+    (2, 11);
 
 INSERT INTO cliente_endereco (id_cliente, id_endereco)
 VALUES 
@@ -164,7 +167,9 @@ VALUES
     (9, 9),
     (9, 21);
 
-INSERT INTO funcionario_endereco (id_funcionario, id_endereco)
+INSERT INTO funcionario_endereco (id_endereco, id_funcionario)
 VALUES 
-    (1, 10),
-    (2, 11);
+    -- Funcionário Daniel
+    (10, 1),
+    -- Funcionário Jacare
+    (11, 2);

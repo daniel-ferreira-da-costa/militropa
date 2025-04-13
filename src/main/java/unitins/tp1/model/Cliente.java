@@ -35,16 +35,13 @@ public class Cliente extends DefaultEntity {
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinTable(
         name = "cliente_endereco",
-        joinColumns = @JoinColumn(name = "id_cliente"),
-        inverseJoinColumns = @JoinColumn(name = "id_endereco")
+         joinColumns = @JoinColumn(name = "id_cliente"),
+          inverseJoinColumns = @JoinColumn(name = "id_endereco")
     )
     private List<Endereco> listaEnderecos;
 
     @OneToOne
-    @JoinTable(
-        name = "cliente_usuario",
-        joinColumns = @JoinColumn(name = "id_usuario"),
-        inverseJoinColumns = @JoinColumn(name = "id_cliente")
-    )
+    @JoinTable(name = "cliente_usuario", joinColumns = @JoinColumn(name = "id_usuario"), inverseJoinColumns = @JoinColumn(name = "id_cliente"))
     private Usuario usuario;
+
 }

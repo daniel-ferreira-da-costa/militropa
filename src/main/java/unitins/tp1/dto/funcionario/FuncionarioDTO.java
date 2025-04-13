@@ -2,10 +2,6 @@ package unitins.tp1.dto.funcionario;
 
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
-import unitins.tp1.dto.endereco.EnderecoDTO;
-
-import java.util.List;
-
 import jakarta.validation.constraints.NotBlank;
 
 public record FuncionarioDTO(
@@ -17,12 +13,13 @@ public record FuncionarioDTO(
         @NotBlank(message = "O campo 'e-mail' não pode estar em branco")
         @Pattern(regexp = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$", message = "Email inválido")
         String email,
-        @NotNull(message = "O campo telefone não pode ficar em branco")
-        List<String> listaTelefones,
-        @NotNull(message = "O campo enderecos não pode ficar em branco")
-        List<EnderecoDTO> listaEnderecos,
+        @NotBlank(message = "O campo 'telefone' não pode estar em branco")
+        @Pattern(regexp = "(\\(?\\d{2}\\)?\\s?)?(\\d{4,5}-\\d{4})", message = "Telefone inválido")
+        String telefone,
+        @NotNull(message = "O campo 'endereço' não pode ser nulo")
+        Long idEndereco,
         @NotBlank(message = "O campo 'matrícula' não pode estar em branco")
         String matricula,
-        @NotNull(message = "O campo senha não pode ficar em branco")
-        String senha) {
+        @NotNull(message = "O campo 'usuário' não pode ser nulo")
+        Long idUsuario){
 }

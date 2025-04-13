@@ -21,6 +21,7 @@ import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.Response.Status;
 import unitins.tp1.dto.funcionario.FuncionarioDTO;
 import unitins.tp1.dto.funcionario.FuncionarioResponseDTO;
+import unitins.tp1.service.endereco.EnderecoServiceImpl;
 import unitins.tp1.service.funcionario.FuncionarioService;
 
 @Path("/funcionarios")    
@@ -29,7 +30,9 @@ import unitins.tp1.service.funcionario.FuncionarioService;
 public class FuncionarioResource {
     @Inject
     FuncionarioService service;
-
+    
+    @Inject
+    EnderecoServiceImpl enderecoImpl;
 
     private static final Logger LOG = Logger.getLogger(FuncionarioResource.class);
 
@@ -67,8 +70,8 @@ public class FuncionarioResource {
     @Path("/search/matricula/{matricula}")
     public Response findByMatricula(@PathParam("matricula") String matricula) {
         LOG.info("Buscando um funcionario expecifiando a matricula.");
-        FuncionarioResponseDTO Funcionario = service.findByMatricula(matricula);
-        return Response.ok(Funcionario).build();
+        List<FuncionarioResponseDTO> Funcionarios = service.findByMatricula(matricula);
+        return Response.ok(Funcionarios).build();
     }
 
 

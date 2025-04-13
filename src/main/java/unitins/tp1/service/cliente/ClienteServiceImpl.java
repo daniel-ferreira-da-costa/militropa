@@ -5,10 +5,13 @@ import java.util.List;
 
 import org.eclipse.microprofile.jwt.JsonWebToken;
 
+import com.arjuna.ats.internal.jdbc.drivers.modifiers.list;
+
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.NotFoundException;
+import jakarta.ws.rs.PATCH;
 import unitins.tp1.model.Endereco;
 import unitins.tp1.model.Perfil;
 import unitins.tp1.dto.cliente.ClienteDTO;
@@ -20,6 +23,7 @@ import unitins.tp1.model.Usuario;
 import unitins.tp1.repository.EnderecoRepository;
 import unitins.tp1.repository.ClienteRepository;
 import unitins.tp1.repository.UsuarioRepository;
+import unitins.tp1.service.endereco.EnderecoService;
 import unitins.tp1.service.hash.HashService;
 import unitins.tp1.validation.ValidationException;
 import io.quarkus.security.identity.SecurityIdentity;
@@ -194,7 +198,6 @@ public class ClienteServiceImpl implements ClienteService {
         enderecoRepository.persist(novoEndereco);
 
         cliente.getListaEnderecos().add(novoEndereco);
-        clienteRepository.persist(cliente);
 
         return EnderecoResponseDTO.valueOf(novoEndereco);
     }
@@ -203,14 +206,8 @@ public class ClienteServiceImpl implements ClienteService {
     @Transactional
     public String insetTelefone(String telefone, Long id) {
         Cliente cliente = clienteRepository.findById(id);
-        if(cliente == null) {
-            throw new ValidationException("cliente", "O Cliente " + cliente + " não encontrado, tente novamente.");
-        }
-        if (cliente.getListaTelefones() == null) {
-            cliente.setListaTelefones(new ArrayList<>());
-        }
+
         cliente.getListaTelefones().add(telefone);
-        clienteRepository.persist(cliente);
 
         return telefone;
     }
