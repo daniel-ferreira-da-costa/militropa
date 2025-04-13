@@ -46,10 +46,10 @@ public class PedidoResource {
     //@RolesAllowed({ "User"})
     public Response insert(@Valid PedidoDTO dto) {
         LOG.info("Executando criação de pedido");
-        String login = jwt.getSubject();
-        Long idCliente = clienteService.findByUsuario(login).id();
+        //String login = jwt.getSubject();
+        //Long idCliente = clienteService.findByUsuario(login).id();
 
-        return Response.status(Status.CREATED).entity(pedidoService.insert(dto, idCliente)).build();
+        return Response.status(Status.CREATED).entity(pedidoService.insert(dto)).build();
     }
 
     @GET

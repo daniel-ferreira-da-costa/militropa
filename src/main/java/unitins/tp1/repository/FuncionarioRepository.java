@@ -12,7 +12,15 @@ public class FuncionarioRepository implements PanacheRepository<Funcionario> {
         return find("UPPER(nome) LIKE UPPER(?1) ", "%" + nome + "%").list();
     }
 
-    public List<Funcionario> findByMatricula(String matricula) {
-        return find("UPPER(matricula) LIKE UPPER(?1) ", "%" + matricula + "%").list();
+    public Funcionario findByMatricula(String matricula) {
+        return find("UPPER(matricula) LIKE UPPER(?1) ", "%" + matricula + "%").firstResult();
+    }
+
+    public Funcionario findByCpf(String cpf) {
+        return find("UPPER(cpf) LIKE UPPER(?1) ", "%" + cpf + "%").firstResult();
+    }
+
+    public Funcionario findByEmail(String email) {
+        return find("UPPER(email) LIKE UPPER(?1) ", "%" + email + "%").firstResult();
     }
 }
