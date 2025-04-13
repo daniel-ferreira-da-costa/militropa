@@ -34,9 +34,4 @@ public enum TipoArma {
         throw new IllegalArgumentException("Nenhum TipoArma encontrado com o ID: " + id);
     }
 
-    @Override
-    public String toString() {
-        return "TipoArma{id=" + id + ", label='" + label + "'}";
-    }
-
 }

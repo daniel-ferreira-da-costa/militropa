@@ -23,7 +23,6 @@ import unitins.tp1.model.Usuario;
 import unitins.tp1.repository.EnderecoRepository;
 import unitins.tp1.repository.ClienteRepository;
 import unitins.tp1.repository.UsuarioRepository;
-import unitins.tp1.service.endereco.EnderecoService;
 import unitins.tp1.service.hash.HashService;
 import unitins.tp1.validation.ValidationException;
 import io.quarkus.security.identity.SecurityIdentity;

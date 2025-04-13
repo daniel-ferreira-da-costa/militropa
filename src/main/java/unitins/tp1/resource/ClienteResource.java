@@ -39,13 +39,6 @@ public class ClienteResource {
     @Inject
     JsonWebToken jwt;
 
-    @POST
-    public Response insert(@Valid ClienteDTO dto) {
-        Log.info("Inserindo um cliente."+dto.login());
-        ClienteResponseDTO retorno = service.insert(dto);
-        return Response.status(201).entity(retorno).build();
-    }
-
     @PUT
     @Transactional
     //@RolesAllowed({ "User"})

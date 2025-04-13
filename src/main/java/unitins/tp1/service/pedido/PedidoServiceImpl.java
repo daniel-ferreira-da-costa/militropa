@@ -46,10 +46,10 @@ public class PedidoServiceImpl implements PedidoService {
 
     @Override
     @Transactional
-    public PedidoResponseDTO insert(@Valid PedidoDTO dto) {
+    public PedidoResponseDTO insert(@Valid PedidoDTO dto, Long idCliente) {
 
         Pedido pedido = new Pedido();
-        Cliente cliente = clienteRepository.findById(dto.idCliente().longValue());
+        Cliente cliente = clienteRepository.findById(idCliente);
 
         pedido.setDataHora(LocalDateTime.now());
         pedido.setCliente(cliente);
