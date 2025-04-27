@@ -22,6 +22,7 @@ import unitins.tp1.repository.ClienteRepository;
 import unitins.tp1.repository.UsuarioRepository;
 import unitins.tp1.service.hash.HashService;
 import unitins.tp1.validation.ValidationException;
+import io.quarkus.logging.Log;
 import io.quarkus.security.identity.SecurityIdentity;
 
 @ApplicationScoped
@@ -48,6 +49,9 @@ public class ClienteServiceImpl implements ClienteService {
     @Override
     @Transactional
     public ClienteResponseDTO insert(ClienteDTO dto) {
+        if (dto == null) {
+            throw new ValidationException("Cliente", "Dados inválidos");
+        }
         validarEmailCliente(dto.email());
         validarCpfCliente(dto.cpf());
         validarLoginCliente(dto.login());
@@ -57,6 +61,7 @@ public class ClienteServiceImpl implements ClienteService {
         novoCliente.setCpf(dto.cpf());
         novoCliente.setEmail(dto.email());
         novoCliente.setNumeroRegistro_posse_porte(dto.numeroRegistro_posse_porte());
+        
         if (dto.listaEnderecos() != null &&
                 !dto.listaEnderecos().isEmpty()) {
             novoCliente.setListaEnderecos(new ArrayList<Endereco>());
@@ -67,6 +72,7 @@ public class ClienteServiceImpl implements ClienteService {
                 endereco.setNumero(end.numero());
                 endereco.setBairro(end.bairro());
                 endereco.setComplemento(end.complemento());
+                endereco.setCep(end.cep());
                 endereco.setCidade(end.cidade());
                 endereco.setEstado(end.estado());
                 novoCliente.getListaEnderecos().add(endereco);
@@ -213,5 +219,5 @@ public class ClienteServiceImpl implements ClienteService {
         clienteRepository.persist(cliente);
 
         return telefone;
-    }
+    }   
 }

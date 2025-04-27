@@ -22,6 +22,7 @@ import jakarta.ws.rs.core.Response.Status;
 import unitins.tp1.dto.cliente.ClienteDTO;
 import unitins.tp1.dto.cliente.ClienteResponseDTO;
 import unitins.tp1.dto.endereco.EnderecoDTO;
+import unitins.tp1.model.Cliente;
 import unitins.tp1.service.cliente.ClienteService;
 import unitins.tp1.service.endereco.EnderecoServiceImpl;
 
@@ -124,11 +125,9 @@ public class ClienteResource {
     }
 
     @GET
-    //@RolesAllowed({"User", "Admin"})
-    @Path("/dados-pessoais")
-    public Response findByDadosPessoais(){
-        String login = jwt.getSubject();
-        Log.info(login+" Verificando os dados pessoais."  );
+    @Path("/search/cliente/{login}")
+    public Response findByLogin(@PathParam("login") String login) {
+        Log.info("Buscando um cliente expecificando o login." + login);
         return Response.ok(service.findByUsuario(login)).build();
     }
 }

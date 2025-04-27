@@ -1,12 +1,12 @@
 package unitins.tp1.dto.funcionario;
 
+import java.util.List;
+
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import unitins.tp1.dto.endereco.EnderecoDTO;
 
-import java.util.List;
-
-import jakarta.validation.constraints.NotBlank;
 
 public record FuncionarioDTO(
         @NotBlank(message = "O campo nome não pode ficar em branco") 

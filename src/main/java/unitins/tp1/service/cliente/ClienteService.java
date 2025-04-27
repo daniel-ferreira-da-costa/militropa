@@ -25,6 +25,6 @@ public interface ClienteService {
 
     public List<ClienteResponseDTO> findByNome(String nome);
 
-    public List<ClienteResponseDTO> findByAll(); 
+    public List<ClienteResponseDTO> findByAll();
 
 }

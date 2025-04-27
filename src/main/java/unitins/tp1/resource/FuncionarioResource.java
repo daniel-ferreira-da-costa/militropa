@@ -46,7 +46,7 @@ public class FuncionarioResource {
     //@RolesAllowed({"Admin"})
     @Path("/{id}")
     public Response update (FuncionarioDTO dto, @PathParam("id") Long id) {
-        LOG.info("Atulizando um funcionario");
+        LOG.info("Atualizando um funcionario: " + service.findById(id).nome());
         service.update(dto, id);
         return Response.status(Status.NO_CONTENT).build();
     }
@@ -56,7 +56,7 @@ public class FuncionarioResource {
     //@RolesAllowed({"Admin"})
     @Path("/{id}")
     public Response delete(@PathParam("id") Long id){
-        LOG.info("Deletando um funcionario");
+        LOG.info("Deletando um funcionario: " + service.findById(id).nome());
         service.delete(id);
         return Response.status(Status.NO_CONTENT).build();
     }

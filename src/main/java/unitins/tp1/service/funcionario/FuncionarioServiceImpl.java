@@ -51,8 +51,7 @@ public class FuncionarioServiceImpl implements FuncionarioService {
         if (dto == null) {
             throw new ValidationException("Dados inválidos");
         }
-        validarEmail(dto.email());
-        validarCpf(dto.cpf());
+
         validarMatricula(dto.matricula());
 
         Funcionario novoFuncionario = new Funcionario();
@@ -60,29 +59,31 @@ public class FuncionarioServiceImpl implements FuncionarioService {
         novoFuncionario.setCpf(dto.cpf());
         novoFuncionario.setEmail(dto.email());
         novoFuncionario.setMatricula(dto.matricula());
+        
+        if (dto.listaEnderecos() != null &&
+                !dto.listaEnderecos().isEmpty()) {
+            novoFuncionario.setListaEnderecos(new ArrayList<Endereco>());
+            for (EnderecoDTO end : dto.listaEnderecos()) {
+                Endereco endereco = new Endereco();
+                endereco.setNome(end.nome());
+                endereco.setLogradouro(end.logradouro());
+                endereco.setNumero(end.numero());
+                endereco.setBairro(end.bairro());
+                endereco.setComplemento(end.complemento());
+                endereco.setCep(end.cep());
+                endereco.setCidade(end.cidade());
+                endereco.setEstado(end.estado());
+                novoFuncionario.getListaEnderecos().add(endereco);
+            }
+        }
+
         if (dto.listaTelefones() != null &&
                 !dto.listaTelefones().isEmpty()) {
             novoFuncionario.setListaTelefones(new ArrayList<String>());
             for (String telefone : dto.listaTelefones()) {
                 novoFuncionario.getListaTelefones().add(telefone);
             }
-
-            if (dto.listaEnderecos() != null &&
-                    !dto.listaEnderecos().isEmpty()) {
-                novoFuncionario.setListaEnderecos(new ArrayList<Endereco>());
-                for (EnderecoDTO end : dto.listaEnderecos()) {
-                    Endereco endereco = new Endereco();
-                    endereco.setNome(end.nome());
-                    endereco.setLogradouro(end.logradouro());
-                    endereco.setNumero(end.numero());
-                    endereco.setBairro(end.bairro());
-                    endereco.setComplemento(end.complemento());
-                    endereco.setCep(end.cep());
-                    endereco.setCidade(end.cidade());
-                    endereco.setEstado(end.estado());
-                    novoFuncionario.getListaEnderecos().add(endereco);
-                }
-            }
+        }
 
             Usuario usuario = new Usuario();
             usuario.setLogin(dto.matricula());
@@ -94,7 +95,6 @@ public class FuncionarioServiceImpl implements FuncionarioService {
 
             repository.persist(novoFuncionario);
 
-        }
         return FuncionarioResponseDTO.valueOf(novoFuncionario);
     }
 

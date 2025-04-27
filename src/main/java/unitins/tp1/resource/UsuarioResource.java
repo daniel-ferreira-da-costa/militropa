@@ -1,8 +1,13 @@
 package unitins.tp1.resource;
 
 
+import unitins.tp1.dto.cliente.ClienteResponseDTO;
 import unitins.tp1.dto.usuario.UsuarioDTO;
+import unitins.tp1.dto.usuario.alterarLoginUsuarioDTO;
+import unitins.tp1.dto.usuario.alterarSenhaUsuarioDTO;
+import unitins.tp1.model.Cliente;
 import unitins.tp1.service.usuario.UsuarioService;
+import unitins.tp1.validation.ValidationException;
 
 import org.eclipse.microprofile.jwt.JsonWebToken;
 
@@ -13,6 +18,7 @@ import jakarta.transaction.Transactional;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
+import jakarta.ws.rs.PATCH;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Path;
@@ -82,11 +88,39 @@ public class UsuarioResource {
         return Response.ok(service.findByNome(login)).build();
     }
 
+    //========== Utilizando o token: =============
     @GET
     @Path("/my-user")
-    //@RolesAllowed({"User","Admin"})
+    @RolesAllowed({"User","Admin"})
     public Response findMyUser() {
-        Log.info("Busca do proprio usuario.");
-       return Response.ok(service.findMyUser()).build();
+        String login = jwt.getSubject();
+        Log.info("Busca do proprio usuario: " + login);
+        return Response.ok(service.findByLogin(login)).build();
     }
+
+    @Path("/alterarsenha")
+    @PATCH
+    @Transactional
+    @RolesAllowed({"User", "Admin"})
+    public Response putInfos(alterarSenhaUsuarioDTO senhaUsuarioDTO){
+        String login = jwt.getSubject();
+        Log.info("Pegando o usuario logado string: " + login);
+        Log.info("Alterando a senha do usuário logado");
+        service.alterarSenha(senhaUsuarioDTO, login);
+        return Response.noContent().build();
+    }
+
+    @Path("/alterarlogin")
+    @PATCH
+    @Transactional
+    @RolesAllowed({"User"})
+    public Response putInfos(alterarLoginUsuarioDTO loginUsuarioDTO){
+        String login = jwt.getSubject();
+        Log.info("Pegando o usuario logado string: " + login);
+        Log.info("Alterando o login do usuário logado");
+        service.alterarLogin(loginUsuarioDTO, login);
+        return Response.noContent().build();
+    }
+
+
 }

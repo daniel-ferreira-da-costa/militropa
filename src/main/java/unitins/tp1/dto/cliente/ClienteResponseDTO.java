@@ -28,6 +28,5 @@ public record ClienteResponseDTO(
                 cliente.getListaEnderecos().stream()
                         .map(e -> EnderecoResponseDTO.valueOf(e)).toList(),
                 UsuarioResponseDTO.valueOf(cliente.getUsuario()));
-
     }
 }
