@@ -43,17 +43,14 @@ public class PedidoResource {
     ClienteService clienteService;
 
     @POST
-    //@RolesAllowed({ "User"})
+    @RolesAllowed({ "User"})
     public Response insert(@Valid PedidoDTO dto) {
         LOG.info("Executando criação de pedido");
-        //String login = jwt.getSubject();
-        //Long idCliente = clienteService.findByUsuario(login).id();
-
         return Response.status(Status.CREATED).entity(pedidoService.insert(dto)).build();
     }
 
     @GET
-    //@RolesAllowed({ "User", "Admin" })
+    @RolesAllowed({ "User", "Admin" })
     public Response findAll() {
         LOG.info("Executando FindAll");
         return Response.ok(pedidoService.findAll()).build();
@@ -61,7 +58,7 @@ public class PedidoResource {
 
     @GET
     @Path("/{id}")
-    //@RolesAllowed({"Admin" })
+    @RolesAllowed({"Admin" })
     public Response findById(@PathParam("id") Long id) {
         LOG.infof("Executando o findById");
         return Response.ok(pedidoService.findById(id)).build();
@@ -69,14 +66,14 @@ public class PedidoResource {
 
     @GET
     @Path("/search/cliente/{id}")
-    //@RolesAllowed({ "User", "Admin" })
+    @RolesAllowed({ "User", "Admin" })
     public Response findByCliente(@PathParam("id") Long idCliente) {
         return Response.ok(pedidoService.findByCliente(idCliente)).build();
     }
 
     @PATCH
     @Path("/alterarStatusPagamento/{idPedido}")
-    //@RolesAllowed({ "User" })
+    @RolesAllowed({ "User" })
     public Response alterarStatusPagamento(@PathParam("idPedido") Long idPedido) {
         LOG.info("Executando alteração de status de pagamento");
         pedidoService.alterarStatusPagamento(idPedido);
@@ -85,7 +82,7 @@ public class PedidoResource {
 
     @GET
     @Path("/meusPedidos")
-    //@RolesAllowed({"User"})
+    @RolesAllowed({"User"})
     public Response meusPedidos(){
         LOG.info("Executando o método meusPedidos() de pedido. ");
         try {

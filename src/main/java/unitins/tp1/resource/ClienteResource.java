@@ -41,6 +41,7 @@ public class ClienteResource {
     JsonWebToken jwt;
 
     @POST
+    @RolesAllowed({ "Admin"})
     public Response insert(@Valid ClienteDTO dto) {
         Log.info("Inserindo um cliente."+dto.login());
         ClienteResponseDTO retorno = service.insert(dto);
@@ -49,9 +50,62 @@ public class ClienteResource {
 
     @PUT
     @Transactional
-    //@RolesAllowed({ "User"})
+    @RolesAllowed({ "Admin"})
     @Path("/{id}")
-    //public Response update(ClienteDTO dto, @PathParam("id") Long id) {
+    public Response update(ClienteDTO dto, @PathParam("id") Long id) {
+        Long idCliente = service.findById(id).id();
+   
+        Log.info("Atualizando dados de um cliente."+dto.nome());
+        service.update(dto, idCliente);
+        return Response.status(Status.NO_CONTENT).build();
+    }
+
+    @DELETE
+    @Transactional
+    @RolesAllowed({ "Admin" })
+    @Path("/{id}")
+    public Response delete(@PathParam("id") Long id) {
+        Log.info("Deletando um cliente."+ id);
+        service.delete(id);
+        return Response.status(Status.NO_CONTENT).build();
+    }
+
+    @GET
+    @RolesAllowed({ "Admin" })
+    public Response findAll() {
+        Log.info("Buscando todos os clientes.");
+        return Response.ok(service.findByAll()).build();
+    }
+
+    @GET
+    @RolesAllowed({ "Admin" })
+    @Path("/{id}")
+    public Response findById(@PathParam("id") Long id) {
+        Log.info("Buscando um cliente expecificando o id."+ id);
+        return Response.ok(service.findById(id)).build();
+    }
+
+    @GET
+    @RolesAllowed({ "Admin" })
+    @Path("/search/nome/{nome}")
+    public Response findByNome(@PathParam("nome") String nome) {
+        Log.info("Buscando um cliente expecificando o nome." + nome);
+        return Response.ok(service.findByNome(nome)).build();
+    }
+
+    @GET
+    @RolesAllowed({ "Admin" })
+    @Path("/search/cliente/{login}")
+    public Response findByLogin(@PathParam("login") String login) {
+        Log.info("Buscando um cliente expecificando o login." + login);
+        return Response.ok(service.findByUsuario(login)).build();
+    }
+
+    //usando token
+    @PUT
+    @Transactional
+    @RolesAllowed({ "User"})
+    @Path("/{id}")
     public Response update(ClienteDTO dto) {
         String login = jwt.getSubject();
         Long idCliente = service.findByUsuario(login).id();
@@ -63,7 +117,7 @@ public class ClienteResource {
 
     @PATCH
     @Transactional
-    //@RolesAllowed({ "User"})
+    @RolesAllowed({ "User"})
     @Path("/insert-endereco")
     public Response insertEndereco (EnderecoDTO dto){
         String login = jwt.getSubject();
@@ -75,9 +129,9 @@ public class ClienteResource {
         return Response.status(Status.NO_CONTENT).build();
     }
 
-    @PATCH
+        @PATCH
     @Transactional
-    //@RolesAllowed({ "User"})
+    @RolesAllowed({ "User"})
     @Path("/insert-telefone")
     public Response insertTelefone(String novoTelefone){
         String login = jwt.getSubject();
@@ -87,47 +141,5 @@ public class ClienteResource {
         service.insetTelefone(novoTelefone, idCliente);
 
         return Response.status(Status.NO_CONTENT).build();
-    }
-
-
-
-    @DELETE
-    @Transactional
-    //@RolesAllowed({ "Admin" })
-    @Path("/{id}")
-    public Response delete(@PathParam("id") Long id) {
-        Log.info("Deletando um cliente."+ id);
-        service.delete(id);
-        return Response.status(Status.NO_CONTENT).build();
-    }
-
-    @GET
-    //@RolesAllowed({ "Admin" })
-    public Response findAll() {
-        Log.info("Buscando todos os clientes.");
-        return Response.ok(service.findByAll()).build();
-    }
-
-    @GET
-    //@RolesAllowed({ "Admin" })
-    @Path("/{id}")
-    public Response findById(@PathParam("id") Long id) {
-        Log.info("Buscando um cliente expecificando o id."+ id);
-        return Response.ok(service.findById(id)).build();
-    }
-
-    @GET
-    //@RolesAllowed({ "Admin" })
-    @Path("/search/nome/{nome}")
-    public Response findByNome(@PathParam("nome") String nome) {
-        Log.info("Buscando um cliente expecificando o nome." + nome);
-        return Response.ok(service.findByNome(nome)).build();
-    }
-
-    @GET
-    @Path("/search/cliente/{login}")
-    public Response findByLogin(@PathParam("login") String login) {
-        Log.info("Buscando um cliente expecificando o login." + login);
-        return Response.ok(service.findByUsuario(login)).build();
     }
 }

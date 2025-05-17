@@ -34,7 +34,7 @@ public class FuncionarioResource {
     private static final Logger LOG = Logger.getLogger(FuncionarioResource.class);
 
     @POST
-    //@RolesAllowed({"Admin"})
+    @RolesAllowed({"Admin"})
     public Response insert(@Valid FuncionarioDTO dto){
         LOG.info("Cadastrando um funcionario");
         FuncionarioResponseDTO retorno = service.insert(dto);
@@ -43,7 +43,7 @@ public class FuncionarioResource {
 
     @PUT
     @Transactional
-    //@RolesAllowed({"Admin"})
+    @RolesAllowed({"Admin"})
     @Path("/{id}")
     public Response update (FuncionarioDTO dto, @PathParam("id") Long id) {
         LOG.info("Atualizando um funcionario: " + service.findById(id).nome());
@@ -53,7 +53,7 @@ public class FuncionarioResource {
 
     @DELETE
     @Transactional
-    //@RolesAllowed({"Admin"})
+    @RolesAllowed({"Admin"})
     @Path("/{id}")
     public Response delete(@PathParam("id") Long id){
         LOG.info("Deletando um funcionario: " + service.findById(id).nome());
@@ -63,7 +63,7 @@ public class FuncionarioResource {
 
 
     @GET
-    //@RolesAllowed({"Admin"})
+    @RolesAllowed({"Admin"})
     @Path("/search/matricula/{matricula}")
     public Response findByMatricula(@PathParam("matricula") String matricula) {
         LOG.info("Buscando um funcionario expecifiando a matricula.");
@@ -73,14 +73,14 @@ public class FuncionarioResource {
 
 
     @GET
-    //@RolesAllowed({"Admin"})
+    @RolesAllowed({"Admin"})
     public Response findAll(){
         LOG.info("Buscando todos os funcionarios cadastrados.");
         return Response.ok(service.findByAll()).build();
     }
 
     @GET
-    //@RolesAllowed({"Admin"})
+    @RolesAllowed({"Admin"})
     @Path("/{id}")
     public Response findById(@PathParam("id") Long id){
         LOG.info("Buscando um funcionario expecifiando o id.");
@@ -88,7 +88,7 @@ public class FuncionarioResource {
     }
 
     @GET
-    //@RolesAllowed({"Admin"})
+    @RolesAllowed({"Admin"})
     @Path("/search/nome/{nome}")
     public Response findByNome(@PathParam("nome") String nome){
         LOG.info("Buscando um funcionario expecifiando o nome.");

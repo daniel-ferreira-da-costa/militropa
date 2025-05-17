@@ -47,6 +47,15 @@ public class PedidoServiceImpl implements PedidoService {
     @Override
     @Transactional
     public PedidoResponseDTO insert(@Valid PedidoDTO dto) {
+        if (dto == null) {
+            throw new ValidationException("Pedido", "Pedido não pode ser nulo");
+        }
+        if (dto.itens() == null || dto.itens().isEmpty()) {
+            throw new ValidationException("Pedido", "Pedido deve ter pelo menos um item");
+        }
+        if (dto.idFormaDePagamento() == null) {
+            throw new ValidationException("Pedido", "Forma de pagamento não pode ser nulo");
+        }
 
         Pedido pedido = new Pedido();
         Cliente cliente = clienteRepository.findById(dto.idCliente().longValue());
