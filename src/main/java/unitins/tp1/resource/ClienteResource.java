@@ -105,7 +105,7 @@ public class ClienteResource {
     @PUT
     @Transactional
     @RolesAllowed({ "User"})
-    @Path("/{id}")
+    @Path("/me")
     public Response update(ClienteDTO dto) {
         String login = jwt.getSubject();
         Long idCliente = service.findByUsuario(login).id();
