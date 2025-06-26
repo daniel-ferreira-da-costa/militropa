@@ -27,13 +27,13 @@ public class CadastroClienteResourceTest {
                 new EnderecoDTO("Trabalho", "Av B", "200", "Sala 10",
                         "Bairro W", "87654-321", "Cidade V", "Estado U"));
         ClienteDTO dto = new ClienteDTO(
-                "José da Silva",
+                "Soelicy Dias",
                 "123.456.789-10",
-                "jose.silva@example.com",
+                "soelicy.dias@example.com",
                 "REG-1234",
                 telefones,
                 enderecos,
-                "josesilva",
+                "soelicydias",
                 "minhaSenha123");
 
         given()
@@ -46,14 +46,14 @@ public class CadastroClienteResourceTest {
                 .contentType(ContentType.JSON)
                 .body(
                         "id", notNullValue(),
-                        "nome", is("José da Silva"),
+                        "nome", is("Soelicy Dias"),
                         "cpf", is("123.456.789-10"),
-                        "email", is("jose.silva@example.com"),
+                        "email", is("soelicy.dias@example.com"),
                         "numeroRegistro_posse_porte", is("REG-1234"),
                         "listaTelefones", hasSize(2),
                         "listaTelefones", hasItems("11111111", "22222222"),
                         "enderecos", hasSize(2),
-                        "usuario.login", is("josesilva"),
+                        "usuario.login", is("soelicydias"),
                         "usuario.perfil.id", is(1),
                         "usuario.perfil.label", is("User"));
     }
