@@ -22,6 +22,7 @@ public class EnderecoServiceImpl implements EnderecoService {
     ClienteRepository clienteRepository;
 
     @Override
+    @Transactional
     public EnderecoResponseDTO insert(EnderecoDTO dto) {
         Endereco novoEndereco = new Endereco();
         novoEndereco.setNome(dto.nome());
@@ -64,7 +65,11 @@ public class EnderecoServiceImpl implements EnderecoService {
 
     @Override
     public EnderecoResponseDTO findById(Long id) {
-        return EnderecoResponseDTO.valueOf(repository.findById(id));
+        Endereco e = repository.findById(id);
+        if (e == null) {
+            throw new NotFoundException("Endereço não encontrado: " + id);
+        }
+        return EnderecoResponseDTO.valueOf(e);
     }
 
     @Override
