@@ -59,7 +59,7 @@ public class FuncionarioServiceImpl implements FuncionarioService {
         novoFuncionario.setCpf(dto.cpf());
         novoFuncionario.setEmail(dto.email());
         novoFuncionario.setMatricula(dto.matricula());
-        
+
         if (dto.listaEnderecos() != null &&
                 !dto.listaEnderecos().isEmpty()) {
             novoFuncionario.setListaEnderecos(new ArrayList<Endereco>());
@@ -85,15 +85,15 @@ public class FuncionarioServiceImpl implements FuncionarioService {
             }
         }
 
-            Usuario usuario = new Usuario();
-            usuario.setLogin(dto.matricula());
-            usuario.setSenha(hashService.getHashSenha(dto.senha()));
-            usuario.setPerfil(Perfil.ADMIN);
+        Usuario usuario = new Usuario();
+        usuario.setLogin(dto.matricula());
+        usuario.setSenha(hashService.getHashSenha(dto.senha()));
+        usuario.setPerfil(Perfil.ADMIN);
 
-            usuarioRepository.persist(usuario);
-            novoFuncionario.setUsuario(usuario);
+        usuarioRepository.persist(usuario);
+        novoFuncionario.setUsuario(usuario);
 
-            repository.persist(novoFuncionario);
+        repository.persist(novoFuncionario);
 
         return FuncionarioResponseDTO.valueOf(novoFuncionario);
     }
@@ -134,11 +134,14 @@ public class FuncionarioServiceImpl implements FuncionarioService {
     @Transactional
     public void delete(Long id) {
         if (!repository.deleteById(id))
-            throw new NotFoundException();
+            throw new NotFoundException("Funcionário não encontrado: " + id);
     }
 
     @Override
     public FuncionarioResponseDTO findById(Long id) {
+        if (repository.findById(id) == null) {
+            throw new NotFoundException("Funcionário não encontrado: " + id);
+        }
         return FuncionarioResponseDTO.valueOf(repository.findById(id));
     }
 
@@ -209,11 +212,10 @@ public class FuncionarioServiceImpl implements FuncionarioService {
         novoEndereco.setCep(dto.cep());
         enderecoRepository.persist(novoEndereco);
 
-
         funcionario.getListaEnderecos().add(novoEndereco);
         enderecoRepository.persist(novoEndereco);
 
-        return EnderecoResponseDTO.valueOf(novoEndereco);    
+        return EnderecoResponseDTO.valueOf(novoEndereco);
     }
 
     @Override
