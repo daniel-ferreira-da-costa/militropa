@@ -143,19 +143,6 @@ militropa/
 └── README.md
 ```
 
-## 🛣️ Roadmap
-
-- [ ] Implementar sistema de notificações por email
-- [ ] Adicionar relatórios em PDF de vendas e estoque
-- [ ] Criar dashboard administrativo
-- [ ] Implementar auditoria de ações (logs detalhados)
-- [ ] Adicionar suporte a múltiplos idiomas (i18n)
-- [ ] Integração com sistemas de pagamento
-- [ ] API de rastreamento de pedidos
-- [ ] Sistema de backup automático
-- [ ] Implementar cache com Redis
-- [ ] Adicionar métricas e monitoramento (Prometheus/Grafana)
-
 ## 🤝 Contribuição
 
 Contribuições são bem-vindas! Para contribuir:
