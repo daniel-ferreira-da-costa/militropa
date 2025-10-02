@@ -25,6 +25,7 @@ import org.eclipse.microprofile.jwt.JsonWebToken;
 
 import io.quarkus.security.identity.SecurityIdentity;
 import jakarta.validation.Valid;
+import jakarta.ws.rs.NotFoundException;
 
 @ApplicationScoped
 public class PedidoServiceImpl implements PedidoService {
@@ -80,7 +81,7 @@ public class PedidoServiceImpl implements PedidoService {
             }
 
             total += calcularValorTotal(item.getArma(), item);
-            
+
             itens.add(item);
         }
 
@@ -148,15 +149,17 @@ public class PedidoServiceImpl implements PedidoService {
     @Override
     @Transactional
     public List<PedidoResponseDTO> meusPedidos() {
-        String login = jwt.getName();
-        List<PedidoResponseDTO> pedidos = pedidoRepository.find("cliente.usuario.login", login).stream()
-                .map(e -> PedidoResponseDTO.valueOf(e)).toList();
+        String login = jwt.getSubject();
+        List<PedidoResponseDTO> pedidos = pedidoRepository
+                .find("cliente.usuario.login", login)
+                .stream()
+                .map(PedidoResponseDTO::valueOf)
+                .toList();
 
         if (pedidos.isEmpty()) {
-            throw new ValidationException("Verificando...", "Você ainda não fez nenhum pedido :(");
+            throw new NotFoundException("Você ainda não fez nenhum pedido :(");
         }
         return pedidos;
-
     }
 
 }

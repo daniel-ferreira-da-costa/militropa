@@ -44,7 +44,7 @@ public class UsuarioServiceImpl implements UsuarioService {
         novoUsuario.setSenha(hashService.getHashSenha(dto.senha()));
         novoUsuario.setPerfil(Perfil.valueOf(dto.perfil()));
 
-            repository.persist(novoUsuario);
+        repository.persist(novoUsuario);
 
         return UsuarioResponseDTO.valueOf(novoUsuario);
     }
@@ -63,47 +63,60 @@ public class UsuarioServiceImpl implements UsuarioService {
 
     @Override
     @Transactional
-    public UsuarioResponseDTO alterarSenha(alterarSenhaUsuarioDTO alterarSenhaUsuarioDTO, String login) {
+    public UsuarioResponseDTO alterarSenha(alterarSenhaUsuarioDTO dto, String login) {
         Usuario usuario = repository.findByLogin(login);
-        Log.info("Senha antiga: "+ usuario.getSenha());
-        usuario.setSenha(hashService.getHashSenha(alterarSenhaUsuarioDTO.senha()));
-        Log.info("Senha nova: "+ usuario.getSenha());
-        Log.info("Senha alterada com sucesso!");
+        if (usuario == null) {
+            throw new NotFoundException("Usuário não encontrado!");
+        }
+        if (!hashService.confereHash(dto.senhaAntiga(), usuario.getSenha())) {
+            throw new ValidationException("senhaAntiga", "Senha antiga inválida.");
+        }
+        if (!dto.novaSenha().equals(dto.confirmacaoSenhaNova())) {
+            throw new ValidationException("confirmacaoSenhaNova", "Confirmação de senha não confere.");
+        }
+        usuario.setSenha(hashService.getHashSenha(dto.novaSenha()));
         repository.persist(usuario);
-
         return UsuarioResponseDTO.valueOf(usuario);
     }
 
     @Override
     @Transactional
-    public UsuarioResponseDTO alterarLogin(alterarLoginUsuarioDTO alterarLoginUsuarioDTO, String login) {
+    public UsuarioResponseDTO alterarLogin(alterarLoginUsuarioDTO dto, String login) {
         Usuario usuario = repository.findByLogin(login);
-        Log.info("Login antigo: "+ usuario.getLogin());
-        usuario.setLogin(alterarLoginUsuarioDTO.login());
-        Log.info("Login novo: "+ usuario.getLogin());
-        Log.info("Login alterada com sucesso!");
+        if (usuario == null) {
+            throw new NotFoundException("Usuário não encontrado!");
+        }
+        if (!hashService.confereHash(dto.senhaAtual(), usuario.getSenha())) {
+            throw new ValidationException("senhaAtual", "Senha atual inválida.");
+        }
+        if (repository.findByLogin(dto.novoLogin()) != null) {
+            throw new ValidationException("novoLogin", "Login já existe.");
+        }
+        usuario.setLogin(dto.novoLogin());
         repository.persist(usuario);
-
         return UsuarioResponseDTO.valueOf(usuario);
     }
-
 
     @Override
     @Transactional
     public void delete(Long id) {
         Usuario usuario = repository.findById(id);
 
-        if(usuario != null){
+        if (usuario != null) {
             repository.delete(usuario);
-        }else {
-            throw new NotFoundException("Usuário não encontrado!");
+        } else {
+            throw new ValidationException("usuario", "O usuario " + usuario + " não encontrado, tente novamente.");
         }
     }
 
     @Override
-    public UsuarioResponseDTO findById(Long id) {
-        return UsuarioResponseDTO.valueOf(repository.findById(id));
+public UsuarioResponseDTO findById(Long id) {
+    Usuario u = repository.findById(id);
+    if (u == null) {
+        throw new NotFoundException("Usuário não encontrado!");
     }
+    return UsuarioResponseDTO.valueOf(u);
+}
 
     @Override
     public List<UsuarioResponseDTO> findByNome(String login) {
@@ -130,16 +143,17 @@ public class UsuarioServiceImpl implements UsuarioService {
             return UsuarioResponseDTO.valueOf(usuario);
         } catch (Exception e) {
             e.printStackTrace(); // Adicione esta linha para imprimir a pilha de exceção no console
-            throw new ValidationException("login", "Ocorreu um erro durante a autenticação. Consulte os logs para obter mais informações.");
+            throw new ValidationException("login",
+                    "Ocorreu um erro durante a autenticação. Consulte os logs para obter mais informações.");
         }
     }
 
     @Override
     public UsuarioResponseDTO findByLogin(String login) {
-       Usuario usuario = repository.findByLogin(login);
-       if (usuario == null)
-        throw new ValidationException("login", "Login inválido");
-        
+        Usuario usuario = repository.findByLogin(login);
+        if (usuario == null)
+            throw new ValidationException("login", "Login inválido");
+
         return UsuarioResponseDTO.valueOf(usuario);
     }
 
@@ -152,5 +166,4 @@ public class UsuarioServiceImpl implements UsuarioService {
         Usuario usuarioLogado = repository.findByLogin(loginUsuarioLogado);
         return UsuarioResponseDTO.valueOf(usuarioLogado);
     }
-
 }

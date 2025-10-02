@@ -43,7 +43,7 @@ public class PedidoResource {
     ClienteService clienteService;
 
     @POST
-    @RolesAllowed({ "User"})
+    @RolesAllowed({ "User" })
     public Response insert(@Valid PedidoDTO dto) {
         LOG.info("Executando criação de pedido");
         return Response.status(Status.CREATED).entity(pedidoService.insert(dto)).build();
@@ -58,7 +58,7 @@ public class PedidoResource {
 
     @GET
     @Path("/{id}")
-    @RolesAllowed({"Admin" })
+    @RolesAllowed({ "Admin" })
     public Response findById(@PathParam("id") Long id) {
         LOG.infof("Executando o findById");
         return Response.ok(pedidoService.findById(id)).build();
@@ -82,12 +82,19 @@ public class PedidoResource {
 
     @GET
     @Path("/meusPedidos")
-    @RolesAllowed({"User"})
-    public Response meusPedidos(){
-        LOG.info("Executando o método meusPedidos() de pedido. ");
+    @RolesAllowed("User")
+    public Response meusPedidos() {
         try {
+            LOG.info("Buscando pedidos do usuário: " + jwt.getSubject());
+            if (jwt.getSubject() == null || jwt.getSubject().isEmpty()) {
+                return Response.status(Status.UNAUTHORIZED).entity("Usuário não autenticado").build();
+            }
             return Response.ok(pedidoService.meusPedidos()).build();
+        } catch (ValidationException e) {
+            LOG.error("Erro ao buscar pedidos do usuário: " + e.getMessage());
+            return Response.status(Status.BAD_REQUEST).entity(e.getMessage()).build();
         } catch (NotFoundException e) {
+            LOG.error("Pedidos não encontrados: " + e.getMessage());
             return Response.status(Status.NOT_FOUND).entity(e.getMessage()).build();
         }
     }
