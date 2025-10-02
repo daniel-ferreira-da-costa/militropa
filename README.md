@@ -158,10 +158,6 @@ Por favor, certifique-se de:
 - Adicionar testes para novas funcionalidades
 - Atualizar a documentação quando necessário
 
-## 📄 Licença
-
-Este projeto está sob a licença **MIT** *(sugestão, pode alterar depois)*. Veja o arquivo `LICENSE` para mais detalhes.
-
 ## 👨‍💻 Autor
 
 **Daniel Ferreira da Costa**
